@@ -1,4 +1,11 @@
 // @refresh reload
-import { mount, StartClient } from "@solidjs/start/client";
+import { StartClient, mount } from '@solidjs/start/client';
 
-mount(() => <StartClient />, document.getElementById("app")!);
+const start = async () => {
+	if (__MSW__) await (await import('~/mocks/client')).start();
+
+	// biome-ignore lint/style/noNonNullAssertion: framework
+	mount(() => <StartClient />, document.getElementById('app')!);
+};
+
+start();

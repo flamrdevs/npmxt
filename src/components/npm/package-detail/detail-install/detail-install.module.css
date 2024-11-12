@@ -1,0 +1,23 @@
+.sl {
+	@apply shrink-0 h-7;
+}
+
+.sl-t {
+	@apply appearance-none inline-flex items-center justify-between gap-2 rounded-md outline-none focus:outline-1 cursor-pointer bg-cn-2 focus:outline-cn-9 h-full px-3 font-medium text-base;
+}
+
+.sl-c {
+	@apply relative z-50 bg-cn-2/90 backdrop-blur border border-cn-5 rounded-md outline-none shadow-2xl shadow-black-2;
+}
+
+.sl-i {
+	@apply relative flex items-center justify-between w-32 h-7 px-3 bg-transparent text-cn-11 font-normal text-base rounded outline-none select-none;
+
+	&[data-selected] {
+		@apply text-cn-12;
+	}
+
+	&[data-highlighted] {
+		@apply bg-cn-4;
+	}
+}

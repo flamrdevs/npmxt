@@ -1,0 +1,3 @@
+export const DOWNLOAD_DATE_FORMAT = 'YYYY-MM-DD';
+export const MAX_DOWNLOAD_RANGE_DAYS = 550;
+export const MIN_START_DOWNLOAD_DATE = '2015-01-10';
