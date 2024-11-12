@@ -1,0 +1,34 @@
+.xt-icon-button {
+	@apply appearance-none inline-flex items-center justify-center border outline-none focus-visible:outline-1 cursor-pointer p-0;
+
+	&.x {
+		&-color {
+			&-n {
+				@apply bg-cn-3 hover:bg-cn-4 active:bg-cn-5 text-cn-11 border-cn-6 active:border-cn-7 focus-visible:outline-cn-9;
+			}
+			&-p {
+				@apply bg-cp-3 hover:bg-cp-4 active:bg-cp-5 text-cp-11 border-cp-6 active:border-cp-7 focus-visible:outline-cp-9;
+			}
+		}
+
+		&-size {
+			&-sm {
+				@apply size-8 rounded-[0.5rem];
+			}
+			&-md {
+				@apply size-10 rounded-[0.625rem];
+			}
+			&-lg {
+				@apply size-12 rounded-[0.75rem];
+			}
+		}
+	}
+
+	&[data-disabled] {
+		@apply opacity-90 pointer-events-none bg-cn-5 text-cn-8 border-cn-6;
+	}
+
+	> svg {
+		@apply size-3/5;
+	}
+}

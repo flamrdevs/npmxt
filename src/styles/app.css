@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-track {
+	background: hsl(var(--c-n-3));
+}
+::-webkit-scrollbar-thumb {
+	background: hsl(var(--c-n-8));
+
+	&:hover {
+		background: hsl(var(--c-n-9));
+	}
+}
+
+::selection {
+	color: white;
+	background: hsl(var(--c-p-9));
+}
+
+body {
+	@apply bg-cn-1 text-cn-12 font-sans;
+}
+
+a {
+	@apply rounded-lg outline-none focus-visible:outline-1 focus-visible:outline-cn-9;
+}

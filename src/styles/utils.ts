@@ -1,0 +1,28 @@
+const v_c = (name: 'n' | 'p', shade: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12) => `hsl(var(--c-${name}-${shade}))`;
+export const v_cn1 = v_c('n', 1);
+export const v_cn2 = v_c('n', 2);
+export const v_cn3 = v_c('n', 3);
+export const v_cn4 = v_c('n', 4);
+export const v_cn5 = v_c('n', 5);
+export const v_cn6 = v_c('n', 6);
+export const v_cn7 = v_c('n', 7);
+export const v_cn8 = v_c('n', 8);
+export const v_cn9 = v_c('n', 9);
+export const v_cn10 = v_c('n', 10);
+export const v_cn11 = v_c('n', 11);
+export const v_cn12 = v_c('n', 12);
+export const v_cp1 = v_c('p', 1);
+export const v_cp2 = v_c('p', 2);
+export const v_cp3 = v_c('p', 3);
+export const v_cp4 = v_c('p', 4);
+export const v_cp5 = v_c('p', 5);
+export const v_cp6 = v_c('p', 6);
+export const v_cp7 = v_c('p', 7);
+export const v_cp8 = v_c('p', 8);
+export const v_cp9 = v_c('p', 9);
+export const v_cp10 = v_c('p', 10);
+export const v_cp11 = v_c('p', 11);
+export const v_cp12 = v_c('p', 12);
+
+export const fontFamilySans = 'Inter Variable, ui-sans-serif, sans-serif';
+export const fontFamilyMono = 'Source Code Pro Variable, ui-monospace, monospace';

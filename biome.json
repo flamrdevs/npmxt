@@ -1,0 +1,49 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"extends": ["./.biomelintrc-auto-import.json"],
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": ["public/mockServiceWorker.js", "src/types/auto-imports.d.ts"]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"lineWidth": 200
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"noParameterAssign": "off",
+				"noCommaOperator": "off"
+			},
+			"a11y": {
+				"noLabelWithoutControl": "off"
+			},
+			"complexity": {
+				"useLiteralKeys": "off",
+				"noBannedTypes": "off"
+			},
+			"suspicious": {
+				"noAssignInExpressions": "off",
+				"noExplicitAny": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "es5"
+		}
+	}
+}

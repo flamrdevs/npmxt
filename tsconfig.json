@@ -1,19 +1,25 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "allowJs": true,
-    "strict": true,
-    "noEmit": true,
-    "types": ["vinxi/types/client"],
-    "isolatedModules": true,
-    "paths": {
-      "~/*": ["./src/*"]
-    }
-  }
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleDetection": "force",
+		"allowJs": true,
+		"moduleResolution": "bundler",
+		"allowSyntheticDefaultImports": true,
+		"verbatimModuleSyntax": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+		"strict": true,
+		"skipLibCheck": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["bun", "vinxi/types/client", "vitest/globals", "@testing-library/jest-dom/vitest"],
+		"isolatedModules": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"paths": {
+			"~/*": ["./src/*"]
+		}
+	}
 }
