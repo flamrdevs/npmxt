@@ -1,5 +1,5 @@
 import { StatusError } from '~/utils/error';
-import { fetchPackage, fetchPackageAlt, fetchPackageLastDownloadsPoint, fetchPackageLastDownloadsRange, fetchPackageMetadata, splitPackageNameAndVersion } from './utils';
+import { fetchPackage, fetchPackageAlt, fetchPackageDownloadsPointLast, fetchPackageDownloadsRangeLast, fetchPackageMetadata, splitPackageNameAndVersion } from './utils';
 
 describe('splitPackageNameAndVersion', () => {
 	it('Parse package name', () => {
@@ -60,7 +60,7 @@ describe('fetchPackageMetadata', () => {
 	});
 });
 
-describe('fetchPackageLastDownloadsPoint', () => {
+describe('fetchPackageDownloadsPointLast', () => {
 	it.for([
 		//
 		['solid-js', 'day'],
@@ -72,7 +72,7 @@ describe('fetchPackageLastDownloadsPoint', () => {
 		['@solidjs/start', 'month'],
 		['@solidjs/start', 'year'],
 	])('found - %s last-%s', async ([name, last]) => {
-		await expect(fetchPackageLastDownloadsPoint(name, last)).resolves.toMatchObject({
+		await expect(fetchPackageDownloadsPointLast(name, last)).resolves.toMatchObject({
 			package: name,
 			start: expect.any(String),
 			end: expect.any(String),
@@ -86,11 +86,11 @@ describe('fetchPackageLastDownloadsPoint', () => {
 		['next'],
 		['nuxt'],
 	])('not found - %s last-week', async ([name]) => {
-		await expect(fetchPackageLastDownloadsPoint(name, 'week')).rejects.toThrow(StatusError);
+		await expect(fetchPackageDownloadsPointLast(name, 'week')).rejects.toThrow(StatusError);
 	});
 });
 
-describe('fetchPackageLastDownloadsRange', () => {
+describe('fetchPackageDownloadsRangeLast', () => {
 	it.for([
 		//
 		['solid-js', 'day'],
@@ -102,7 +102,7 @@ describe('fetchPackageLastDownloadsRange', () => {
 		['@solidjs/start', 'month'],
 		['@solidjs/start', 'year'],
 	])('found - %s last-%s', async ([name, last]) => {
-		await expect(fetchPackageLastDownloadsRange(name, last)).resolves.toMatchObject({
+		await expect(fetchPackageDownloadsRangeLast(name, last)).resolves.toMatchObject({
 			package: name,
 			start: expect.any(String),
 			end: expect.any(String),
@@ -116,6 +116,6 @@ describe('fetchPackageLastDownloadsRange', () => {
 		['next'],
 		['nuxt'],
 	])('not found - %s last-week', async ([name]) => {
-		await expect(fetchPackageLastDownloadsRange(name, 'week')).rejects.toThrow(StatusError);
+		await expect(fetchPackageDownloadsRangeLast(name, 'week')).rejects.toThrow(StatusError);
 	});
 });

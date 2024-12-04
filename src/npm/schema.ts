@@ -8,7 +8,7 @@ const OptionalStringSchema = v.optional(StringSchema);
 
 const PACKAGE_NAME_REGEXP = /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 export type TPackageNameSchema = v.InferOutput<typeof PackageNameSchema>;
-export const PackageNameSchema = v.pipe(StringSchema, v.trim(), v.regex(PACKAGE_NAME_REGEXP, `${__DEV__ ? '[valibot] ' : ''} Invalid package name format`));
+export const PackageNameSchema = v.pipe(StringSchema, v.trim(), v.regex(PACKAGE_NAME_REGEXP, `${__DEV__ ? '[valibot] ' : ''} Invalid package name format`), v.brand('package-name'));
 export const parsePackageName = createParser(PackageNameSchema);
 
 export type TPackageMetadataSchema = v.InferOutput<typeof PackageMetadataSchema>;
