@@ -18,7 +18,7 @@ import { Button, IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/
 
 import { DOWNLOAD_DATE_FORMAT } from '~/npm/const';
 import { packageFilename } from '~/npm/misc/pkg-filename';
-import { parsePackageName } from '~/npm/schema';
+import { type TPackageNameSchema, parsePackageName } from '~/npm/schema';
 import { type PackageDownloadsRecord, getPackageAllDownloadsRecord } from '~/npm/utils.get';
 
 import { fontFamilySans, v_cn2, v_cn6, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
@@ -28,7 +28,7 @@ import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
 import { usePackageContext } from '~/contexts/package-context';
 
-import { CHART_CURVE_LIST, usePackageDownloadsSearchParams } from './chart.utils';
+import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
 
 const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	const pkg = usePackageContext();
@@ -37,17 +37,26 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 
 	const dataDownloads = createMemo(() => {
 		const pkgdr_record = props.pkgdr.record;
-		const isDownloadsGroupByMonthly = searchParams.gb === 'm';
 
 		const record: Record<string, number> = {};
 
-		let tempDate: string;
+		let tempDateInRecord: string;
 
-		for (const date in pkgdr_record) record[(tempDate = date.slice(0, isDownloadsGroupByMonthly ? -3 : -6))] = (record[tempDate] ?? 0) + pkgdr_record[date];
+		for (const date in pkgdr_record) {
+			if (searchParams.gb === 'm') {
+				tempDateInRecord = date.slice(0, -3);
+			} else if (searchParams.gb === 'q') {
+				tempDateInRecord = `${date.slice(0, -6)}-${QUARTER_MM_DD_IN_RECORD_MAP[date.slice(5, -3)]}`;
+			} else {
+				tempDateInRecord = date.slice(0, -6);
+			}
+
+			record[tempDateInRecord] = (record[tempDateInRecord] ?? 0) + pkgdr_record[date];
+		}
 
 		const downloads: { x: Date; y: number }[] = [];
 
-		for (tempDate in record) downloads.push({ x: new Date(tempDate), y: record[tempDate] });
+		for (tempDateInRecord in record) downloads.push({ x: new Date(tempDateInRecord), y: record[tempDateInRecord] });
 
 		if (!searchParams.it) {
 			const last = downloads.at(-1);
@@ -55,8 +64,10 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 			const date = new Date();
 
 			if (last) {
-				if (isDownloadsGroupByMonthly) {
+				if (searchParams.gb === 'm') {
 					if (last.x.getMonth() === date.getMonth()) downloads.pop();
+				} else if (searchParams.gb === 'q') {
+					if (QUARTER_INDEX_MAP[dayjs(last.x).month()] === QUARTER_INDEX_MAP[dayjs(date).month()]) downloads.pop();
 				} else {
 					if (last.x.getFullYear() === date.getFullYear()) downloads.pop();
 				}
@@ -73,7 +84,10 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 
 	const yAxisTickFormatter = (d: any) => formatNumberCompact(d);
 
-	const titleTipFormatter = createMemo(() => (d: any) => [dayjs(d.x).format(`${searchParams.gb === 'm' ? 'MMM ' : ''}YYYY`), formatNumber(d.y)].join('\n\n'));
+	const titleTipFormatter = createMemo(() => (d: any) => {
+		const xDayjs = dayjs(d.x);
+		return `${searchParams.gb === 'q' ? `Q${QUARTER_INDEX_MAP[xDayjs.month()]} ` : ''}${xDayjs.format(`${searchParams.gb === 'm' ? 'MMM ' : ''}YYYY`)}\n\n${formatNumber(d.y)}`;
+	});
 
 	const x = 'x';
 	const y = 'y';
@@ -86,7 +100,25 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 		const data = dataDownloads();
 
 		return [
-			Plot.axisX({ anchor: 'bottom', ticks: searchParams.gb === 'm' ? (data.length > 60 ? '6 months' : data.length > 30 ? '3 months' : 'month') : 'year' }),
+			Plot.axisX({
+				anchor: 'bottom',
+				ticks:
+					searchParams.gb === 'm'
+						? data.length > 60
+							? '6 months'
+							: data.length > 30
+								? '3 months'
+								: data.length > 20
+									? '2 months'
+									: 'month'
+						: searchParams.gb === 'q'
+							? data.length > 60
+								? 'year'
+								: data.length > 30
+									? '6 months'
+									: '3 months'
+							: 'year',
+			}),
 			(varPlotAxisX ??= Plot.axisY({ anchor: 'left', ticks: 7, tickFormat: yAxisTickFormatter })),
 			(varPlotGridY ??= Plot.gridY({ stroke: v_cn9, strokeDasharray: '1,2', strokeOpacity: 0.3 })),
 			Plot.areaY(data, { x, y, curve: searchParams.lc, fill: v_cp2, fillOpacity: 0.07 }),
@@ -192,6 +224,10 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 										value: 'm',
 									},
 									{
+										label: 'quarterly',
+										value: 'q',
+									},
+									{
 										label: 'Yearly',
 										value: 'y',
 									},
@@ -213,7 +249,7 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 							/>
 
 							<Switch
-								label={`Including this ${searchParams.gb === 'm' ? 'month' : 'year'}`}
+								label={`Including this ${searchParams.gb === 'm' ? 'month' : searchParams.gb === 'q' ? 'quarter' : 'year'}`}
 								checked={searchParams.it}
 								onChange={(checked) => {
 									setSearchParams({ it: checked ? 'y' : 'n' }, { replace: true });
@@ -234,25 +270,22 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 };
 
 const fetchPackageDownloadsRecord = (() => {
-	const withStorage = createCacheStorage<PackageDownloadsRecord>(__DEV__ ? 'npm:package-downloads-record' : 'npm:pkg-dr-r');
+	const withCacheStorage = createCacheStorage<PackageDownloadsRecord>(__DEV__ ? 'npm:package-downloads-record' : 'npm:pkg-dr-r');
 
 	const MIN_START_DATE_DAYJS = dayjs('2015-02-01' /* ahead MIN_START_DOWNLOAD_DATE */, DOWNLOAD_DATE_FORMAT);
 
-	return async (rawName: string): Promise<PackageDownloadsRecord> => {
-		const validName = parsePackageName(rawName);
-
-		return withStorage(validName, async () => {
-			const createdDayjs = dayjs((await ofetch<{ date: string }>(`/api/package-creation/${validName}`)).date).startOf('day');
+	return (rawName: string): Promise<PackageDownloadsRecord> =>
+		withCacheStorage(parsePackageName(rawName), async (validPackageName) => {
+			const createdDayjs = dayjs((await ofetch<{ date: string }>(`/api/package-creation/${validPackageName}`)).date).startOf('day');
 
 			return (await getPackageAllDownloadsRecord(
-				validName,
+				validPackageName,
 				(createdDayjs.isBefore(MIN_START_DATE_DAYJS) ? MIN_START_DATE_DAYJS : createdDayjs).clone().format(DOWNLOAD_DATE_FORMAT)
 			)) as unknown as PackageDownloadsRecord;
 		});
-	};
 })();
 
-const getPackageDownloadsRecord = query(async (name: string) => await fetchPackageDownloadsRecord(name), 'package-downloads-record');
+const getPackageDownloadsRecord = query(async (name: TPackageNameSchema) => await fetchPackageDownloadsRecord(name), 'package-downloads-record');
 
 export default () => {
 	const pkg = usePackageContext();

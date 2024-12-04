@@ -7,24 +7,24 @@ import { dayjs } from '~/utils/dayjs';
 
 import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from './const';
 import { fetcherPackageDownloadsRange } from './fetcher';
-import { PACKAGE_DOWNLOADS_LAST_MAP, parsePackageDownloadsRange } from './schema';
-import { fetchPackageLastDownloadsRange } from './utils';
+import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from './schema';
+import { fetchPackageDownloadsRangeLast } from './utils';
 
 export type PackageDownloadsRecord = {
-	name: string;
+	name: TPackageNameSchema;
 	start: string;
 	end: string;
 	record: Record<string, number>;
 };
 
-export const getPackageAllDownloadsRecord = GET(async (validName: string, validsStartDate: string) => {
+export const getPackageAllDownloadsRecord = GET(async (validPackageName: TPackageNameSchema, validsStartDate: string) => {
 	'use server';
 
 	if (__DEV__) console.log('USE SERVER | getPackageAllDownloadsRecord');
 
 	const startDayjs = dayjs(validsStartDate, DOWNLOAD_DATE_FORMAT);
 
-	const lastYear = await fetchPackageLastDownloadsRange(validName, 'year');
+	const lastYear = await fetchPackageDownloadsRangeLast(validPackageName, 'year');
 
 	const endDate = lastYear.end;
 	const endDayjs = dayjs(endDate, DOWNLOAD_DATE_FORMAT);
@@ -53,7 +53,7 @@ export const getPackageAllDownloadsRecord = GET(async (validName: string, valids
 			.add(dayjs(lastYear.start).subtract(1, 'days').diff(tempStart, 'days'), 'days')
 			.format(DOWNLOAD_DATE_FORMAT);
 
-		const bulks = await Promise.all(Object.entries(map).map(([start, end]) => fetcherPackageDownloadsRange(`${start}:${end}`, validName)));
+		const bulks = await Promise.all(Object.entries(map).map(([start, end]) => fetcherPackageDownloadsRange(`${start}:${end}`, validPackageName)));
 		for (const bulk of bulks) {
 			const { downloads } = parsePackageDownloadsRange(bulk);
 			for ({ day: tempDay, downloads: tempDownloads } of downloads) record[tempDay] = tempDownloads;
@@ -71,7 +71,7 @@ export const getPackageAllDownloadsRecord = GET(async (validName: string, valids
 
 	return json(
 		{
-			name: validName,
+			name: validPackageName,
 			start: validsStartDate,
 			end: endDate,
 			record,

@@ -3,25 +3,33 @@ import { http, HttpResponse, delay } from 'msw';
 import { dayjs } from '~/utils/dayjs';
 
 import { DOWNLOAD_DATE_FORMAT } from '~/npm/const';
-import { PACKAGE_DOWNLOADS_LAST_LIST, PACKAGE_DOWNLOADS_LAST_MAP, type TPackageDownloadsPointSchema, type TPackageDownloadsRangeSchema, parsePackageDownloadsLast } from '~/npm/schema';
+import {
+	PACKAGE_DOWNLOADS_LAST_LIST,
+	PACKAGE_DOWNLOADS_LAST_MAP,
+	type TPackageDownloadsPointSchema,
+	type TPackageDownloadsRangeSchema,
+	type TPackageNameSchema,
+	parsePackageDownloadsLast,
+	parsePackageName,
+} from '~/npm/schema';
 import { BASE_URL_API as NPM_BASE_URL_API } from '~/npm/url';
 
 import { MOCK_PACKAGE } from '../registry.npmjs/handlers';
 
-const MOCK_PACKAGE_DOWNLOAD_RANGE: Record<string, number | TPackageDownloadsRangeSchema['downloads']> = {
-	['@klass/core']: 1,
-	['@kobalte/core']: 1,
-	['@solidjs/meta']: 2,
-	['@solidjs/router']: 2,
-	['@solidjs/start']: 1,
-	['npmxt']: 1,
-	['react']: 5,
-	['react-dom']: 5,
-	['solid-js']: 2,
-	['svelte']: 3,
-	['vue']: 4,
-	['looooooooo-oooooooo-oooooooooooooooong']: 100,
-	['@looooooooo/oooooooooooo-oooooooooooooooooooooooong']: 10000,
+const MOCK_PACKAGE_DOWNLOAD_RANGE: Record<TPackageNameSchema, number | TPackageDownloadsRangeSchema['downloads']> = {
+	[parsePackageName('@klass/core')]: 1,
+	[parsePackageName('@kobalte/core')]: 1,
+	[parsePackageName('@solidjs/meta')]: 2,
+	[parsePackageName('@solidjs/router')]: 2,
+	[parsePackageName('@solidjs/start')]: 1,
+	[parsePackageName('npmxt')]: 1,
+	[parsePackageName('react')]: 5,
+	[parsePackageName('react-dom')]: 5,
+	[parsePackageName('solid-js')]: 2,
+	[parsePackageName('svelte')]: 3,
+	[parsePackageName('vue')]: 4,
+	[parsePackageName('looooooooo-oooooooo-oooooooooooooooong')]: 100,
+	[parsePackageName('@looooooooo/oooooooooooo-oooooooooooooooooooooooong')]: 10000,
 };
 
 const MIN_START_DATE_DAYJS = dayjs('2015-01-01' /* behind MIN_START_DOWNLOAD_DATE */, DOWNLOAD_DATE_FORMAT);
@@ -29,7 +37,7 @@ const MIN_START_DATE_DAYJS = dayjs('2015-01-01' /* behind MIN_START_DOWNLOAD_DAT
 const generateDownloads = (() => {
 	const now = dayjs().startOf('day');
 
-	return (name: string, factor: number) => {
+	return (name: TPackageNameSchema, factor: number) => {
 		if (name in MOCK_PACKAGE) {
 			const result: TPackageDownloadsRangeSchema['downloads'] = [];
 
@@ -56,7 +64,7 @@ const generateDownloads = (() => {
 	};
 })();
 
-const getDownloadsRecord = (name: string) => {
+const getDownloadsRecord = (name: TPackageNameSchema) => {
 	if (typeof MOCK_PACKAGE_DOWNLOAD_RANGE[name] === 'number') MOCK_PACKAGE_DOWNLOAD_RANGE[name] = generateDownloads(name, MOCK_PACKAGE_DOWNLOAD_RANGE[name]);
 	const allDownloads = MOCK_PACKAGE_DOWNLOAD_RANGE[name];
 	const record: {
@@ -76,10 +84,7 @@ const getDownloadsRecord = (name: string) => {
 type DownloadType = 'point' | 'range';
 const isValidDownloadType = (type: unknown): type is DownloadType => type === 'point' || type === 'range';
 
-const isLastPeriod = (() => {
-	const list = PACKAGE_DOWNLOADS_LAST_LIST.map((last) => `last-${last}`);
-	return (value: string) => list.includes(value);
-})();
+const isLastPeriod = (value: string) => PACKAGE_DOWNLOADS_LAST_LIST.some((last) => `last-${last}` === value);
 
 const transformDownloadsByType = (type: DownloadType, downloads: TPackageDownloadsRangeSchema['downloads']) =>
 	(type === 'point' ? downloads.reduce((a, { downloads }) => a + downloads, 0) : downloads) as any;
@@ -88,18 +93,21 @@ export default [
 	http.get<{ type: string; period: string; 0: string }>(`${NPM_BASE_URL_API}/downloads/:type/:period/*`, async ({ params }) => {
 		if (__MSW_DELAY__) await delay(1000);
 
-		const type = params['type'];
+		const typeParam = params['type'];
+		const periodParam = params['period'];
+		const nameParam = params['0'];
 
-		const period = params['period'];
-		const name = params['0'];
+		if (!isValidDownloadType(typeParam)) throw HttpResponse.json({ error: `download ${typeParam} not implemented` }, { status: 501 });
 
-		if (!isValidDownloadType(type)) throw HttpResponse.json({ error: `download ${type} not implemented` }, { status: 501 });
+		const validType = typeParam;
 
-		if (isLastPeriod(period)) {
-			const last = parsePackageDownloadsLast(period.slice(5));
+		if (isLastPeriod(periodParam)) {
+			const last = parsePackageDownloadsLast(periodParam.slice(5));
 			const lastLength = PACKAGE_DOWNLOADS_LAST_MAP[last];
 
-			if (name in MOCK_PACKAGE_DOWNLOAD_RANGE) {
+			if (nameParam in MOCK_PACKAGE_DOWNLOAD_RANGE) {
+				const name = nameParam as TPackageNameSchema;
+
 				const allDownloadsRecord = getDownloadsRecord(name);
 
 				const endDate = allDownloadsRecord.end;
@@ -116,7 +124,7 @@ export default [
 						start: lastYearDownloads.at(0)?.day as string,
 						end: lastYearDownloads.at(-1)?.day as string,
 						package: name,
-						downloads: transformDownloadsByType(type, lastYearDownloads),
+						downloads: transformDownloadsByType(validType, lastYearDownloads),
 					} satisfies TPackageDownloadsPointSchema | TPackageDownloadsRangeSchema,
 					{ status: 200 }
 				);
@@ -125,7 +133,7 @@ export default [
 			throw HttpResponse.json({ error: `package ${name} not found` }, { status: 404 });
 		}
 
-		const periodSplitted = period.split(':');
+		const periodSplitted = periodParam.split(':');
 
 		if (periodSplitted.length !== 2) throw HttpResponse.json({ error: 'period type not implemented' }, { status: 501 });
 
@@ -137,7 +145,9 @@ export default [
 		if (startDayjs.isValid() && endDayjs.isValid()) {
 			const now = dayjs().startOf('day');
 
-			if (name in MOCK_PACKAGE_DOWNLOAD_RANGE) {
+			if (nameParam in MOCK_PACKAGE_DOWNLOAD_RANGE) {
+				const name = nameParam as TPackageNameSchema;
+
 				if (startDayjs.isBefore(MIN_START_DATE_DAYJS)) startDayjs = MIN_START_DATE_DAYJS.clone();
 				if (endDayjs.isAfter(now)) endDayjs = now.clone();
 
@@ -156,7 +166,7 @@ export default [
 						start: periodDownloads.at(0)?.day as string,
 						end: periodDownloads.at(-1)?.day as string,
 						package: name,
-						downloads: transformDownloadsByType(type, periodDownloads),
+						downloads: transformDownloadsByType(validType, periodDownloads),
 					} satisfies TPackageDownloadsPointSchema | TPackageDownloadsRangeSchema,
 					{ status: 200 }
 				);

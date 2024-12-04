@@ -1,8 +1,8 @@
-import { createKeyedMemoCache, createNonKeyedMemoCache } from './memo-cache';
+import { createKeyedResponseMemoCache, createNonKeyedResponseMemoCache } from './remecache';
 
-describe('createNonKeyedMemoCache', () => {
+describe('createNonKeyedResponseMemoCache', () => {
 	it('works correctly', async () => {
-		const withCache = createNonKeyedMemoCache();
+		const withCache = createNonKeyedResponseMemoCache();
 
 		expect(withCache.get()).toBeNull();
 
@@ -13,9 +13,9 @@ describe('createNonKeyedMemoCache', () => {
 	});
 });
 
-describe('createKeyedMemoCache', () => {
+describe('createKeyedResponseMemoCache', () => {
 	it('works correctly', async () => {
-		const withCache = createKeyedMemoCache();
+		const withCache = createKeyedResponseMemoCache();
 
 		expect(withCache.get()).toBeTypeOf('object');
 

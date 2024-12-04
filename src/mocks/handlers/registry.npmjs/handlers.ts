@@ -1,6 +1,6 @@
 import { http, HttpResponse, delay } from 'msw';
 
-import type { TPackageMetadataSchema, TPackageSchema } from '~/npm/schema';
+import { type TDependenciesSchema, type TPackageMetadataSchema, type TPackageNameSchema, type TPackageSchema, parsePackageName } from '~/npm/schema';
 import { BASE_URL_REGISTRY as NPM_BASE_URL_REGISTRY } from '~/npm/url';
 import { splitPackageNameAndVersion } from '~/npm/utils';
 
@@ -9,8 +9,8 @@ type MockPackageValue = Omit<TPackageSchema, 'name' | 'version'> &
 		versions: TPackageSchema['version'][];
 	};
 
-export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
-	['@klass/core']: {
+export const MOCK_PACKAGE: Record<TPackageNameSchema, MockPackageValue> = {
+	[parsePackageName('@klass/core')]: {
 		description: 'Class variant utility',
 		time: {
 			created: '2022-12-05T02:37:24.005Z',
@@ -35,9 +35,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		dependencies: {
 			clsx: '^2.0.0',
-		},
+		} as TDependenciesSchema,
 	},
-	['@kobalte/core']: {
+	[parsePackageName('@kobalte/core')]: {
 		description: 'Unstyled components and primitives for building accessible web apps and design systems with SolidJS.',
 		time: {
 			created: '2023-01-04T20:42:38.052Z',
@@ -66,17 +66,17 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			'@solid-primitives/props': '^3.1.8',
 			'@internationalized/number': '^3.2.1',
 			'@solid-primitives/resize-observer': '^2.0.26',
-		},
+		} as TDependenciesSchema,
 		peerDependencies: {
 			'solid-js': '^1.8.15',
-		},
+		} as TDependenciesSchema,
 		devDependencies: {
 			tsup: '7.2.0',
 			'@kobalte/tests': '0.6.0',
 			'esbuild-plugin-solid': '^0.5.0',
-		},
+		} as TDependenciesSchema,
 	},
-	['@solidjs/meta']: {
+	[parsePackageName('@solidjs/meta')]: {
 		description: 'Write meta tags to the document head',
 		time: {
 			created: '2022-07-25T09:42:29.029Z',
@@ -99,7 +99,7 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		peerDependencies: {
 			'solid-js': '>=1.8.4',
-		},
+		} as TDependenciesSchema,
 		devDependencies: {
 			'@babel/cli': '^7.14.3',
 			'@babel/core': '7.14.3',
@@ -112,9 +112,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			'solid-jest': '0.1.1',
 			'solid-js': '^1.8.4',
 			typescript: '4.9.4',
-		},
+		} as TDependenciesSchema,
 	},
-	['@solidjs/router']: {
+	[parsePackageName('@solidjs/router')]: {
 		description: 'Universal router for SolidJS',
 		time: {
 			created: '2022-07-27T09:39:02.620Z',
@@ -137,7 +137,7 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		peerDependencies: {
 			'solid-js': '^1.8.6',
-		},
+		} as TDependenciesSchema,
 		devDependencies: {
 			'@babel/core': '^7.23.9',
 			'@babel/preset-typescript': '^7.23.3',
@@ -156,9 +156,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			vite: '^5.4.8',
 			'vite-plugin-solid': '^2.9.1',
 			vitest: '^2.1.2',
-		},
+		} as TDependenciesSchema,
 	},
-	['@solidjs/start']: {
+	[parsePackageName('@solidjs/start')]: {
 		description: 'This is the SolidStart framework and CLI.',
 		time: {
 			created: '2023-11-15T18:27:01.709Z',
@@ -194,14 +194,14 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			terracotta: '^1.0.4',
 			tinyglobby: '^0.2.2',
 			'vite-plugin-solid': '^2.10.2',
-		},
+		} as TDependenciesSchema,
 		devDependencies: {
 			'solid-js': '^1.9.2',
 			vinxi: '^0.4.3',
 			typescript: '^5.4.2',
-		},
+		} as TDependenciesSchema,
 	},
-	['npmxt']: {
+	[parsePackageName('npmxt')]: {
 		description: 'npmxt',
 		time: {
 			created: '2024-11-03T07:14:51.355Z',
@@ -213,7 +213,7 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		versions: ['0.0.0'],
 	},
-	['react']: {
+	[parsePackageName('react')]: {
 		description: 'React is a JavaScript library for building user interfaces.',
 		time: {
 			created: '2011-10-26T17:46:21.942Z',
@@ -235,9 +235,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		dependencies: {
 			'loose-envify': '^1.1.0',
-		},
+		} as TDependenciesSchema,
 	},
-	['react-dom']: {
+	[parsePackageName('react-dom')]: {
 		description: 'React package for working with the DOM.',
 		time: {
 			created: '2014-05-06T18:59:36.160Z',
@@ -260,12 +260,12 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		dependencies: {
 			scheduler: '^0.23.2',
 			'loose-envify': '^1.1.0',
-		},
+		} as TDependenciesSchema,
 		peerDependencies: {
 			react: '^18.3.1',
-		},
+		} as TDependenciesSchema,
 	},
-	['solid-js']: {
+	[parsePackageName('solid-js')]: {
 		description: 'A declarative JavaScript library for building user interfaces.',
 		time: {
 			created: '2018-04-25T04:09:31.206Z',
@@ -298,9 +298,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			csstype: '^3.1.0',
 			seroval: '^1.1.0',
 			'seroval-plugins': '^1.1.0',
-		},
+		} as TDependenciesSchema,
 	},
-	['svelte']: {
+	[parsePackageName('svelte')]: {
 		description: 'Cybernetically enhanced web apps',
 		time: {
 			created: '2016-11-17T22:58:41.644Z',
@@ -333,7 +333,7 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			'locate-character': '^3.0.0',
 			'magic-string': '^0.30.11',
 			zimmerframe: '^1.1.2',
-		},
+		} as TDependenciesSchema,
 		devDependencies: {
 			'@jridgewell/trace-mapping': '^0.3.25',
 			'@playwright/test': '^1.46.1',
@@ -350,9 +350,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			'tiny-glob': '^0.2.9',
 			typescript: '^5.5.4',
 			vitest: '^2.0.5',
-		},
+		} as TDependenciesSchema,
 	},
-	['vue']: {
+	[parsePackageName('vue')]: {
 		description: 'The progressive JavaScript framework for building modern web UI.',
 		time: {
 			created: '2013-12-07T06:09:46.299Z',
@@ -379,12 +379,12 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 			'@vue/compiler-sfc': '3.5.12',
 			'@vue/runtime-dom': '3.5.12',
 			'@vue/server-renderer': '3.5.12',
-		},
+		} as TDependenciesSchema,
 		peerDependencies: {
 			typescript: '*',
-		},
+		} as TDependenciesSchema,
 	},
-	['looooooooo-oooooooo-oooooooooooooooong']: {
+	[parsePackageName('looooooooo-oooooooo-oooooooooooooooong')]: {
 		description: 'maybe looooooooo-oooooooo-oooooooooooooooong description',
 		time: {
 			created: '2011-01-01T01:01:01.001Z',
@@ -402,9 +402,9 @@ export const MOCK_PACKAGE: Record<string, MockPackageValue> = {
 		},
 		dependencies: {
 			'@looooooooo/oooooooooooo-oooooooooooooooooooooooong': '10000.10000.10000',
-		},
+		} as TDependenciesSchema,
 	},
-	['@looooooooo/oooooooooooo-oooooooooooooooooooooooong']: {
+	[parsePackageName('@looooooooo/oooooooooooo-oooooooooooooooooooooooong')]: {
 		description: 'maybe @looooooooo/oooooooooooo-oooooooooooooooooooooooong description and description and description and description and description and description',
 		time: {
 			created: '2011-01-01T01:01:01.001Z',
@@ -430,8 +430,9 @@ export default [
 		const [tName, tVersion] = splitPackageNameAndVersion(params['0']);
 
 		if (tName in MOCK_PACKAGE) {
+			const name = tName as TPackageNameSchema;
 			if (tVersion) {
-				const pkg = MOCK_PACKAGE[tName];
+				const pkg = MOCK_PACKAGE[name];
 				const { 'dist-tags': distTags } = pkg;
 				let version: string | undefined;
 				if (tVersion in distTags) version = distTags[tVersion];
@@ -440,19 +441,19 @@ export default [
 				if (version)
 					return HttpResponse.json(
 						{
-							name: tName,
+							name,
 							version,
 							...pkg,
 						} satisfies TPackageSchema,
 						{ status: 200 }
 					);
 			} else {
-				const { time } = MOCK_PACKAGE[tName];
-				const { versions, 'dist-tags': distTags } = MOCK_PACKAGE[tName];
+				const { time } = MOCK_PACKAGE[name];
+				const { versions, 'dist-tags': distTags } = MOCK_PACKAGE[name];
 
 				return HttpResponse.json(
 					{
-						name: tName,
+						name,
 						time,
 						versions,
 						'dist-tags': distTags,

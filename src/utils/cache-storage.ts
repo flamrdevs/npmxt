@@ -16,7 +16,7 @@ export const createCacheStorage = <T>(base: string) => {
 		driver: isServer ? memory() : indexedb({ base }),
 	});
 
-	const fn = async (key: string, fx: () => Promise<T>): Promise<T> => {
+	const fn = async <K extends string>(key: K, fx: (key: K) => Promise<T>): Promise<T> => {
 		if (__DEV__) if (!__TEST__) await delay(200);
 
 		const item = await storage.get<StorageValue>(key);
@@ -30,7 +30,7 @@ export const createCacheStorage = <T>(base: string) => {
 
 		if (__DEV__) if (!__TEST__) await delay(400);
 
-		const data = await fx();
+		const data = await fx(key);
 		await storage.set<StorageValue>(key, { d: data, t: now + 64_800_000 /* + 18 hours */ });
 		if (__DEV__) console.log(`[${base}] ${'cache miss'.padEnd(11)} | ${key}`);
 		return data;

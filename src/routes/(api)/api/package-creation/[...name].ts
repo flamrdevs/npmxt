@@ -5,30 +5,31 @@ import { eq } from 'drizzle-orm';
 import { db } from '~/db/db';
 import { packageCreationTable } from '~/db/schema';
 
-import { parsePackageName } from '~/npm/schema';
+import { type TPackageNameSchema, parsePackageName } from '~/npm/schema';
 import { fetchPackageMetadata } from '~/npm/utils';
 import { jsonErrorStatusMessageResponse } from '~/server/error';
 import { cacheControl } from '~/server/header';
-import { createKeyedMemoCache } from '~/server/memo-cache';
+import { isRequestSearchParamsHasCache } from '~/server/misc/is-request-search-params-has-cache';
+import { createKeyedResponseMemoCache } from '~/server/remecache';
 
-const withCache = createKeyedMemoCache();
+const withCache = createKeyedResponseMemoCache();
 
-const getPackageCreationDate = async (validName: string): Promise<string> => {
+const getPackageCreationDate = async (validPackageName: TPackageNameSchema): Promise<string> => {
 	const now = Date.now();
 
-	const where = eq(packageCreationTable.n, validName);
+	const where = eq(packageCreationTable.n, validPackageName);
 
 	const rows = await db.select({ d: packageCreationTable.d, t: packageCreationTable.t }).from(packageCreationTable).where(where).limit(1);
 
 	if (rows.length && now < rows[0].t) {
-		if (__DEV__) console.log(`[db:package_creation] ${'cache hit'.padEnd(11)} | ${validName}`);
+		if (__DEV__) console.log(`[db:package_creation] ${'cache hit'.padEnd(11)} | ${validPackageName}`);
 		return rows[0].d;
 	}
 
 	const {
 		name,
 		time: { created: date },
-	} = await fetchPackageMetadata(validName);
+	} = await fetchPackageMetadata(validPackageName);
 
 	const t = now + 2592000000; // + 30 days
 
@@ -37,19 +38,17 @@ const getPackageCreationDate = async (validName: string): Promise<string> => {
 	} else {
 		await db.insert(packageCreationTable).values({ n: name, d: date, t });
 	}
-	if (__DEV__) console.log(`[db:package_creation] ${'cache miss'.padEnd(11)} | ${validName}`);
+	if (__DEV__) console.log(`[db:package_creation] ${'cache miss'.padEnd(11)} | ${validPackageName}`);
 	return date;
 };
 
 export async function GET(event: SolidJS.Start.Server.APIEvent) {
 	try {
-		if (__DEV__) if (new URL(event.request.url).searchParams.has('cache')) return json(Object.keys(withCache.get()));
+		if (__DEV__) if (isRequestSearchParamsHasCache(event)) return json(Object.keys(withCache.get()));
 
-		const validName = parsePackageName(event.params['name']);
-
-		return await withCache(validName, async () => {
+		return withCache(parsePackageName(event.params['name']), async (validPackageName) => {
 			return json(
-				{ date: await getPackageCreationDate(validName) },
+				{ date: await getPackageCreationDate(validPackageName) },
 				{
 					headers: {
 						...cacheControl('public, durable, max-age=43200, s-maxage=43200, must-revalidate' /* 12 hours */),

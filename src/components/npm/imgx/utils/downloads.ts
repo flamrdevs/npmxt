@@ -1,23 +1,22 @@
-import type { TPackageDownloadsRangeSchema } from '~/npm/schema';
+import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageDownloadsRangeSchema } from '~/npm/schema';
 
-export const chartDataLastYearDownloads = (downloads: TPackageDownloadsRangeSchema['downloads'], perDays: number | undefined = 14) => {
-	const data: number[] = [];
-	let total = 0;
+export const getChartSimpleLastYearDownloadsData = (downloads: TPackageDownloadsRangeSchema['downloads'], groupSize: 7 | 14 = 14) => {
+	const data: number[] = []; // 364
+	let total = downloads[0].downloads; // 365
 
-	const downloadsLength = downloads.length;
-
-	let pushDownloads = 0;
-	let iterPer = 0;
+	let pushToData = 0;
+	let iterGroup = 0;
 
 	let indexDownloads: number;
-	for (let index = downloadsLength % perDays; index < downloadsLength; index++) {
+
+	for (let index = 1; index < PACKAGE_DOWNLOADS_LAST_MAP.year; index++) {
 		total += indexDownloads = downloads[index].downloads;
-		pushDownloads += indexDownloads;
-		iterPer++;
-		if (iterPer === perDays) {
-			data.push(pushDownloads);
-			pushDownloads = 0;
-			iterPer = 0;
+		pushToData += indexDownloads;
+		iterGroup++;
+		if (iterGroup === groupSize) {
+			data.push(pushToData);
+			pushToData = 0;
+			iterGroup = 0;
 		}
 	}
 

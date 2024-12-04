@@ -1,13 +1,13 @@
 import { MousePointerClick } from 'lucide';
 
 import { OGImageResponse, height, width } from '~/server/imgx/response/og';
-import { createNonKeyedMemoCache } from '~/server/memo-cache';
+import { createNonKeyedResponseMemoCache } from '~/server/remecache';
 
 import { neutral_dark as neutral } from '~/imgx/colors';
 
 import { LucideIcon } from '~/components/npm/imgx/icons/lucide';
 
-const withCache = createNonKeyedMemoCache();
+const withCache = createNonKeyedResponseMemoCache();
 
 export function GET() {
 	return withCache(() =>
@@ -31,7 +31,7 @@ export function GET() {
 						color: neutral[1],
 						fontSize: 400,
 						fontWeight: 700,
-						opacity: 0.1,
+						opacity: 0.2,
 						filter: 'drop-shadow(0 0 1px white)',
 					},
 					children: 'npmxt',

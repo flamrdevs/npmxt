@@ -4,9 +4,10 @@ import { OGImageResponse, height, width } from '~/server/imgx/response/og';
 
 import { neutral_dark as neutral } from '~/imgx/colors';
 
+import type { TPackageNameSchema } from '~/npm/schema';
 import { LucideIcon } from '../icons/lucide';
 
-export default (name: string, version: string, description?: string) => {
+export default (name: TPackageNameSchema, version: string, description?: string) => {
 	return OGImageResponse(
 		(e) => [
 			e('div', {
