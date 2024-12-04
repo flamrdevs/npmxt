@@ -1,11 +1,13 @@
 const isTypeError = (error: unknown) => error instanceof TypeError;
 
-export const createNonKeyedMemoCache = () => {
+const ENABLE: boolean = true;
+
+export const createNonKeyedResponseMemoCache = () => {
 	// in memory cache (serverless functions only)
 	let v: Response | null = null;
 	const fn = async (fx: () => Promise<Response>) => {
 		try {
-			return (v ??= await fx()).clone();
+			return ENABLE ? (v ??= await fx()).clone() : await fx();
 		} catch (error) {
 			v = null;
 			if (isTypeError(error)) return await fn(fx);
@@ -16,15 +18,15 @@ export const createNonKeyedMemoCache = () => {
 	return fn;
 };
 
-export const createKeyedMemoCache = () => {
+export const createKeyedResponseMemoCache = () => {
 	// in memory cache (serverless functions only)
 	const v: Record<string, Response | undefined> = {};
-	const fn = async (key: string, fx: () => Promise<Response>) => {
+	const fn = async <T extends string>(key: T, fx: (key: T) => Promise<Response>) => {
 		try {
-			return (v[key] ??= await fx()).clone();
+			return ENABLE ? (v[key] ??= await fx(key)).clone() : await fx(key);
 		} catch (error) {
 			v[key] = undefined;
-			if (isTypeError(error)) return await fn(key, fx);
+			if (isTypeError(error)) return await fn<T>(key, fx);
 			throw error;
 		}
 	};
