@@ -14,7 +14,7 @@ import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';
 
 import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageDownloadsRangeSchema, type TPackageSchema } from '~/npm/schema';
-import { fetchPackageLastDownloadsRange } from '~/npm/utils';
+import { fetchPackageDownloadsRangeLast } from '~/npm/utils';
 
 import { linkWithThemeQuery } from '~/theme/router';
 
@@ -66,12 +66,19 @@ const Card = (props: { label: string; period: number; lastYear: TPackageDownload
 			i++;
 		}
 
+		// is c2 greather than c1
+		const c2gtc1 = c2 > c1;
+
+		// percent
+		const p = `${((c2gtc1 ? (c2 - c1) / c1 : (c1 - c2) / c1) * 100).toFixed(2)}%`;
+
 		return {
 			d1,
 			d2,
 			c1,
 			c2,
-			c2gtc1: c2 > c1,
+			c2gtc1,
+			p,
 		};
 	});
 
@@ -79,10 +86,13 @@ const Card = (props: { label: string; period: number; lastYear: TPackageDownload
 		<div class="flex items-center justify-between p-2.5 md:p-4 xl:p-6">
 			<div>
 				<div class="mb-0.5 md:mb-1 text-sm text-cn-10">{props.label}</div>
-				<NumberTicker value={count2().c1} format={formatNumber} class="text-xl md:text-2xl xl:text-3xl tabular-nums text-cn-12" />
+				<NumberTicker value={count2().c2} format={formatNumber} class="text-xl md:text-2xl xl:text-3xl tabular-nums text-cn-12" />
 
-				<div class="flex items-center gap-1 md:gap-2 mt-0.5 md:mt-1">
-					<LucideIcon i={count2().c2gtc1 ? ArrowUpRight : ArrowDownRight} class={`size-4 ${count2().c2gtc1 ? 'text-cs-9' : 'text-ce-9'}`} />
+				<div class="flex items-center gap-1.5 md:gap-2.5 mt-0.5 md:mt-1">
+					<div class={`flex items-center gap-0.5 md:gap-1 ${count2().c2gtc1 ? 'text-cs-9' : 'text-ce-9'}`}>
+						<LucideIcon i={count2().c2gtc1 ? ArrowUpRight : ArrowDownRight} class="size-4" />
+						<span class="text-xs">{count2().p}</span>
+					</div>
 					<span class="text-xs text-cn-10">vs previous</span>
 				</div>
 			</div>
@@ -94,7 +104,7 @@ const Card = (props: { label: string; period: number; lastYear: TPackageDownload
 	);
 };
 
-const getLastYear = query((pkg: TPackageSchema) => fetchPackageLastDownloadsRange(pkg.name, 'year'), 'package-downloads-last-year');
+const getLastYear = query((pkg: TPackageSchema) => fetchPackageDownloadsRangeLast(pkg.name, 'year'), 'package-downloads-last-year');
 
 export default () => {
 	const location = useLocation();

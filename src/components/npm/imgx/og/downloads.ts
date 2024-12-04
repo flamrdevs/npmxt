@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 import { ArrowRight, Download } from 'lucide';
 
-import type { TPackageDownloadsRangeSchema } from '~/npm/schema';
+import type { TPackageDownloadsRangeSchema, TPackageNameSchema } from '~/npm/schema';
 import { OGImageResponse, height, width } from '~/server/imgx/response/og';
 
 import { neutral_dark as neutral, primary_dark as primary } from '~/imgx/colors';
@@ -11,10 +11,10 @@ import { formatNumberCompact } from '~/utils/formatter';
 
 import { LucideIcon } from '../icons/lucide';
 
-import { chartDataLastYearDownloads } from '../utils/downloads';
+import { getChartSimpleLastYearDownloadsData } from '../utils/downloads';
 
-export default (name: string, downloads: TPackageDownloadsRangeSchema['downloads']) => {
-	const [chartData, totalDownloads] = chartDataLastYearDownloads(downloads, 28);
+export default (name: TPackageNameSchema, downloads: TPackageDownloadsRangeSchema['downloads']) => {
+	const [chartData, totalDownloads] = getChartSimpleLastYearDownloadsData(downloads);
 
 	const totalDownloadsFormatted = formatNumberCompact(totalDownloads);
 	const isTotalDownloadsFormattedLengthGreaterThan4 = totalDownloadsFormatted.length > 4;

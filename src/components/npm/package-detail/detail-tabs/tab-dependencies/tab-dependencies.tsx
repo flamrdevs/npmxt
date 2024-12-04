@@ -4,7 +4,7 @@ import { For, createMemo } from 'solid-js';
 import { Root as Link } from '@kobalte/core/link';
 
 import { linkToNPMPackage } from '~/npm/href';
-import type { TDependenciesSchema } from '~/npm/schema';
+import type { TDependenciesSchema, TPackageNameSchema } from '~/npm/schema';
 
 import * as SVGL from '~/components/icons/svgl';
 
@@ -16,7 +16,7 @@ const sortFnDepsEntries = <T extends [string, string]>(a: T, b: T) => (a[0] > b[
 const RenderList = (props: { label: string; deps: TDependenciesSchema }) => {
 	const location = useLocation();
 
-	const entries = createMemo(() => Object.entries(props.deps || {}).toSorted(sortFnDepsEntries));
+	const entries = createMemo(() => Object.entries(props.deps || {}).toSorted(sortFnDepsEntries) as [TPackageNameSchema, string][]);
 
 	return (
 		<div>

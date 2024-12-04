@@ -12,10 +12,10 @@ import { formatNumber } from '~/utils/formatter';
 
 import { LucideIcon } from '../icons/lucide';
 
-import { chartDataLastYearDownloads } from '../utils/downloads';
+import { getChartSimpleLastYearDownloadsData } from '../utils/downloads';
 
 export const y = (downloads: TPackageDownloadsRangeSchema['downloads']) => {
-	const [chartData, totalDownloads] = chartDataLastYearDownloads(downloads);
+	const [chartData, totalDownloads] = getChartSimpleLastYearDownloadsData(downloads);
 
 	const width = 400;
 	const height = 220;

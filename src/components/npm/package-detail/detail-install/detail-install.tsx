@@ -9,6 +9,8 @@ import { normalizeProps, useMachine } from '@zag-js/solid';
 
 import { Check, ChevronDown, Copy } from 'lucide';
 
+import type { TPackageNameSchema } from '~/npm/schema';
+
 import { usePackageContext } from '~/contexts/package-context';
 
 import { LucideIcon } from '~/components/icons';
@@ -57,7 +59,7 @@ const SELECT_OPTION = {
 
 const SELECT_OPTIONS: SelectOption[] = Object.values(SELECT_OPTION);
 
-const getCommandValue = (option: SelectOption, name: string) => `${PACKAGE_MANAGER[option.value]} ${name}`;
+const getCommandValue = (option: SelectOption, name: TPackageNameSchema) => `${PACKAGE_MANAGER[option.value]} ${name}`;
 
 const selectItemComponent = (props: KSelect.SelectRootItemComponentProps<SelectOption>) => (
 	<KSelect.Item item={props.item} class={css['sl-i']}>

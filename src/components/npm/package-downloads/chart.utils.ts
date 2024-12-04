@@ -3,7 +3,7 @@ import { type NavigateOptions, useSearchParams } from '@solidjs/router';
 import type * as Plot from '@observablehq/plot';
 
 export type TDownloadsGroupBy = (typeof DOWNLOADS_GROUP_BY_LIST)[number];
-export const DOWNLOADS_GROUP_BY_LIST = ['m' /* monthly */, 'y' /* yearly */] as const satisfies string[];
+export const DOWNLOADS_GROUP_BY_LIST = ['m' /* monthly */, 'q' /* quarterly */, 'y' /* yearly */] as const satisfies string[];
 const FALLBACK_DOWNLOADS_GROUP_BY = DOWNLOADS_GROUP_BY_LIST[0];
 export const isDownloadsGroupBy = (value: unknown): value is TDownloadsGroupBy => typeof value === 'string' && DOWNLOADS_GROUP_BY_LIST.includes(value as TDownloadsGroupBy);
 export const validDownloadsGroupBy = (value: unknown): TDownloadsGroupBy => (isDownloadsGroupBy(value) ? value : FALLBACK_DOWNLOADS_GROUP_BY);
@@ -47,4 +47,34 @@ export const usePackageDownloadsSearchParams = () => {
 		setSearchParams as (params: RawParams, options?: Partial<NavigateOptions>) => void,
 		resetSearchParams,
 	] as const;
+};
+
+export const QUARTER_INDEX_MAP: Record<string, number> = {
+	0: 1,
+	1: 1,
+	2: 1,
+	3: 2,
+	4: 2,
+	5: 2,
+	6: 3,
+	7: 3,
+	8: 3,
+	9: 4,
+	10: 4,
+	11: 4,
+};
+
+export const QUARTER_MM_DD_IN_RECORD_MAP: Record<string, string> = {
+	'01': '02-15',
+	'02': '02-15',
+	'03': '02-15',
+	'04': '05-15',
+	'05': '05-15',
+	'06': '05-15',
+	'07': '08-15',
+	'08': '08-15',
+	'09': '08-15',
+	'10': '11-15',
+	'11': '11-15',
+	'12': '11-15',
 };
