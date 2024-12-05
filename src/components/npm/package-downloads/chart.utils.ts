@@ -1,4 +1,4 @@
-import { type NavigateOptions, useSearchParams } from '@solidjs/router';
+import { type NavigateOptions, useLocation, useNavigate, useSearchParams } from '@solidjs/router';
 
 import type * as Plot from '@observablehq/plot';
 
@@ -23,10 +23,6 @@ export const usePackageDownloadsSearchParams = () => {
 
 	const [searchParams, setSearchParams] = useSearchParams<RawParams>();
 
-	const resetSearchParams = () => {
-		setSearchParams({ gb: FALLBACK_DOWNLOADS_GROUP_BY, lc: FALLBACK_CHART_CURVE, it: 'y' } satisfies RawParams, { replace: true });
-	};
-
 	return [
 		{
 			get gb() {
@@ -45,8 +41,16 @@ export const usePackageDownloadsSearchParams = () => {
 			it: boolean;
 		},
 		setSearchParams as (params: RawParams, options?: Partial<NavigateOptions>) => void,
-		resetSearchParams,
 	] as const;
+};
+
+export const useResetSearchParams = () => {
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	return () => {
+		navigate(location.pathname, { scroll: false, resolve: false, replace: true });
+	};
 };
 
 export const QUARTER_INDEX_MAP: Record<string, number> = {

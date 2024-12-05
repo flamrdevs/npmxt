@@ -55,6 +55,7 @@ export const TabSVGService = () => {
 				<div class="mb-1 md:mb-2 font-medium text-base text-cn-12">Badge</div>
 
 				<Items>
+					<Item label="Last month downloads" pathname={`/badge/dm/${pkg.name}`} />
 					<Item label="Last year downloads" pathname={`/badge/dy/${pkg.name}`} />
 				</Items>
 			</div>
@@ -63,6 +64,7 @@ export const TabSVGService = () => {
 				<div class="mb-1 md:mb-2 font-medium text-base text-cn-12">Chart</div>
 
 				<Items>
+					<Item label="Last month downloads" pathname={`/chart/dm/${pkg.name}`} />
 					<Item label="Last year downloads" pathname={`/chart/dy/${pkg.name}`} />
 				</Items>
 			</div>

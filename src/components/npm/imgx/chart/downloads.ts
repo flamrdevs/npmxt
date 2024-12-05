@@ -12,11 +12,9 @@ import { formatNumber } from '~/utils/formatter';
 
 import { LucideIcon } from '../icons/lucide';
 
-import { getChartSimpleLastYearDownloadsData } from '../utils/downloads';
+import { getChartSimpleLastMonthDownloadsData, getChartSimpleLastYearDownloadsData } from '../utils/downloads';
 
-export const y = (downloads: TPackageDownloadsRangeSchema['downloads']) => {
-	const [chartData, totalDownloads] = getChartSimpleLastYearDownloadsData(downloads);
-
+const component = (chartData: number[], totalDownloads: number, last: string) => {
 	const width = 400;
 	const height = 220;
 
@@ -71,10 +69,20 @@ export const y = (downloads: TPackageDownloadsRangeSchema['downloads']) => {
 							children: [LucideIcon({ i: Download, size: 20, color: 'white' }), h.e('div', { style: { fontSize: 24, fontWeight: 500 }, children: formatNumber(totalDownloads) })],
 						}),
 
-						h.e('div', { style: { paddingLeft: 2, fontSize: 14, fontWeight: 400 }, children: 'last year' }),
+						h.e('div', { style: { paddingLeft: 2, fontSize: 14, fontWeight: 400 }, children: `last ${last}` }),
 					],
 				}),
 			],
 		})
 	);
+};
+
+export const m = (downloads: TPackageDownloadsRangeSchema['downloads']) => {
+	const [chartData, totalDownloads] = getChartSimpleLastMonthDownloadsData(downloads);
+	return component(chartData, totalDownloads, 'month');
+};
+
+export const y = (downloads: TPackageDownloadsRangeSchema['downloads']) => {
+	const [chartData, totalDownloads] = getChartSimpleLastYearDownloadsData(downloads);
+	return component(chartData, totalDownloads, 'year');
 };
