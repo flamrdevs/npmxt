@@ -28,12 +28,13 @@ import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
 import { usePackageContext } from '~/contexts/package-context';
 
-import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
+import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams, useResetSearchParams } from './chart.utils';
 
 const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	const pkg = usePackageContext();
 
-	const [searchParams, setSearchParams, resetSearchParams] = usePackageDownloadsSearchParams();
+	const [searchParams, setSearchParams] = usePackageDownloadsSearchParams();
+	const resetSearchParams = useResetSearchParams();
 
 	const dataDownloads = createMemo(() => {
 		const pkgdr_record = props.pkgdr.record;

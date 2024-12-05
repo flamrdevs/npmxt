@@ -9,8 +9,8 @@ import { formatNumberCompact } from '~/utils/formatter';
 
 import { LucideIcon } from '../icons/lucide';
 
-export const y = (downloads: number) => {
-	const text = `${formatNumberCompact(downloads)}/year`;
+const component = (downloads: number, per: string) => {
+	const text = `${formatNumberCompact(downloads)}/${per}`;
 
 	const height = 24;
 	const width = 24 + (text.length * 8 + 16);
@@ -68,3 +68,7 @@ export const y = (downloads: number) => {
 		})
 	);
 };
+
+export const m = (downloads: number) => component(downloads, 'month');
+
+export const y = (downloads: number) => component(downloads, 'year');
