@@ -9,7 +9,7 @@ export async function GET() {
 	try {
 		const rows = await db.select().from(packageCreationTable);
 
-		return json(rows.map(({ n, d, t }) => [n, d, t]));
+		return json(rows.map(({ n, d, t, r }) => [n, d, t, r]));
 	} catch (error) {
 		return jsonErrorStatusMessageResponse(error);
 	}

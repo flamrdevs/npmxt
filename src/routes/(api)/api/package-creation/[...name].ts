@@ -34,9 +34,9 @@ const getPackageCreationDate = async (validPackageName: TPackageNameSchema): Pro
 	const t = now + 2592000000; // + 30 days
 
 	if (rows.length) {
-		await db.update(packageCreationTable).set({ d: date, t }).where(where);
+		await db.update(packageCreationTable).set({ d: date, t, r: now }).where(where);
 	} else {
-		await db.insert(packageCreationTable).values({ n: name, d: date, t });
+		await db.insert(packageCreationTable).values({ n: name, d: date, t, r: now });
 	}
 	if (__DEV__) console.log(`[db:package_creation] ${'cache miss'.padEnd(11)} | ${validPackageName}`);
 	return date;
