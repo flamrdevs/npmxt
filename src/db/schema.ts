@@ -10,4 +10,6 @@ export const packageCreationTable = sqliteTable('package_creation_table', {
 	d: text().notNull(),
 	// expires
 	t: int().notNull(),
+	// refresh
+	r: int().notNull(),
 });
