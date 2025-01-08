@@ -16,7 +16,10 @@ const sortFnDepsEntries = <T extends [string, string]>(a: T, b: T) => (a[0] > b[
 const RenderList = (props: { label: string; deps: TDependenciesSchema }) => {
 	const location = useLocation();
 
-	const entries = createMemo(() => Object.entries(props.deps || {}).toSorted(sortFnDepsEntries) as [TPackageNameSchema, string][]);
+	const entries = createMemo(() => {
+		const deps = props.deps;
+		return typeof deps === 'object' && deps !== null ? (Object.entries(deps).toSorted(sortFnDepsEntries) as [TPackageNameSchema, string][]) : [];
+	});
 
 	return (
 		<div>
