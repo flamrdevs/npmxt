@@ -4,6 +4,7 @@ import { GET } from '@solidjs/start';
 import { cacheControl } from '~/server/header';
 
 import { dayjs } from '~/utils/dayjs';
+import { objectMap } from '~/utils/object';
 
 import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from './const';
 import { fetcherPackageDownloadsRange } from './fetcher';
@@ -53,7 +54,7 @@ export const getPackageAllDownloadsRecord = GET(async (validPackageName: TPackag
 			.add(dayjs(lastYear.start).subtract(1, 'days').diff(tempStart, 'days'), 'days')
 			.format(DOWNLOAD_DATE_FORMAT);
 
-		const bulks = await Promise.all(Object.entries(map).map(([start, end]) => fetcherPackageDownloadsRange(`${start}:${end}`, validPackageName)));
+		const bulks = await Promise.all(objectMap(map, ([end, start]) => fetcherPackageDownloadsRange(`${start}:${end}`, validPackageName)));
 		for (const bulk of bulks) {
 			const { downloads } = parsePackageDownloadsRange(bulk);
 			for ({ day: tempDay, downloads: tempDownloads } of downloads) record[tempDay] = tempDownloads;

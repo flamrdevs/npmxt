@@ -14,9 +14,12 @@ export const klassXVariants = <
 		};
 	};
 
+	let variant: string;
 	let type: string;
-	const entries = Object.entries(record);
-	for (const [variant, types] of entries) {
+
+	for (variant in record) {
+		const types = record[variant];
+
 		const value: Record<any, any> = {};
 		for (type of types) value[type] = `x-${variant}-${type}`;
 		result[variant as keyof typeof result] = value as any;

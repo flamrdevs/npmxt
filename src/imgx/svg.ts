@@ -23,5 +23,5 @@ export const svg = async (node: Node.Root) => {
 			width,
 			height,
 		})
-	).replaceAll('satori_', 'xt');
+	).replace(/satori_/g, 'xt');
 };

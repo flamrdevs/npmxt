@@ -11,6 +11,7 @@ import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
 import { Button, Checkbox, IconButton, Popover, Select, Separator, Switch, TextField, Tooltip } from '~/components/ui';
 import * as defaultProps from '~/components/ui/default-props';
+import { objectMap } from '~/utils/object';
 
 const Blocks: Solid.Component = (() => {
 	const Panel = (() => {
@@ -40,7 +41,7 @@ const Blocks: Solid.Component = (() => {
 	}) => {
 		return (
 			<Select<Exclude<keyof M, number | symbol>>
-				options={Object.entries(props.map).map(([value, label]) => ({
+				options={objectMap(props.map, (label, value) => ({
 					label,
 					value,
 				}))}
@@ -61,7 +62,7 @@ const Blocks: Solid.Component = (() => {
 	}) => {
 		return (
 			<Select<Exclude<keyof M, number | symbol>>
-				options={Object.entries(props.map).map(([value, label]) => ({
+				options={objectMap(props.map, (label, value) => ({
 					label,
 					value,
 				}))}
@@ -139,7 +140,10 @@ const Blocks: Solid.Component = (() => {
 		};
 		return (
 			<Select<Value>
-				options={Object.entries(labelPositionValueLabel).map(([value, label]) => ({ label, value }))}
+				options={objectMap(labelPositionValueLabel, (label, value) => ({
+					label,
+					value,
+				}))}
 				label="Label position"
 				placeholder="Select label position..."
 				value={props.get.labelPosition}
