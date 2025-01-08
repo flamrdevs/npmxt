@@ -1,6 +1,1 @@
-export const objectMap = <K extends PropertyKey, V, R>(object: Record<K, V>, fn: (value: V, key: K) => R) => {
-	const result: R[] = [];
-	let key: K;
-	for (key in object) result.push(fn(object[key], key));
-	return result;
-};
+export const entriesMap = <K extends string, V, R>(object: Record<K, V>, callbackfn: (value: [K, V], index: number, array: [K, V][]) => R) => Object.entries<V>(object).map<R>(callbackfn as any);
