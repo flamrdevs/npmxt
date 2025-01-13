@@ -21,15 +21,13 @@ export const NumberTicker = (props: NumberTicker.Props) => {
 
 	onMount(() => {
 		inView(ref, () => {
-			animate(
-				(progress) => {
-					ref.textContent = format(progress * local.value);
+			animate(0, local.value, {
+				duration: 0.7,
+				ease: [0.075, 0.82, 0.165, 1] /* Out Circ */,
+				onUpdate: (latest) => {
+					ref.textContent = format(latest);
 				},
-				{
-					duration: 0.7,
-					easing: [0.16, 1, 0.3, 1] /* easeOutExpo */,
-				}
-			);
+			});
 		});
 	});
 
