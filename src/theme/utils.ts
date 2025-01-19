@@ -6,7 +6,7 @@ export const validNeutral = (value: unknown) => (isNeutral(value) ? value : FALL
 export const NEUTRAL_QUERY = 'xn';
 export const NEUTRAL_DATA_ATTR = 'data-cn';
 
-export const PRIMARY = ['ruby', 'pink', 'purple', 'iris', 'blue', 'teal'] as const satisfies string[];
+export const PRIMARY = ['brown', 'orange', 'ruby', 'pink', 'purple', 'iris', 'blue', 'teal', 'grass'] as const satisfies string[];
 export const FALLBACK_PRIMARY = PRIMARY[3];
 export type Primary = (typeof PRIMARY)[number];
 export const isPrimary = (value: unknown): value is Primary => typeof value === 'string' && PRIMARY.includes(value as Primary);

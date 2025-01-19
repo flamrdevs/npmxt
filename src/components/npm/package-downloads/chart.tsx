@@ -14,29 +14,30 @@ import { domToPng } from 'modern-screenshot';
 
 import { NumberTicker } from '~/components/effect/number-ticker';
 import { LucideIcon } from '~/components/icons';
-import { Button, IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/components/ui';
+import { IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/components/ui';
 
 import { DOWNLOAD_DATE_FORMAT } from '~/npm/const';
 import { packageFilename } from '~/npm/misc/pkg-filename';
 import { type TPackageNameSchema, parsePackageName } from '~/npm/schema';
 import { type PackageDownloadsRecord, getPackageAllDownloadsRecord } from '~/npm/utils.get';
 
-import { fontFamilySans, v_cn2, v_cn6, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
+import { fontFamilySans, v_cn2, v_cn6, v_cn8, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
 import { createCacheStorage } from '~/utils/cache-storage';
 import { dayjs } from '~/utils/dayjs';
 import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
 import { usePackageContext } from '~/contexts/package-context';
 
-import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams, useResetSearchParams } from './chart.utils';
+import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
 
 const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	const pkg = usePackageContext();
 
 	const [searchParams, setSearchParams] = usePackageDownloadsSearchParams();
-	const resetSearchParams = useResetSearchParams();
 
 	const dataDownloads = createMemo(() => {
+		const searchParams_gb = searchParams.gb;
+
 		const pkgdr_record = props.pkgdr.record;
 
 		const record: Record<string, number> = {};
@@ -44,9 +45,9 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 		let tempDateInRecord: string;
 
 		for (const date in pkgdr_record) {
-			if (searchParams.gb === 'm') {
+			if (searchParams_gb === 'm') {
 				tempDateInRecord = date.slice(0, -3);
-			} else if (searchParams.gb === 'q') {
+			} else if (searchParams_gb === 'q') {
 				tempDateInRecord = `${date.slice(0, -6)}-${QUARTER_MM_DD_IN_RECORD_MAP[date.slice(5, -3)]}`;
 			} else {
 				tempDateInRecord = date.slice(0, -6);
@@ -65,9 +66,9 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 			const date = new Date();
 
 			if (last) {
-				if (searchParams.gb === 'm') {
+				if (searchParams_gb === 'm') {
 					if (last.x.getMonth() === date.getMonth()) downloads.pop();
-				} else if (searchParams.gb === 'q') {
+				} else if (searchParams_gb === 'q') {
 					if (QUARTER_INDEX_MAP[dayjs(last.x).month()] === QUARTER_INDEX_MAP[dayjs(date).month()]) downloads.pop();
 				} else {
 					if (last.x.getFullYear() === date.getFullYear()) downloads.pop();
@@ -80,14 +81,17 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 
 	const totalDownloadsCount = createMemo(() => dataDownloads().reduce((a, b) => a + b.y, 0));
 
+	const averageDownloadsCount = createMemo(() => Math.floor(totalDownloadsCount() / dataDownloads().length));
+
 	let screenshotRef!: HTMLDivElement;
 	let plotRef!: HTMLDivElement;
 
 	const yAxisTickFormatter = (d: any) => formatNumberCompact(d);
 
 	const titleTipFormatter = createMemo(() => (d: any) => {
+		const searchParams_gb = searchParams.gb;
 		const xDayjs = dayjs(d.x);
-		return `${searchParams.gb === 'q' ? `Q${QUARTER_INDEX_MAP[xDayjs.month()]} ` : ''}${xDayjs.format(`${searchParams.gb === 'm' ? 'MMM ' : ''}YYYY`)}\n\n${formatNumber(d.y)}`;
+		return `${searchParams_gb === 'q' ? `Q${QUARTER_INDEX_MAP[xDayjs.month()]} ` : ''}${xDayjs.format(`${searchParams_gb === 'm' ? 'MMM ' : ''}YYYY`)}\n\n${formatNumber(d.y)}`;
 	});
 
 	const x = 'x';
@@ -98,13 +102,16 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	let varPlotRuleY: Plot.RuleY;
 
 	const marks = createMemo(() => {
+		const searchParams_gb = searchParams.gb;
+		const searchParams_lc = searchParams.lc;
+
 		const data = dataDownloads();
 
 		return [
 			Plot.axisX({
 				anchor: 'bottom',
 				ticks:
-					searchParams.gb === 'm'
+					searchParams_gb === 'm'
 						? data.length > 60
 							? '6 months'
 							: data.length > 30
@@ -112,7 +119,7 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 								: data.length > 20
 									? '2 months'
 									: 'month'
-						: searchParams.gb === 'q'
+						: searchParams_gb === 'q'
 							? data.length > 60
 								? 'year'
 								: data.length > 30
@@ -120,11 +127,12 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 									: '3 months'
 							: 'year',
 			}),
-			(varPlotAxisX ??= Plot.axisY({ anchor: 'left', ticks: 7, tickFormat: yAxisTickFormatter })),
+			(varPlotAxisX ??= Plot.axisY({ anchor: 'left', ticks: 5, tickFormat: yAxisTickFormatter })),
 			(varPlotGridY ??= Plot.gridY({ stroke: v_cn9, strokeDasharray: '1,2', strokeOpacity: 0.3 })),
-			Plot.areaY(data, { x, y, curve: searchParams.lc, fill: v_cp2, fillOpacity: 0.07 }),
-			Plot.lineY(data, { x, y, curve: searchParams.lc, stroke: v_cp9 }),
+			Plot.areaY(data, { x, y, curve: searchParams_lc, fill: v_cp2, fillOpacity: 0.07 }),
+			Plot.lineY(data, { x, y, curve: searchParams_lc, stroke: v_cp9 }),
 			Plot.ruleX(data, Plot.pointerX({ x, py: y, stroke: v_cn9 })),
+			searchParams.sa ? Plot.ruleY([averageDownloadsCount()], { stroke: v_cn8, strokeDasharray: 5 }) : null,
 			(varPlotRuleY ??= Plot.ruleY([0], { stroke: v_cn9 })),
 			Plot.dot(data, Plot.pointerX({ x, y, stroke: v_cn9 })),
 			Plot.tip(data, Plot.pointerX({ x, y, title: titleTipFormatter(), fill: v_cn2, stroke: v_cn6, fontSize: 13, textPadding: 10 })),
@@ -250,14 +258,20 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 							/>
 
 							<Switch
+								label="Show average"
+								checked={searchParams.sa}
+								onChange={(checked) => {
+									setSearchParams({ sa: checked ? 'y' : 'n' }, { replace: true });
+								}}
+							/>
+
+							<Switch
 								label={`Including this ${searchParams.gb === 'm' ? 'month' : searchParams.gb === 'q' ? 'quarter' : 'year'}`}
 								checked={searchParams.it}
 								onChange={(checked) => {
 									setSearchParams({ it: checked ? 'y' : 'n' }, { replace: true });
 								}}
 							/>
-
-							<Button onClick={resetSearchParams}>Reset</Button>
 						</div>
 					</Popover>
 				</div>
