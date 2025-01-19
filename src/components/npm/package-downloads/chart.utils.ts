@@ -1,4 +1,4 @@
-import { type NavigateOptions, useLocation, useNavigate, useSearchParams } from '@solidjs/router';
+import { type NavigateOptions, useSearchParams } from '@solidjs/router';
 
 import type * as Plot from '@observablehq/plot';
 
@@ -14,10 +14,13 @@ const FALLBACK_CHART_CURVE = CHART_CURVE_LIST[2];
 export const isChartCurve = (value: unknown): value is TChartCurve => typeof value === 'string' && CHART_CURVE_LIST.includes(value as TChartCurve);
 export const validChartCurve = (value: unknown): TChartCurve => (isChartCurve(value) ? value : FALLBACK_CHART_CURVE);
 
+const booleanParam = (value: unknown, fallback: boolean) => (typeof value === 'string' ? value === 'y' : fallback);
+
 export const usePackageDownloadsSearchParams = () => {
 	type RawParams = {
 		gb?: string; // group by
 		lc?: string; // line curve
+		sa?: string; // show average
 		it?: string; // include this
 	};
 
@@ -31,26 +34,20 @@ export const usePackageDownloadsSearchParams = () => {
 			get lc() {
 				return validChartCurve(searchParams.lc);
 			},
+			get sa() {
+				return booleanParam(searchParams.sa, false);
+			},
 			get it() {
-				const it = searchParams.it;
-				return typeof it === 'string' ? it === 'y' : true;
+				return booleanParam(searchParams.it, true);
 			},
 		} satisfies {
 			gb: TDownloadsGroupBy;
 			lc: TChartCurve;
+			sa: boolean;
 			it: boolean;
 		},
 		setSearchParams as (params: RawParams, options?: Partial<NavigateOptions>) => void,
 	] as const;
-};
-
-export const useResetSearchParams = () => {
-	const location = useLocation();
-	const navigate = useNavigate();
-
-	return () => {
-		navigate(location.pathname, { scroll: false, resolve: false, replace: true });
-	};
 };
 
 export const QUARTER_INDEX_MAP: Record<string, number> = {
