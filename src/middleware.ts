@@ -1,4 +1,4 @@
-import { createMiddleware } from '@solidjs/start/middleware';
+import { type RequestMiddleware, type ResponseMiddleware, createMiddleware } from '@solidjs/start/middleware';
 
 import { csrfProtection, secureRequest } from 'shieldwall/start';
 
@@ -66,5 +66,10 @@ export default createMiddleware({
 				};
 			})(),
 		}),
-	] as any,
+	] as RequestMiddleware[],
+	onBeforeResponse: [
+		(event) => {
+			console.log(`[${event.response.status}] ${event.request.url}`);
+		},
+	] as ResponseMiddleware[],
 });
