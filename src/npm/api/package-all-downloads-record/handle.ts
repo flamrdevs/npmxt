@@ -1,29 +1,28 @@
-import { json } from '@solidjs/router';
-import { GET } from '@solidjs/start';
-
-import { cacheControl } from '~/server/header';
-
 import { dayjs } from '~/utils/dayjs';
 import { entriesMap } from '~/utils/object';
 
-import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from './const';
-import { fetcherPackageDownloadsRange } from './fetcher';
-import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from './schema';
-import { fetchPackageDownloadsRangeLast } from './utils';
+import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from './../../const';
+import { fetcherPackageDownloadsRange } from './../../fetcher';
+import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from './../../schema';
+import { fetchPackageDownloadsRangeLast } from './../../utils';
 
-export type PackageDownloadsRecord = {
-	name: TPackageNameSchema;
-	start: string;
-	end: string;
-	record: Record<string, number>;
-};
+import { fetchPackageCreation } from './../package-creation/fetch';
 
-export const getPackageAllDownloadsRecord = GET(async (validPackageName: TPackageNameSchema, validsStartDate: string) => {
-	'use server';
+import type { PackageAllDownloadsRecordData } from './types';
 
-	if (__DEV__) console.log('USE SERVER | getPackageAllDownloadsRecord');
+const getValidStartDate = (() => {
+	const MIN_START_DATE_DAYJS = dayjs('2015-02-01' /* ahead MIN_START_DOWNLOAD_DATE */, DOWNLOAD_DATE_FORMAT);
 
-	const startDayjs = dayjs(validsStartDate, DOWNLOAD_DATE_FORMAT);
+	return async (validPackageName: TPackageNameSchema) => {
+		const createdDayjs = dayjs((await fetchPackageCreation(validPackageName)).date).startOf('day');
+
+		return (createdDayjs.isBefore(MIN_START_DATE_DAYJS) ? MIN_START_DATE_DAYJS : createdDayjs).clone().format(DOWNLOAD_DATE_FORMAT);
+	};
+})();
+
+export const handlePackageAllDownloadsRecord = async (validPackageName: TPackageNameSchema): Promise<PackageAllDownloadsRecordData> => {
+	const validStartDate = await getValidStartDate(validPackageName);
+	const startDayjs = dayjs(validStartDate, DOWNLOAD_DATE_FORMAT);
 
 	const lastYear = await fetchPackageDownloadsRangeLast(validPackageName, 'year');
 
@@ -70,17 +69,10 @@ export const getPackageAllDownloadsRecord = GET(async (validPackageName: TPackag
 		}
 	}
 
-	return json(
-		{
-			name: validPackageName,
-			start: validsStartDate,
-			end: endDate,
-			record,
-		} satisfies PackageDownloadsRecord,
-		{
-			headers: {
-				...cacheControl('public, durable, max-age=43200, s-maxage=43200, must-revalidate' /* 12 hours */),
-			},
-		}
-	);
-});
+	return {
+		name: validPackageName,
+		start: validStartDate,
+		end: endDate,
+		record,
+	};
+};

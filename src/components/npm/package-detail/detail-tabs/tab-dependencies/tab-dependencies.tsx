@@ -36,7 +36,7 @@ const RenderList = (props: { label: string; deps: TDependenciesSchema }) => {
 									{name}
 								</Link>
 
-								<Link href={linkToNPMPackage(name)} target="_blank" class="opacity-0 group-hover:opacity-100 p-0.5 size-6 hover:bg-cn-3 transition-all">
+								<Link href={linkToNPMPackage(name)} target="_blank" rel="noreferrer" class="opacity-0 group-hover:opacity-100 p-0.5 size-6 hover:bg-cn-3 transition-all">
 									<SVGL.NPM class="size-full" />
 								</Link>
 							</div>

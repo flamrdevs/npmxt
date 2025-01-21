@@ -1,6 +1,6 @@
 import { json } from '@solidjs/router';
 
-import { handlePackageCreation } from '~/npm/api/package-creation/handle';
+import { handlePackageAllDownloadsRecord } from '~/npm/api/package-all-downloads-record/handle';
 import cacheHeader12H from '~/npm/api/shared/cache-header-12h';
 import { parsePackageName } from '~/npm/schema';
 
@@ -15,7 +15,7 @@ export async function GET(event: SolidJS.Start.Server.APIEvent) {
 		if (__DEV__) if (isRequestSearchParamsHasCache(event)) return json(Object.keys(withCache.get()));
 
 		return withCache(parsePackageName(event.params['name']), async (validPackageName) => {
-			return json(await handlePackageCreation(validPackageName), cacheHeader12H);
+			return json(await handlePackageAllDownloadsRecord(validPackageName), cacheHeader12H);
 		});
 	} catch (error) {
 		return jsonErrorStatusMessageResponse(error);
