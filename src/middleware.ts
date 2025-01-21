@@ -6,7 +6,7 @@ import * as CSP from 'csp-header';
 
 import { BASE_URL_DENO as BUNDLEJS_BASE_URL_DENO } from '~/bundlejs/url';
 import { BASE_URL_API as NPM_BASE_URL_API, BASE_URL_REGISTRY as NPM_BASE_URL_REGISTRY } from '~/npm/url';
-import { CDN_JSDELIVR } from '~/utils/url';
+import { CDN_JSDELIVR, NPMXT } from '~/utils/url';
 
 export default createMiddleware({
 	onRequest: [
@@ -69,7 +69,7 @@ export default createMiddleware({
 	] as RequestMiddleware[],
 	onBeforeResponse: [
 		(event) => {
-			console.log(`[${event.response.status}] ${event.request.url}`);
+			console.log(`[${event.response.status}] ${event.request.url.slice(NPMXT.length)}`);
 		},
 	] as ResponseMiddleware[],
 });

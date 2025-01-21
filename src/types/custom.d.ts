@@ -1,8 +1,6 @@
 import type { JSX } from 'solid-js';
 import type { Accessor, Component, ParentComponent, ParentProps, ValidComponent } from 'solid-js';
 
-import type { RoutePreloadFuncArgs } from '@solidjs/router';
-
 import type { APIEvent, APIHandler } from '@solidjs/start/server';
 
 import type { ClassValue } from 'clsx';
@@ -58,10 +56,6 @@ declare global {
 	}
 
 	namespace SolidJS {
-		export namespace Router {
-			export type { RoutePreloadFuncArgs };
-		}
-
 		export namespace Start {
 			export namespace Server {
 				export type { APIEvent, APIHandler };

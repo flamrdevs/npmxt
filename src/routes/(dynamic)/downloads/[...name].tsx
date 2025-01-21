@@ -34,8 +34,6 @@ const Blobs = () => {
 	);
 };
 
-export const route = { preload: ({ params }: SolidJS.Router.RoutePreloadFuncArgs) => queryPackage(params.name) };
-
 export default function Downloads$NamePage() {
 	const params = useParams();
 
