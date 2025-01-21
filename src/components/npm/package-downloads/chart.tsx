@@ -8,21 +8,18 @@ import { ImageDown, Settings2 } from 'lucide';
 
 import * as Plot from '@observablehq/plot';
 
-import { ofetch } from 'ofetch';
-
 import { domToPng } from 'modern-screenshot';
 
 import { NumberTicker } from '~/components/effect/number-ticker';
 import { LucideIcon } from '~/components/icons';
 import { IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/components/ui';
 
-import { DOWNLOAD_DATE_FORMAT } from '~/npm/const';
+import { fetchPackageAllDownloadsRecord } from '~/npm/api/package-all-downloads-record/fetch';
+import type { PackageAllDownloadsRecordData } from '~/npm/api/package-all-downloads-record/types';
 import { packageFilename } from '~/npm/misc/pkg-filename';
-import { type TPackageNameSchema, parsePackageName } from '~/npm/schema';
-import { type PackageDownloadsRecord, getPackageAllDownloadsRecord } from '~/npm/utils.get';
+import type { TPackageNameSchema } from '~/npm/schema';
 
 import { fontFamilySans, v_cn2, v_cn6, v_cn8, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
-import { createCacheStorage } from '~/utils/cache-storage';
 import { dayjs } from '~/utils/dayjs';
 import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
@@ -30,7 +27,7 @@ import { usePackageContext } from '~/contexts/package-context';
 
 import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
 
-const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
+const RenderChart = (props: { data: PackageAllDownloadsRecordData }) => {
 	const pkg = usePackageContext();
 
 	const [searchParams, setSearchParams] = usePackageDownloadsSearchParams();
@@ -38,13 +35,13 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	const dataDownloads = createMemo(() => {
 		const searchParams_gb = searchParams.gb;
 
-		const pkgdr_record = props.pkgdr.record;
+		const data_record = props.data.record;
 
 		const record: Record<string, number> = {};
 
 		let tempDateInRecord: string;
 
-		for (const date in pkgdr_record) {
+		for (const date in data_record) {
 			if (searchParams_gb === 'm') {
 				tempDateInRecord = date.slice(0, -3);
 			} else if (searchParams_gb === 'q') {
@@ -53,7 +50,7 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 				tempDateInRecord = date.slice(0, -6);
 			}
 
-			record[tempDateInRecord] = (record[tempDateInRecord] ?? 0) + pkgdr_record[date];
+			record[tempDateInRecord] = (record[tempDateInRecord] ?? 0) + data_record[date];
 		}
 
 		const downloads: { x: Date; y: number }[] = [];
@@ -284,28 +281,12 @@ const RenderChart = (props: { pkgdr: PackageDownloadsRecord }) => {
 	);
 };
 
-const fetchPackageDownloadsRecord = (() => {
-	const withCacheStorage = createCacheStorage<PackageDownloadsRecord>(__DEV__ ? 'npm:package-downloads-record' : 'npm:pkg-dr-r');
-
-	const MIN_START_DATE_DAYJS = dayjs('2015-02-01' /* ahead MIN_START_DOWNLOAD_DATE */, DOWNLOAD_DATE_FORMAT);
-
-	return (rawName: string): Promise<PackageDownloadsRecord> =>
-		withCacheStorage(parsePackageName(rawName), async (validPackageName) => {
-			const createdDayjs = dayjs((await ofetch<{ date: string }>(`/api/package-creation/${validPackageName}`)).date).startOf('day');
-
-			return (await getPackageAllDownloadsRecord(
-				validPackageName,
-				(createdDayjs.isBefore(MIN_START_DATE_DAYJS) ? MIN_START_DATE_DAYJS : createdDayjs).clone().format(DOWNLOAD_DATE_FORMAT)
-			)) as unknown as PackageDownloadsRecord;
-		});
-})();
-
-const getPackageDownloadsRecord = query(async (name: TPackageNameSchema) => await fetchPackageDownloadsRecord(name), 'package-downloads-record');
+const queryPackageDownloadsChartData = query(async (name: TPackageNameSchema) => await fetchPackageAllDownloadsRecord(name), 'package-downloads-chart-data');
 
 export default () => {
 	const pkg = usePackageContext();
 
-	const pkgdr = createAsync(() => getPackageDownloadsRecord(pkg.name));
+	const data = createAsync(() => queryPackageDownloadsChartData(pkg.name));
 
-	return <Show when={pkgdr()}>{(pkgdr) => <RenderChart pkgdr={pkgdr()} />}</Show>;
+	return <Show when={data()}>{(data) => <RenderChart data={data()} />}</Show>;
 };

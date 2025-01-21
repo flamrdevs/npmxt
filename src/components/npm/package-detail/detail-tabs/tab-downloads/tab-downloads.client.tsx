@@ -104,14 +104,14 @@ const Card = (props: { label: string; period: number; lastYear: TPackageDownload
 	);
 };
 
-const getLastYear = query((pkg: TPackageSchema) => fetchPackageDownloadsRangeLast(pkg.name, 'year'), 'package-downloads-last-year');
+const queryLastYear = query((pkg: TPackageSchema) => fetchPackageDownloadsRangeLast(pkg.name, 'year'), 'package-downloads-last-year');
 
 export default () => {
 	const location = useLocation();
 
 	const pkg = usePackageContext();
 
-	const lastYear = createAsync(() => getLastYear(pkg));
+	const lastYear = createAsync(() => queryLastYear(pkg));
 
 	return (
 		<Show when={lastYear()} keyed>

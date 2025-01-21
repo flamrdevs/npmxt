@@ -70,6 +70,18 @@ export default function IndexPage() {
 								Supercharge your development with npm e-xtended tools - essential utilities to boost productivity.
 							</p>
 							<SearchPackage />
+
+							<p class="group mt-8 md:mt-9 lg:mt-10 text-xs">
+								<span class="text-cn-7 group-hover:text-cn-9">Source code on </span>
+								<a
+									href="https://github.com/flamrdevs/npmxt"
+									target="_blank"
+									rel="noreferrer"
+									class="outline-none focus-visible:outline-1 text-cp-7 group-hover:text-cp-9 focus-visible:text-cp-9 focus-visible:outline-cp-9"
+								>
+									GitHub
+								</a>
+							</p>
 						</div>
 					</div>
 

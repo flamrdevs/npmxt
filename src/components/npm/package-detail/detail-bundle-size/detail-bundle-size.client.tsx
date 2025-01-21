@@ -10,12 +10,12 @@ import { usePackageContext } from '~/contexts/package-context';
 import { fetchBundleSize } from '~/bundlejs/utils';
 import type { TPackageSchema } from '~/npm/schema';
 
-const getPackageBundleSize = query((pkg: TPackageSchema) => fetchBundleSize(pkg), 'package-bundle-size');
+const queryPackageBundleSize = query((pkg: TPackageSchema) => fetchBundleSize(pkg), 'package-bundle-size');
 
 export default () => {
 	const pkg = usePackageContext();
 
-	const bundleSize = createAsync(() => getPackageBundleSize(pkg));
+	const bundleSize = createAsync(() => queryPackageBundleSize(pkg));
 
 	return (
 		<Show when={bundleSize()} keyed>

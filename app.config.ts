@@ -9,7 +9,7 @@ const minify = true;
 export default defineConfig({
 	server: {
 		prerender: {
-			routes: ['/', '/about', '/ui'],
+			routes: ['/', '/ui'],
 		},
 		minify,
 	},
