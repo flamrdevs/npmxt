@@ -34,8 +34,6 @@ const Blobs = () => {
 	);
 };
 
-export const route = { preload: ({ params }: SolidJS.Router.RoutePreloadFuncArgs) => queryPackageAlt(params.input) };
-
 export default function Package$InputPage() {
 	const params = useParams();
 
