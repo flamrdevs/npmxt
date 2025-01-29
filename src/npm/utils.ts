@@ -6,19 +6,22 @@ import {
 	type TPackageDownloadsRangeSchema,
 	type TPackageMetadataSchema,
 	type TPackageSchema,
+	parseCachedPackageName,
 	parsePackage,
 	parsePackageDownloadsLast,
 	parsePackageDownloadsPoint,
 	parsePackageDownloadsRange,
 	parsePackageMetadata,
-	parsePackageName,
 } from './schema';
 
 import { fetcherPackage, fetcherPackageDownloadsPointLast, fetcherPackageDownloadsRangeLast, fetcherPackageMetadata } from './fetcher';
 
 export const splitPackageNameAndVersion = (() => {
+	const cache: Record<string, readonly [string, string | undefined]> = {};
+
 	const scoped = (str: string) => str.startsWith('@');
-	return (input: string) => {
+
+	const fn = (input: string) => {
 		const splitted = input.split('/');
 
 		let name: string;
@@ -47,6 +50,8 @@ export const splitPackageNameAndVersion = (() => {
 
 		return [name, version] as const;
 	};
+
+	return (input: string) => (cache[input] ||= fn(input));
 })();
 
 const throwWithPackageNotFoundError = (error: unknown) => {
@@ -59,7 +64,7 @@ export const fetchPackage = (() => {
 	const withCacheStorage = createCacheStorage<TPackageSchema>(__DEV__ ? 'npm:package' : 'npm:pkg');
 
 	return (rawName: string, rawVersion: string | undefined = 'latest'): Promise<TPackageSchema> => {
-		const validPackageName = parsePackageName(rawName);
+		const validPackageName = parseCachedPackageName(rawName);
 		const validPackageVersion = rawVersion;
 		return withCacheStorage(`${validPackageName}@${validPackageVersion}`, async () => {
 			try {
@@ -77,7 +82,7 @@ export const fetchPackageMetadata = (() => {
 	const withCacheStorage = createCacheStorage<TPackageMetadataSchema>(__DEV__ ? 'npm:package-metadata' : 'npm:pkg-m');
 
 	return (rawName: string): Promise<TPackageMetadataSchema> =>
-		withCacheStorage(parsePackageName(rawName), async (validPackageName) => {
+		withCacheStorage(parseCachedPackageName(rawName), async (validPackageName) => {
 			try {
 				return parsePackageMetadata(await fetcherPackageMetadata(validPackageName));
 			} catch (error) {
@@ -90,7 +95,7 @@ export const fetchPackageDownloadsPointLast = (() => {
 	const withCacheStorage = createCacheStorage<TPackageDownloadsPointSchema>(__DEV__ ? 'npm:package-downloads-point-last' : 'npm:pkg-dp-l');
 
 	return (rawName: string, rawLast: string): Promise<TPackageDownloadsPointSchema> => {
-		const validPackageName = parsePackageName(rawName);
+		const validPackageName = parseCachedPackageName(rawName);
 		const validLast = parsePackageDownloadsLast(rawLast);
 		return withCacheStorage(`${validPackageName}/${validLast}`, async () => {
 			try {
@@ -106,7 +111,7 @@ export const fetchPackageDownloadsRangeLast = (() => {
 	const withCacheStorage = createCacheStorage<TPackageDownloadsRangeSchema>(__DEV__ ? 'npm:package-downloads-range-last' : 'npm:pkg-dr-l');
 
 	return (rawName: string, rawLast: string): Promise<TPackageDownloadsRangeSchema> => {
-		const validPackageName = parsePackageName(rawName);
+		const validPackageName = parseCachedPackageName(rawName);
 		const validLast = parsePackageDownloadsLast(rawLast);
 		return withCacheStorage(`${validPackageName}/${validLast}`, async () => {
 			try {

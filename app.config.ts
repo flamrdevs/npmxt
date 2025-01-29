@@ -1,6 +1,6 @@
 import { defineConfig } from '@solidjs/start/config';
 
-import autoImport from './auto-import';
+import autoImport from './app.config~auto-import';
 
 import define from './define';
 
@@ -9,7 +9,7 @@ const minify = true;
 export default defineConfig({
 	server: {
 		prerender: {
-			routes: ['/', '/ui'],
+			routes: ['/', '/ui', '/packages'],
 		},
 		minify,
 	},

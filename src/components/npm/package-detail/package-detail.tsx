@@ -16,7 +16,7 @@ export const NPMPackageDetail = () => {
 	const pkg = usePackageContext();
 
 	return (
-		<div class="relative flex flex-col mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-cn-2 border border-transparent md:border-cn-6 rounded-none sm:rounded-3xl shadow">
+		<div class="relative flex flex-col mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-cn-2 border border-transparent md:border-cn-6 rounded-none sm:rounded-3xl shadow-sm">
 			<div class="hidden md:block absolute -top-10 -left-6 w-px h-96 bg-gradient-to-b from-cn-3 to-transparent" />
 			<div class="hidden md:block absolute -top-10 -right-6 w-px h-96 bg-gradient-to-b from-cn-3 to-transparent" />
 			<div class="hidden md:block absolute -top-6 -left-10 -right-10 h-px bg-cn-3" />

@@ -34,18 +34,29 @@ export namespace OG {
 	};
 }
 
-export const OG = (() => {
-	const use = (property: string, content: string) => {
-		useHead({
-			tag: 'meta',
-			props: { property, content },
-			id: createUniqueId(),
-			get name() {
-				return property;
-			},
-		});
-	};
+const usePropertyContentMeta = (property: string, content: string) => {
+	useHead({
+		tag: 'meta',
+		props: { property, content },
+		id: createUniqueId(),
+		get name() {
+			return property;
+		},
+	});
+};
 
+export const PreOGImage = (props: {
+	img: string;
+}) => {
+	const image = createMemo(() => `${NPMXT}/og/${props.img}`);
+
+	usePropertyContentMeta('og:image', image());
+	usePropertyContentMeta('twitter:image', image());
+
+	return null;
+};
+
+export const OG = (() => {
 	return (props: OG.Props) => {
 		const location = useLocation();
 
@@ -63,21 +74,21 @@ export const OG = (() => {
 			}
 		}
 
-		use('og:type', 'website');
-		use('og:url', url());
-		use('og:title', title());
-		use('og:description', description());
-		use('og:image', image());
+		usePropertyContentMeta('og:type', 'website');
+		usePropertyContentMeta('og:url', url());
+		usePropertyContentMeta('og:title', title());
+		usePropertyContentMeta('og:description', description());
+		usePropertyContentMeta('og:image', image());
 
-		use('og:image:type', 'image/png');
-		use('og:image:width', `${og_width}`);
-		use('og:image:height', `${og_height}`);
+		usePropertyContentMeta('og:image:type', 'image/png');
+		usePropertyContentMeta('og:image:width', `${og_width}`);
+		usePropertyContentMeta('og:image:height', `${og_height}`);
 
-		use('twitter:card', 'summary_large_image');
-		use('twitter:url', url());
-		use('twitter:title', title());
-		use('twitter:description', description());
-		use('twitter:image', image());
+		usePropertyContentMeta('twitter:card', 'summary_large_image');
+		usePropertyContentMeta('twitter:url', url());
+		usePropertyContentMeta('twitter:title', title());
+		usePropertyContentMeta('twitter:description', description());
+		usePropertyContentMeta('twitter:image', image());
 
 		return null;
 	};

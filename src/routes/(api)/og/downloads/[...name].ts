@@ -1,6 +1,6 @@
 import { json } from '@solidjs/router';
 
-import { parsePackageName } from '~/npm/schema';
+import { parseCachedPackageName } from '~/npm/schema';
 import { fetchPackageDownloadsRangeLast } from '~/npm/utils';
 import { jsonErrorStatusMessageResponse } from '~/server/error';
 import { isRequestSearchParamsHasCache } from '~/server/misc/is-request-search-params-has-cache';
@@ -14,7 +14,7 @@ export async function GET(event: SolidJS.Start.Server.APIEvent) {
 	try {
 		if (__DEV__) if (isRequestSearchParamsHasCache(event)) return json(Object.keys(withCache.get()));
 
-		return withCache(parsePackageName(event.params['name']), async (validPackageName) => og(validPackageName, (await fetchPackageDownloadsRangeLast(validPackageName, 'year')).downloads));
+		return withCache(parseCachedPackageName(event.params['name']), async (validPackageName) => og(validPackageName, (await fetchPackageDownloadsRangeLast(validPackageName, 'year')).downloads));
 	} catch (error) {
 		return jsonErrorStatusMessageResponse(error);
 	}

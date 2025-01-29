@@ -1,3 +1,3 @@
 export type PackageCreationData = {
-	date: string;
+	date: number;
 };

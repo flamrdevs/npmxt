@@ -8,7 +8,7 @@ import { fetchPackageMetadata } from '~/npm/utils';
 
 import type { PackageCreationData } from './types';
 
-const handlePackageCreationDate = async (validPackageName: TPackageNameSchema): Promise<string> => {
+const handlePackageCreationDate = async (validPackageName: TPackageNameSchema): Promise<number> => {
 	const now = Date.now();
 
 	const where = eq(packageCreationTable.n, validPackageName);
@@ -25,15 +25,17 @@ const handlePackageCreationDate = async (validPackageName: TPackageNameSchema): 
 		time: { created: date },
 	} = await fetchPackageMetadata(validPackageName);
 
+	const d = new Date(date).getTime();
+
 	const t = now + 2592000000; // + 30 days
 
 	if (rows.length) {
-		await db.update(packageCreationTable).set({ d: date, t, r: now }).where(where);
+		await db.update(packageCreationTable).set({ d, t, r: now }).where(where);
 	} else {
-		await db.insert(packageCreationTable).values({ n: name, d: date, t, r: now });
+		await db.insert(packageCreationTable).values({ n: name, d, t, r: now });
 	}
 	if (__DEV__) console.log(`[db:package_creation] ${'cache miss'.padEnd(11)} | ${validPackageName}`);
-	return date;
+	return d;
 };
 
 export const handlePackageCreation = async (validPackageName: TPackageNameSchema): Promise<PackageCreationData> => ({ date: await handlePackageCreationDate(validPackageName) });

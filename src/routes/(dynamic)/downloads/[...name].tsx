@@ -1,5 +1,5 @@
 import { createAsync, useParams } from '@solidjs/router';
-import { ErrorBoundary, Show, Suspense, createEffect } from 'solid-js';
+import { ErrorBoundary, Show, Suspense, createEffect, createMemo } from 'solid-js';
 
 import { AlertCircle } from 'lucide';
 
@@ -13,6 +13,7 @@ import { Loader } from '~/components/ui';
 import { PackageContextProvider } from '~/contexts/package-context';
 
 import { queryPackage } from '~/npm/queries';
+import { parseCachedPackageName } from '~/npm/schema';
 
 const Blobs = () => {
 	return (
@@ -34,10 +35,18 @@ const Blobs = () => {
 	);
 };
 
+const getImg = (name: string) => `downloads/${name}`;
+
 export default function Downloads$NamePage() {
 	const params = useParams();
 
 	const pkg = createAsync(() => queryPackage(params.name));
+
+	const prePkgName = createMemo(() => {
+		try {
+			return parseCachedPackageName(params.name);
+		} catch (error) {}
+	});
 
 	if (__DEV__) {
 		createEffect(() => {
@@ -49,6 +58,10 @@ export default function Downloads$NamePage() {
 		<>
 			<Blobs />
 
+			<Show when={prePkgName()} keyed>
+				{(prePkgName) => <Meta.PreOGImage img={getImg(prePkgName)} />}
+			</Show>
+
 			<ErrorBoundary
 				fallback={(error) => {
 					if (__DEV__) console.error('Downloads$NamePage', error);
@@ -57,7 +70,7 @@ export default function Downloads$NamePage() {
 							error={error}
 							render={(message) => (
 								<div class="flex items-center justify-center sm:pt-4 md:pt-10 xl:pt-24 sm:pb-3 md:pb-8 xl:pb-16">
-									<div class="relative flex gap-2 md:gap-4 mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-ce-2 border border-transparent md:border-ce-6 rounded-none sm:rounded-3xl shadow">
+									<div class="relative flex gap-2 md:gap-4 mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-ce-2 border border-transparent md:border-ce-6 rounded-none sm:rounded-3xl shadow-sm">
 										<div class="p-1">
 											<LucideIcon i={AlertCircle} class="text-ce-9" />
 										</div>
@@ -79,7 +92,7 @@ export default function Downloads$NamePage() {
 					<Show when={pkg()} keyed>
 						{(pkg) => (
 							<>
-								<Meta.Page title={`${pkg.name} - downloads`} description={`${pkg.description || pkg.name} - downloads statistics`} img={`downloads/${pkg.name}`} />
+								<Meta.Page title={`${pkg.name} - downloads`} description={`${pkg.description || pkg.name} - downloads statistics`} img={getImg(pkg.name)} />
 
 								<div class="flex items-center justify-center sm:pt-4 md:pt-10 xl:pt-24 sm:pb-3 md:pb-8 xl:pb-16">
 									<PackageContextProvider value={pkg}>
