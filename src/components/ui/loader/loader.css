@@ -1,36 +1,40 @@
-.xt-loader {
-	@apply inline-block border-4 rounded-[50%];
-	animation: xt-loader 1s linear infinite;
+@reference "./../../../styles/app.css";
 
-	&.x {
-		&-color {
-			&-n {
-				@apply border-cn-3 border-b-cn-9;
+@layer components {
+	.xt-loader {
+		@apply inline-block border-4 rounded-[50%];
+		animation: xt-loader 1s linear infinite;
+
+		&.x {
+			&-color {
+				&-n {
+					@apply border-cn-3 border-b-cn-9;
+				}
+				&-p {
+					@apply border-cp-3 border-b-cp-9;
+				}
 			}
-			&-p {
-				@apply border-cp-3 border-b-cp-9;
+
+			&-size {
+				&-sm {
+					@apply size-6;
+				}
+				&-md {
+					@apply size-10;
+				}
+				&-lg {
+					@apply size-14;
+				}
 			}
 		}
 
-		&-size {
-			&-sm {
-				@apply size-6;
+		@keyframes xt-loader {
+			0% {
+				transform: rotate(0deg);
 			}
-			&-md {
-				@apply size-10;
+			100% {
+				transform: rotate(360deg);
 			}
-			&-lg {
-				@apply size-14;
-			}
-		}
-	}
-
-	@keyframes xt-loader {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
 		}
 	}
 }

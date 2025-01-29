@@ -10,6 +10,10 @@ const PACKAGE_NAME_REGEXP = /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~
 export type TPackageNameSchema = v.InferOutput<typeof PackageNameSchema>;
 export const PackageNameSchema = v.pipe(StringSchema, v.trim(), v.regex(PACKAGE_NAME_REGEXP, `${__DEV__ ? '[valibot] ' : ''} Invalid package name format`), v.brand('package-name'));
 export const parsePackageName = createParser(PackageNameSchema);
+export const parseCachedPackageName = (() => {
+	const cache: Record<string, TPackageNameSchema> = {};
+	return (input: string) => (cache[input] ||= parsePackageName(input));
+})();
 
 export type TPackageMetadataSchema = v.InferOutput<typeof PackageMetadataSchema>;
 export const PackageMetadataSchema = v.object({

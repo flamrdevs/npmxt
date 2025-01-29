@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "./../../tailwind.config.ts";
 
 @layer base {
 	::-webkit-scrollbar {
@@ -27,7 +26,7 @@
 	}
 
 	a {
-		@apply rounded-lg outline-none focus-visible:outline-1 focus-visible:outline-cn-9;
+		@apply rounded-lg outline-hidden focus-visible:outline-1 focus-visible:outline-cn-9;
 	}
 }
 

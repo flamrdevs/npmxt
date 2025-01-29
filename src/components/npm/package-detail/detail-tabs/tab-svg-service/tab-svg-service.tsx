@@ -33,7 +33,7 @@ const Item = (props: { label: string; pathname: string }) => {
 					<input {...api().getInputProps()} disabled class="grow px-2 h-8 bg-transparent font-medium text-sm text-cn-11" />
 					<button
 						{...api().getTriggerProps()}
-						class="shrink-0 appearance-none inline-flex items-center justify-center rounded-md outline-none focus:outline-1 cursor-pointer bg-transparent hover:bg-cn-2 focus:outline-cn-9 size-6 mr-0.5 p-1 font-medium text-base"
+						class="shrink-0 appearance-none inline-flex items-center justify-center rounded-md outline-hidden focus:outline-1 cursor-pointer bg-transparent hover:bg-cn-2 focus:outline-cn-9 size-6 mr-0.5 p-1 font-medium text-base"
 					>
 						<LucideIcon i={api().copied ? Check : Copy} class={clsx('size-3.5', api().copied ? 'text-cs-11' : 'text-cn-11')} />
 					</button>

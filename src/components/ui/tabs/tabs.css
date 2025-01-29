@@ -1,26 +1,30 @@
-.xt-tabs {
-	@apply block;
+@reference "./../../../styles/app.css";
 
-	&-list {
-		@apply relative flex items-center gap-1 py-1 border border-transparent border-b-cn-3;
-	}
+@layer components {
+	.xt-tabs {
+		@apply block;
 
-	&-trigger {
-		@apply appearance-none inline-flex items-center justify-center gap-2 md:gap-3 outline-none cursor-pointer
-			bg-transparent hover:bg-cn-3 focus-visible:bg-cn-3 text-cn-11
-			h-10 px-5 py-3 font-medium text-base rounded-[0.625rem]
-			transition-colors;
-
-		&[data-selected] {
-			@apply text-cn-12;
+		&-list {
+			@apply relative flex items-center gap-1 py-1 border border-transparent border-b-cn-3;
 		}
-	}
 
-	&-indicator {
-		@apply absolute -bottom-0.5 h-0.5 bg-cp-9 rounded-full transition-all;
-	}
+		&-trigger {
+			@apply appearance-none inline-flex items-center justify-center gap-2 md:gap-3 outline-hidden cursor-pointer
+				bg-transparent hover:bg-cn-3 focus-visible:bg-cn-3 text-cn-11
+				h-10 px-5 py-3 font-medium text-base rounded-[0.625rem]
+				transition-colors;
 
-	&-content {
-		@apply p-1.5 md:p-2 outline-none;
+			&[data-selected] {
+				@apply text-cn-12;
+			}
+		}
+
+		&-indicator {
+			@apply absolute -bottom-0.5 h-0.5 bg-cp-9 rounded-full transition-all;
+		}
+
+		&-content {
+			@apply p-1.5 md:p-2 outline-hidden;
+		}
 	}
 }

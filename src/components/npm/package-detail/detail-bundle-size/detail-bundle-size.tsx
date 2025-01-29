@@ -38,9 +38,9 @@ export const DetailBundleSize = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>
 				<Suspense
 					fallback={
 						<div class="flex items-center gap-1.5 md:gap-2 pl-px h-10 animate-pulse">
-							<div class="w-16 h-6 bg-cn-4 rounded" />
+							<div class="w-16 h-6 bg-cn-4 rounded-sm" />
 							<div class="size-1 bg-cn-4 rounded-full" />
-							<div class="w-20 h-6 bg-cn-3 rounded" />
+							<div class="w-20 h-6 bg-cn-3 rounded-sm" />
 						</div>
 					}
 				>

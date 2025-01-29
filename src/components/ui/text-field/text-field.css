@@ -1,26 +1,30 @@
-.xt-text-field {
-	&[data-disabled] {
-		@apply select-none;
-	}
+@reference "./../../../styles/app.css";
 
-	&-input {
-		@apply appearance-none inline-flex items-center justify-center border rounded-[0.625rem] outline-none focus:outline-1
-			bg-cn-1 text-cn-11 border-cn-6 hover:border-cn-7 focus:outline-cp-9
-			min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
-
-		&::placeholder {
-			@apply text-cn-10;
-		}
-
-		&[data-invalid] {
-			@apply border-ce-6 hover:border-ce-7 focus:outline-ce-9;
-		}
-
+@layer components {
+	.xt-text-field {
 		&[data-disabled] {
-			@apply opacity-90 pointer-events-none bg-cn-5 text-cn-8 border-cn-6;
+			@apply select-none;
+		}
+
+		&-input {
+			@apply appearance-none inline-flex items-center justify-center border rounded-[0.625rem] outline-hidden focus:outline-1
+				bg-cn-1 text-cn-11 border-cn-6 hover:border-cn-7 focus:outline-cp-9
+				min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
 
 			&::placeholder {
-				@apply text-cn-8;
+				@apply text-cn-10;
+			}
+
+			&[data-invalid] {
+				@apply border-ce-6 hover:border-ce-7 focus:outline-ce-9;
+			}
+
+			&[data-disabled] {
+				@apply opacity-90 pointer-events-none bg-cn-5 text-cn-8 border-cn-6;
+
+				&::placeholder {
+					@apply text-cn-8;
+				}
 			}
 		}
 	}

@@ -1,15 +1,12 @@
 import { useLocation } from '@solidjs/router';
 
-import { type Network, createSocialShare } from '@solid-primitives/share';
+import { BLUESKY, X, createSocialShare } from '@solid-primitives/share';
 
 import { IconButton, Tooltip } from '~/components/ui';
 
 import { usePackageContext } from '~/contexts/package-context';
 
 import { NPMXT } from '~/utils/url';
-
-const BLUESKY: Network = 'https://bsky.app/intent/compose?text=@t \n @u';
-const X: Network = 'https://twitter.com/intent/tweet?text=@t&url=@u&hashtags=@h';
 
 export default () => {
 	const location = useLocation();

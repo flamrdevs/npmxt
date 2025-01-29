@@ -4,7 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 import solid from 'vite-plugin-solid';
 
-import autoImport from './auto-import';
+import autoImport from './app.config~auto-import';
 
 import define from './define';
 

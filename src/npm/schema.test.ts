@@ -1,14 +1,15 @@
 import * as v from 'valibot';
 
-import { parsePackageName } from './schema';
+import { parseCachedPackageName, parsePackageName } from './schema';
 
-describe('parsePackageName', () => {
+describe('parsePackageName & parseCachedPackageName', () => {
 	it.for([
 		//
 		['solid-js'],
 		['@solidjs/start'],
 	])('valid - %s', async ([name]) => {
 		expect(() => parsePackageName(name)).not.toThrow(v.ValiError);
+		expect(() => parseCachedPackageName(name)).not.toThrow(v.ValiError);
 	});
 
 	it.for([
@@ -33,5 +34,6 @@ describe('parsePackageName', () => {
 		['@scope/invalid<name>'],
 	])('invalid - %s', async ([name]) => {
 		expect(() => parsePackageName(name)).toThrow(v.ValiError);
+		expect(() => parseCachedPackageName(name)).toThrow(v.ValiError);
 	});
 });

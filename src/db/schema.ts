@@ -7,7 +7,7 @@ export const packageCreationTable = sqliteTable('package_creation_table', {
 	// name
 	n: text().primaryKey(),
 	// date
-	d: text().notNull(),
+	d: int().notNull(),
 	// expires
 	t: int().notNull(),
 	// refresh

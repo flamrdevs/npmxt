@@ -14,7 +14,7 @@ export const NPMPackageDownloads = () => {
 	const pkg = usePackageContext();
 
 	return (
-		<div class="relative flex flex-col mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-cn-2 border border-transparent md:border-cn-6 rounded-none sm:rounded-3xl shadow">
+		<div class="relative flex flex-col mx-0 sm:mx-5 md:mx-10 px-5 py-4 md:px-8 md:py-6 2xl:px-10 2xl:py-8 w-full max-w-[60rem] min-h-dvh sm:min-h-fit bg-cn-2 border border-transparent md:border-cn-6 rounded-none sm:rounded-3xl shadow-sm">
 			<div class="hidden md:block absolute -top-10 -left-6 w-px h-96 bg-gradient-to-b from-cn-3 to-transparent" />
 			<div class="hidden md:block absolute -top-10 -right-6 w-px h-96 bg-gradient-to-b from-cn-3 to-transparent" />
 			<div class="hidden md:block absolute -top-6 -left-10 -right-10 h-px bg-cn-3" />
@@ -64,14 +64,14 @@ export const NPMPackageDownloads = () => {
 									<div class="grow">
 										<div class="p-3 md:p-4 xl:p-5 w-full aspect-[2/1] animate-pulse">
 											<div class="relative size-full">
-												<div class="absolute top-1/3 left-0 w-full h-px bg-cn-4 rounded" />
-												<div class="absolute top-2/3 left-0 w-full h-px bg-cn-4 rounded" />
+												<div class="absolute top-1/3 left-0 w-full h-px bg-cn-4 rounded-sm" />
+												<div class="absolute top-2/3 left-0 w-full h-px bg-cn-4 rounded-sm" />
 
-												<div class="absolute bottom-2 left-0 w-full h-0.5 bg-cn-6 rounded" />
-												<div class="absolute top-0 left-2 w-0.5 h-full bg-cn-6 rounded" />
+												<div class="absolute bottom-2 left-0 w-full h-0.5 bg-cn-6 rounded-sm" />
+												<div class="absolute top-0 left-2 w-0.5 h-full bg-cn-6 rounded-sm" />
 
-												<div class="absolute h-px bg-cp-9 rounded -rotate-[15deg]" style={{ top: '40%', left: '15%', width: '60%' }} />
-												<div class="absolute h-px bg-cp-9 rounded -rotate-[21deg]" style={{ top: '60%', left: '65%', width: '30%' }} />
+												<div class="absolute h-px bg-cp-9 rounded-sm -rotate-[15deg]" style={{ top: '40%', left: '15%', width: '60%' }} />
+												<div class="absolute h-px bg-cp-9 rounded-sm -rotate-[21deg]" style={{ top: '60%', left: '65%', width: '30%' }} />
 											</div>
 										</div>
 									</div>

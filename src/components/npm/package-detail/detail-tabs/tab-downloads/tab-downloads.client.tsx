@@ -22,8 +22,8 @@ import { formatNumber } from '~/utils/formatter';
 
 const Chart = (props: { d1: number[]; d2: number[] }) => {
 	return createMemo(() => {
-		const chartWidth = 120;
-		const chartHeight = 50;
+		const chartWidth = 180;
+		const chartHeight = 55;
 
 		const mx = 5;
 		const my = 5;
@@ -121,10 +121,10 @@ export default () => {
 					<Separator />
 					<Card label="Last month" period={PACKAGE_DOWNLOADS_LAST_MAP.month} lastYear={lastYear} />
 					<Separator />
-					<div class="py-1 md:py-2">
-						<Link as={A} href={linkWithThemeQuery(`/downloads/${pkg.name}`, location.query)} class="inline-flex items-center justify-center gap-2 px-4 py-2 text-base text-cn-10 hover:text-cp-10">
+					<div class="py-1.5 md:py-3">
+						<Link as={A} href={linkWithThemeQuery(`/downloads/${pkg.name}`, location.query)} class="group inline-flex items-center justify-center gap-2 px-4 py-2 text-lg text-cn-10 hover:text-cp-10">
 							<span>View all time downloads</span>
-							<LucideIcon i={ArrowRight} class="size-4" />
+							<LucideIcon i={ArrowRight} class="size-5 group-hover:translate-x-1 transition-transform" />
 						</Link>
 					</div>
 				</div>

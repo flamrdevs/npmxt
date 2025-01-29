@@ -9,27 +9,27 @@ import {
 	type TPackageDownloadsPointSchema,
 	type TPackageDownloadsRangeSchema,
 	type TPackageNameSchema,
+	parseCachedPackageName,
 	parsePackageDownloadsLast,
-	parsePackageName,
 } from '~/npm/schema';
 import { BASE_URL_API as NPM_BASE_URL_API } from '~/npm/url';
 
 import { MOCK_PACKAGE } from '../registry.npmjs/handlers';
 
 const MOCK_PACKAGE_DOWNLOAD_RANGE: Record<TPackageNameSchema, number | TPackageDownloadsRangeSchema['downloads']> = {
-	[parsePackageName('@klass/core')]: 1,
-	[parsePackageName('@kobalte/core')]: 1,
-	[parsePackageName('@solidjs/meta')]: 2,
-	[parsePackageName('@solidjs/router')]: 2,
-	[parsePackageName('@solidjs/start')]: 1,
-	[parsePackageName('npmxt')]: 1,
-	[parsePackageName('react')]: 5,
-	[parsePackageName('react-dom')]: 5,
-	[parsePackageName('solid-js')]: 2,
-	[parsePackageName('svelte')]: 3,
-	[parsePackageName('vue')]: 4,
-	[parsePackageName('looooooooo-oooooooo-oooooooooooooooong')]: 100,
-	[parsePackageName('@looooooooo/oooooooooooo-oooooooooooooooooooooooong')]: 10000,
+	[parseCachedPackageName('@klass/core')]: 1,
+	[parseCachedPackageName('@kobalte/core')]: 1,
+	[parseCachedPackageName('@solidjs/meta')]: 2,
+	[parseCachedPackageName('@solidjs/router')]: 2,
+	[parseCachedPackageName('@solidjs/start')]: 1,
+	[parseCachedPackageName('npmxt')]: 1,
+	[parseCachedPackageName('react')]: 5,
+	[parseCachedPackageName('react-dom')]: 5,
+	[parseCachedPackageName('solid-js')]: 2,
+	[parseCachedPackageName('svelte')]: 3,
+	[parseCachedPackageName('vue')]: 4,
+	[parseCachedPackageName('looooooooo-oooooooo-oooooooooooooooong')]: 100,
+	[parseCachedPackageName('@looooooooo/oooooooooooo-oooooooooooooooooooooooong')]: 10000,
 };
 
 const MIN_START_DATE_DAYJS = dayjs('2015-01-01' /* behind MIN_START_DOWNLOAD_DATE */, DOWNLOAD_DATE_FORMAT);

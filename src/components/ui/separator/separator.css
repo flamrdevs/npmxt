@@ -1,28 +1,32 @@
-.xt-separator {
-	@apply appearance-none border-none;
+@reference "./../../../styles/app.css";
 
-	&.x {
-		&-color {
-			&-n3 {
-				@apply bg-cn-3;
-			}
-			&-n6 {
-				@apply bg-cn-6;
-			}
-			&-p3 {
-				@apply bg-cp-3;
-			}
-			&-p6 {
-				@apply bg-cp-6;
+@layer components {
+	.xt-separator {
+		@apply appearance-none border-none;
+
+		&.x {
+			&-color {
+				&-n3 {
+					@apply bg-cn-3;
+				}
+				&-n6 {
+					@apply bg-cn-6;
+				}
+				&-p3 {
+					@apply bg-cp-3;
+				}
+				&-p6 {
+					@apply bg-cp-6;
+				}
 			}
 		}
-	}
 
-	&[data-orientation="horizontal"] {
-		@apply h-px w-full;
-	}
+		&[data-orientation="horizontal"] {
+			@apply h-px w-full;
+		}
 
-	&[data-orientation="vertical"] {
-		@apply h-full w-px;
+		&[data-orientation="vertical"] {
+			@apply h-full w-px;
+		}
 	}
 }
