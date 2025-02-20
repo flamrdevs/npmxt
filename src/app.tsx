@@ -16,6 +16,7 @@ import { ColorModeShortcut } from '~/components/theme/color-mode-shortcut';
 
 import { QueryListener } from '~/theme/query-listener';
 
+import '~/styles/layer.css';
 import '~/styles/fonts.css';
 import '~/styles/app.css';
 

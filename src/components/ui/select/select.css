@@ -7,7 +7,7 @@
 		}
 	}
 
-	.xt-selecttrigger {
+	.xt-select-trigger {
 		@apply appearance-none inline-flex items-center justify-between border rounded-[0.625rem] outline-hidden focus:outline-1 cursor-pointer
 		bg-cn-1 border-cn-6 hover:border-cn-7 focus:outline-cp-9
 		min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
@@ -21,7 +21,7 @@
 		}
 	}
 
-	.xt-selectvalue {
+	.xt-select-value {
 		@apply text-cn-11 text-ellipsis whitespace-nowrap overflow-hidden;
 
 		&[data-placeholder-shown] {
@@ -46,30 +46,8 @@
 		animation: xt-select-content-hide 100ms ease-in forwards;
 		@apply relative z-50 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-[0.625rem] outline-hidden shadow-2xl shadow-black-2;
 
-		@keyframes xt-select-content-hide {
-			from {
-				opacity: 1;
-				transform: scale(1);
-			}
-			to {
-				opacity: 0;
-				transform: scale(0.96);
-			}
-		}
-
 		&[data-expanded] {
 			animation: xt-select-content-show 80ms ease-out;
-
-			@keyframes xt-select-content-show {
-				from {
-					opacity: 0;
-					transform: scale(0.96);
-				}
-				to {
-					opacity: 1;
-					transform: scale(1);
-				}
-			}
 		}
 	}
 
@@ -99,5 +77,27 @@
 		> svg {
 			@apply size-full;
 		}
+	}
+}
+
+@keyframes xt-select-content-hide {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+
+@keyframes xt-select-content-show {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }

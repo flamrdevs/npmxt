@@ -9,30 +9,8 @@
 		animation: xt-popover-content-hide 100ms ease-in forwards;
 		@apply relative z-50 px-4 py-3 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-2xl outline-hidden shadow-2xl shadow-black-2;
 
-		@keyframes xt-popover-content-hide {
-			from {
-				opacity: 1;
-				transform: scale(1);
-			}
-			to {
-				opacity: 0;
-				transform: scale(0.96);
-			}
-		}
-
 		&[data-expanded] {
 			animation: xt-popover-content-show 80ms ease-out;
-
-			@keyframes xt-popover-content-show {
-				from {
-					opacity: 0;
-					transform: scale(0.96);
-				}
-				to {
-					opacity: 1;
-					transform: scale(1);
-				}
-			}
 		}
 	}
 
@@ -50,5 +28,27 @@
 
 	.xt-popover-description {
 		@apply text-sm text-cn-11;
+	}
+}
+
+@keyframes xt-popover-content-hide {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+
+@keyframes xt-popover-content-show {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
