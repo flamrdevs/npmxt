@@ -7,34 +7,34 @@
 		animation: xt-tooltip-content-hide 100ms ease-in forwards;
 		@apply relative z-50 px-3 py-2 bg-cn-2/90 backdrop-blur-sm border border-cn-4 rounded-xl outline-hidden shadow-xl shadow-black-1;
 
-		@keyframes xt-tooltip-content-hide {
-			from {
-				opacity: 1;
-				transform: scale(1);
-			}
-			to {
-				opacity: 0;
-				transform: scale(0.96);
-			}
-		}
-
 		&[data-expanded] {
 			animation: xt-tooltip-content-show 80ms ease-out;
-
-			@keyframes xt-tooltip-content-show {
-				from {
-					opacity: 0;
-					transform: scale(0.96);
-				}
-				to {
-					opacity: 1;
-					transform: scale(1);
-				}
-			}
 		}
 	}
 
 	.xt-tooltip-arrow {
 		@apply fill-cn-2/90 stroke-cn-4;
+	}
+}
+
+@keyframes xt-tooltip-content-hide {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+
+@keyframes xt-tooltip-content-show {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
