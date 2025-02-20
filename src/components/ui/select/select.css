@@ -5,99 +5,99 @@
 		&[data-disabled] {
 			@apply select-none;
 		}
+	}
 
-		&-trigger {
-			@apply appearance-none inline-flex items-center justify-between border rounded-[0.625rem] outline-hidden focus:outline-1 cursor-pointer
-			bg-cn-1 border-cn-6 hover:border-cn-7 focus:outline-cp-9
-			min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
+	.xt-selecttrigger {
+		@apply appearance-none inline-flex items-center justify-between border rounded-[0.625rem] outline-hidden focus:outline-1 cursor-pointer
+		bg-cn-1 border-cn-6 hover:border-cn-7 focus:outline-cp-9
+		min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
 
-			&[data-invalid] {
-				@apply border-ce-6 hover:border-ce-7 focus:outline-ce-9;
+		&[data-invalid] {
+			@apply border-ce-6 hover:border-ce-7 focus:outline-ce-9;
+		}
+
+		&[data-disabled] {
+			@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
+		}
+	}
+
+	.xt-selectvalue {
+		@apply text-cn-11 text-ellipsis whitespace-nowrap overflow-hidden;
+
+		&[data-placeholder-shown] {
+			@apply text-cn-10;
+		}
+
+		&[data-disabled] {
+			@apply text-cn-8;
+		}
+	}
+
+	.xt-select-icon {
+		@apply size-4 text-cn-10;
+
+		> svg {
+			@apply size-full;
+		}
+	}
+
+	.xt-select-content {
+		transform-origin: var(--kb-select-content-transform-origin);
+		animation: xt-select-content-hide 100ms ease-in forwards;
+		@apply relative z-50 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-[0.625rem] outline-hidden shadow-2xl shadow-black-2;
+
+		@keyframes xt-select-content-hide {
+			from {
+				opacity: 1;
+				transform: scale(1);
 			}
-
-			&[data-disabled] {
-				@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
+			to {
+				opacity: 0;
+				transform: scale(0.96);
 			}
 		}
 
-		&-value {
-			@apply text-cn-11 text-ellipsis whitespace-nowrap overflow-hidden;
+		&[data-expanded] {
+			animation: xt-select-content-show 80ms ease-out;
 
-			&[data-placeholder-shown] {
-				@apply text-cn-10;
-			}
-
-			&[data-disabled] {
-				@apply text-cn-8;
-			}
-		}
-
-		&-icon {
-			@apply size-4 text-cn-10;
-
-			> svg {
-				@apply size-full;
-			}
-		}
-
-		&-content {
-			transform-origin: var(--kb-select-content-transform-origin);
-			animation: xt-select-content-hide 100ms ease-in forwards;
-			@apply relative z-50 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-[0.625rem] outline-hidden shadow-2xl shadow-black-2;
-
-			@keyframes xt-select-content-hide {
+			@keyframes xt-select-content-show {
 				from {
-					opacity: 1;
-					transform: scale(1);
-				}
-				to {
 					opacity: 0;
 					transform: scale(0.96);
 				}
-			}
-
-			&[data-expanded] {
-				animation: xt-select-content-show 80ms ease-out;
-
-				@keyframes xt-select-content-show {
-					from {
-						opacity: 0;
-						transform: scale(0.96);
-					}
-					to {
-						opacity: 1;
-						transform: scale(1);
-					}
+				to {
+					opacity: 1;
+					transform: scale(1);
 				}
 			}
 		}
+	}
 
-		&-listbox {
-			@apply outline-hidden max-h-[24rem] p-1.5 overflow-y-auto;
+	.xt-select-listbox {
+		@apply outline-hidden max-h-[24rem] p-1.5 overflow-y-auto;
+	}
+
+	.xt-select-item {
+		@apply relative flex items-center justify-between h-9 px-2 py-1 bg-transparent text-cn-11 font-normal text-base rounded-[0.375rem] outline-hidden select-none;
+
+		&[data-selected] {
+			@apply text-cn-12;
 		}
 
-		&-item {
-			@apply relative flex items-center justify-between h-9 px-2 py-1 bg-transparent text-cn-11 font-normal text-base rounded-[0.375rem] outline-hidden select-none;
+		&[data-highlighted] {
+			@apply bg-cp-9 text-white;
+		}
+	}
 
-			&[data-selected] {
-				@apply text-cn-12;
-			}
+	.xt-select-item-label {
+		@apply text-inherit text-ellipsis whitespace-nowrap overflow-hidden;
+	}
 
-			&[data-highlighted] {
-				@apply bg-cp-9 text-white;
-			}
+	.xt-select-item-indicator {
+		@apply size-3.5 text-inherit;
 
-			&-label {
-				@apply text-inherit text-ellipsis whitespace-nowrap overflow-hidden;
-			}
-
-			&-indicator {
-				@apply size-3.5 text-inherit;
-
-				> svg {
-					@apply size-full;
-				}
-			}
+		> svg {
+			@apply size-full;
 		}
 	}
 }

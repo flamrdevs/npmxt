@@ -4,21 +4,17 @@
 	.xt-separator {
 		@apply appearance-none border-none;
 
-		&.x {
-			&-color {
-				&-n3 {
-					@apply bg-cn-3;
-				}
-				&-n6 {
-					@apply bg-cn-6;
-				}
-				&-p3 {
-					@apply bg-cp-3;
-				}
-				&-p6 {
-					@apply bg-cp-6;
-				}
-			}
+		&.x-color-n3 {
+			@apply bg-cn-3;
+		}
+		&.x-color-n6 {
+			@apply bg-cn-6;
+		}
+		&.x-color-p3 {
+			@apply bg-cp-3;
+		}
+		&.x-color-p6 {
+			@apply bg-cp-6;
 		}
 
 		&[data-orientation="horizontal"] {

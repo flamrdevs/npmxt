@@ -1,56 +1,54 @@
 @reference "./../../../styles/app.css";
 
 @layer components {
-	.xt-popover {
-		&-content {
-			min-width: 3.125rem;
-			min-height: 3.125rem;
-			max-width: min(calc(100dvw - 1rem), 25rem);
-			transform-origin: var(--kb-popover-content-transform-origin);
-			animation: xt-popover-content-hide 100ms ease-in forwards;
-			@apply relative z-50 px-4 py-3 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-2xl outline-hidden shadow-2xl shadow-black-2;
+	.xt-popover-content {
+		min-width: 3.125rem;
+		min-height: 3.125rem;
+		max-width: min(calc(100dvw - 1rem), 25rem);
+		transform-origin: var(--kb-popover-content-transform-origin);
+		animation: xt-popover-content-hide 100ms ease-in forwards;
+		@apply relative z-50 px-4 py-3 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-2xl outline-hidden shadow-2xl shadow-black-2;
 
-			@keyframes xt-popover-content-hide {
+		@keyframes xt-popover-content-hide {
+			from {
+				opacity: 1;
+				transform: scale(1);
+			}
+			to {
+				opacity: 0;
+				transform: scale(0.96);
+			}
+		}
+
+		&[data-expanded] {
+			animation: xt-popover-content-show 80ms ease-out;
+
+			@keyframes xt-popover-content-show {
 				from {
-					opacity: 1;
-					transform: scale(1);
-				}
-				to {
 					opacity: 0;
 					transform: scale(0.96);
 				}
-			}
-
-			&[data-expanded] {
-				animation: xt-popover-content-show 80ms ease-out;
-
-				@keyframes xt-popover-content-show {
-					from {
-						opacity: 0;
-						transform: scale(0.96);
-					}
-					to {
-						opacity: 1;
-						transform: scale(1);
-					}
+				to {
+					opacity: 1;
+					transform: scale(1);
 				}
 			}
 		}
+	}
 
-		&-arrow {
-			@apply fill-cn-2/90 stroke-cn-5;
-		}
+	.xt-popover-arrow {
+		@apply fill-cn-2/90 stroke-cn-5;
+	}
 
-		&-close-button {
-			@apply absolute top-3 right-3;
-		}
+	.xt-popover-close-button {
+		@apply absolute top-3 right-3;
+	}
 
-		&-title {
-			@apply font-medium text-base text-cn-12;
-		}
+	.xt-popover-title {
+		@apply font-medium text-base text-cn-12;
+	}
 
-		&-description {
-			@apply text-sm text-cn-11;
-		}
+	.xt-popover-description {
+		@apply text-sm text-cn-11;
 	}
 }

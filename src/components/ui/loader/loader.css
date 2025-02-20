@@ -5,27 +5,21 @@
 		@apply inline-block border-4 rounded-[50%];
 		animation: xt-loader 1s linear infinite;
 
-		&.x {
-			&-color {
-				&-n {
-					@apply border-cn-3 border-b-cn-9;
-				}
-				&-p {
-					@apply border-cp-3 border-b-cp-9;
-				}
-			}
+		&.x-color-n {
+			@apply border-cn-3 border-b-cn-9;
+		}
+		&.x-color-p {
+			@apply border-cp-3 border-b-cp-9;
+		}
 
-			&-size {
-				&-sm {
-					@apply size-6;
-				}
-				&-md {
-					@apply size-10;
-				}
-				&-lg {
-					@apply size-14;
-				}
-			}
+		&.x-size-sm {
+			@apply size-6;
+		}
+		&.x-size-md {
+			@apply size-10;
+		}
+		&.x-size-lg {
+			@apply size-14;
 		}
 
 		@keyframes xt-loader {
