@@ -71,8 +71,10 @@
 		"drizzle-kit": "0.30.4",
 		"fake-indexeddb": "6.0.0",
 		"husky": "9.1.7",
+		"inflight": "1.0.6",
 		"jsdom": "26.0.0",
 		"msw": "2.7.0",
+		"once": "1.4.0",
 		"postcss": "8.5.3",
 		"tailwindcss": "4.0.7",
 		"type-fest": "4.35.0",
@@ -81,7 +83,8 @@
 		"vite": "6.1.1",
 		"vite-plugin-solid": "2.11.2",
 		"vite-tsconfig-paths": "5.1.4",
-		"vitest": "3.0.6"
+		"vitest": "3.0.6",
+		"wrappy": "1.0.2"
 	},
 	"msw": {
 		"workerDirectory": ["public"]
