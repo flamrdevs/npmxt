@@ -8,6 +8,7 @@ const minify = true;
 
 export default defineConfig({
 	server: {
+		preset: 'netlify_edge',
 		prerender: {
 			routes: ['/', '/ui', '/packages'],
 		},
