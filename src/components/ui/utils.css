@@ -3,35 +3,33 @@
 @layer components {
 	.xt-fc {
 		@apply flex flex-col gap-1.5;
+	}
 
-		&-label {
-			@apply block mb-0.5 font-medium text-base text-cn-12 select-none;
-		}
+	.xt-fc-label {
+		@apply block mb-0.5 font-medium text-base text-cn-12 select-none;
+	}
 
-		&-description {
-			@apply text-sm leading-none text-cn-10 select-none;
-		}
+	.xt-fc-description {
+		@apply text-sm leading-none text-cn-10 select-none;
+	}
 
-		&-ce-message {
-			@apply text-sm leading-none text-ce-10 select-none;
-		}
+	.xt-fc-ce-message {
+		@apply text-sm leading-none text-ce-10 select-none;
 	}
 
 	.xt-inline-fc {
 		@apply flex items-center justify-between gap-2;
+	}
 
-		&-label {
-			@apply block font-medium text-base text-cn-12 select-none;
+	.xt-inline-fc-label {
+		@apply block font-medium text-base text-cn-12 select-none;
 
-			&.x {
-				&-l {
-					@apply mr-0.5;
-				}
+		&.x-l {
+			@apply mr-0.5;
+		}
 
-				&-r {
-					@apply ml-0.5;
-				}
-			}
+		&.x-r {
+			@apply ml-0.5;
 		}
 	}
 

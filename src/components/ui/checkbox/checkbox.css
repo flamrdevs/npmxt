@@ -1,43 +1,41 @@
 @reference "./../../../styles/app.css";
 
 @layer components {
-	.xt-checkbox {
-		&-control {
-			@apply relative size-[1.5rem] bg-cn-1 border border-cn-6 rounded-[0.625rem] outline-hidden cursor-pointer;
-			transition: 200ms background-color;
+	.xt-checkbox-control {
+		@apply relative size-[1.5rem] bg-cn-1 border border-cn-6 rounded-[0.625rem] outline-hidden cursor-pointer;
+		transition: 200ms background-color;
 
-			&[data-checked] {
-				@apply bg-cp-9 border-cp-10;
-			}
-
-			&[data-disabled] {
-				@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
-			}
+		&[data-checked] {
+			@apply bg-cp-9 border-cp-10;
 		}
 
-		&-input:focus-visible + &-control {
-			@apply outline-1 outline-cn-9;
+		&[data-disabled] {
+			@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
+		}
+	}
 
-			&[data-checked] {
-				@apply outline-cp-9;
-			}
+	.xt-checkbox-input:focus-visible + .xt-checkbox-control {
+		@apply outline-1 outline-cn-9;
+
+		&[data-checked] {
+			@apply outline-cp-9;
+		}
+	}
+
+	.xt-checkbox-indicator {
+		@apply flex items-center justify-center size-full text-cn-9 rounded-[0.625rem];
+		transition: 200ms color, 200ms transform;
+
+		> svg {
+			@apply size-3/4;
 		}
 
-		&-indicator {
-			@apply flex items-center justify-center size-full text-cn-9 rounded-[0.625rem];
-			transition: 200ms color, 200ms transform;
+		&[data-checked] {
+			@apply text-white;
+		}
 
-			> svg {
-				@apply size-3/4;
-			}
-
-			&[data-checked] {
-				@apply text-white;
-			}
-
-			&[data-disabled] {
-				@apply text-cn-8;
-			}
+		&[data-disabled] {
+			@apply text-cn-8;
 		}
 	}
 }

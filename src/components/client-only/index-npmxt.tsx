@@ -1,6 +1,27 @@
-import { For } from 'solid-js';
+import { For, type ParentProps, onMount } from 'solid-js';
 
-import { Motion } from 'solid-motionone';
+import { animate } from 'motion';
+
+const MotionSpan = (props: ParentProps<{ x: number }>) => {
+	let ref!: HTMLSpanElement;
+
+	onMount(() => {
+		animate(ref, { x: [props.x, 0], opacity: [0, 1] }, { duration: 1 });
+	});
+
+	return (
+		<span
+			class="inline-block"
+			ref={ref}
+			style={{
+				opacity: 0,
+				transform: `translate(${props.x}px, 0)`,
+			}}
+		>
+			{props.children}
+		</span>
+	);
+};
 
 export default () => {
 	return (
@@ -13,18 +34,14 @@ export default () => {
 			>
 				<For
 					each={[
-						{ v: 'n', x: -50 },
-						{ v: 'p', x: -20 },
-						{ v: 'm', x: 0 },
-						{ v: 'x', x: 20 },
-						{ v: 't', x: 50 },
+						{ c: 'n', x: -70 },
+						{ c: 'p', x: -30 },
+						{ c: 'm', x: 0 },
+						{ c: 'x', x: 30 },
+						{ c: 't', x: 70 },
 					]}
 				>
-					{({ v, x }) => (
-						<Motion.span class="inline-block" initial={{ x, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 2, easing: [0.16, 1, 0.3, 1] }}>
-							{v}
-						</Motion.span>
-					)}
+					{({ c, x }) => <MotionSpan x={x}>{c}</MotionSpan>}
 				</For>
 			</div>
 		</div>

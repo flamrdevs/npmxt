@@ -30,5 +30,5 @@ export const LucideIcon = ({ i, size = 24, color = 'currentColor' }: LucideIcon.
 		strokeWidth: 1.5,
 		strokeLinecap: 'round',
 		strokeLinejoin: 'round',
-		children: i[2]?.map(([Tag, props]) => h.e(Tag, props)),
+		children: i.map(([Tag, props]) => h.e(Tag, props)),
 	});

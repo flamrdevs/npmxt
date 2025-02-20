@@ -1,41 +1,39 @@
 @reference "./../../../styles/app.css";
 
 @layer components {
-	.xt-switch {
-		&-control {
-			@apply inline-flex items-center w-[2.75rem] h-[1.5rem] bg-cn-1 border border-cn-6 rounded-full outline-hidden cursor-pointer;
-			padding: 0.125rem;
-			transition: 200ms background-color;
+	.xt-switch-control {
+		@apply inline-flex items-center w-[2.75rem] h-[1.5rem] bg-cn-1 border border-cn-6 rounded-full outline-hidden cursor-pointer;
+		padding: 0.125rem;
+		transition: 200ms background-color;
 
-			&[data-checked] {
-				@apply bg-cp-9 border-cp-10;
-			}
-
-			&[data-disabled] {
-				@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
-			}
+		&[data-checked] {
+			@apply bg-cp-9 border-cp-10;
 		}
 
-		&-input:focus-visible + &-control {
-			@apply outline-1 outline-cn-9;
+		&[data-disabled] {
+			@apply opacity-90 pointer-events-none bg-cn-5 border-cn-6;
+		}
+	}
 
-			&[data-checked] {
-				@apply outline-cp-9;
-			}
+	.xt-switch-input:focus-visible + .xt-switch-control {
+		@apply outline-1 outline-cn-9;
+
+		&[data-checked] {
+			@apply outline-cp-9;
+		}
+	}
+
+	.xt-switch-thumb {
+		@apply size-[1.125rem] bg-cn-9 rounded-full;
+		transition: 200ms background-color, 200ms transform;
+
+		&[data-checked] {
+			@apply bg-white;
+			transform: translateX(1.25rem);
 		}
 
-		&-thumb {
-			@apply size-[1.125rem] bg-cn-9 rounded-full;
-			transition: 200ms background-color, 200ms transform;
-
-			&[data-checked] {
-				@apply bg-white;
-				transform: translateX(1.25rem);
-			}
-
-			&[data-disabled] {
-				@apply bg-cn-8;
-			}
+		&[data-disabled] {
+			@apply bg-cn-8;
 		}
 	}
 }
