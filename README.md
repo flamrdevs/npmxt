@@ -8,7 +8,7 @@
 
 <hr />
 
-![index page](./image.png)
+![index page](./image.jpg)
 
 Supercharge your development with npm e-xtended tools - essential utilities to boost productivity.
 

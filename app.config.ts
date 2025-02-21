@@ -13,7 +13,6 @@ export default defineConfig({
 		},
 		minify,
 	},
-	middleware: './src/middleware.ts',
 	vite: {
 		define: define({
 			dev: process.argv.includes('dev'),
