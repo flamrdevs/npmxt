@@ -5,6 +5,8 @@ import { type ValidationState, mergeDefaultProps } from '@kobalte/utils';
 
 import { X } from 'lucide';
 
+import { clsx } from 'clsx';
+
 import { classesSplitter, classesToArray } from '../utils';
 
 import { LucideIcon } from '../icons';

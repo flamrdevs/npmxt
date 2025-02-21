@@ -4,12 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 import solid from 'vite-plugin-solid';
 
-import autoImport from './app.config~auto-import';
+import tailwindcss from '@tailwindcss/vite';
 
 import define from './define';
 
 export default defineConfig({
-	plugins: [tsconfigPaths(), autoImport(), solid()],
+	plugins: [tsconfigPaths(), tailwindcss(), solid()] as any[],
 	define: define({
 		dev: true,
 		test: true,

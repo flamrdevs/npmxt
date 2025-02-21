@@ -2,6 +2,8 @@ import { splitProps } from 'solid-js';
 
 import * as K from '@kobalte/core/switch';
 
+import { clsx } from 'clsx';
+
 import { classesSplitter, classesToArray } from '../../utils';
 
 import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from './../utils';

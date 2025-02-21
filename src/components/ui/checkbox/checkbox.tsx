@@ -4,6 +4,8 @@ import * as K from '@kobalte/core/checkbox';
 
 import { Check } from 'lucide';
 
+import { clsx } from 'clsx';
+
 import { LucideIcon } from '../../icons';
 
 import { classesSplitter, classesToArray } from '../../utils';

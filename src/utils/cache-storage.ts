@@ -4,6 +4,8 @@ import { createStorage } from 'unstorage';
 import indexedb from 'unstorage/drivers/indexedb';
 import memory from 'unstorage/drivers/memory';
 
+import { delay } from '~/utils/delay';
+
 export const createCacheStorage = <T>(base: string) => {
 	type StorageValue = {
 		// data
