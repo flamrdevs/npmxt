@@ -9,6 +9,8 @@ import { normalizeProps, useMachine } from '@zag-js/solid';
 
 import { Check, ChevronDown, Copy } from 'lucide';
 
+import { clsx } from 'clsx';
+
 import type { TPackageNameSchema } from '~/npm/schema';
 
 import { usePackageContext } from '~/contexts/package-context';

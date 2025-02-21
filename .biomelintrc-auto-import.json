@@ -1,9 +1,0 @@
-{
-  "javascript": {
-    "globals": [
-      "clsx",
-      "delay",
-      "range"
-    ]
-  }
-}

@@ -2,6 +2,8 @@ import { splitProps } from 'solid-js';
 
 import * as K from '@kobalte/core/text-field';
 
+import { clsx } from 'clsx';
+
 import { classesSplitter, classesToArray } from '../../utils';
 
 import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from './../utils';

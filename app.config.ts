@@ -1,6 +1,6 @@
 import { defineConfig } from '@solidjs/start/config';
 
-import autoImport from './app.config~auto-import';
+import tailwindcss from '@tailwindcss/vite';
 
 import define from './define';
 
@@ -24,7 +24,7 @@ export default defineConfig({
 					}
 				: undefined,
 		}),
-		plugins: [autoImport()],
+		plugins: [tailwindcss()] as any[],
 		build: {
 			minify,
 		},

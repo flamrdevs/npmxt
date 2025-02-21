@@ -21,6 +21,7 @@ import type { TPackageNameSchema } from '~/npm/schema';
 
 import { fontFamilySans, v_cn2, v_cn6, v_cn8, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
 import { dayjs } from '~/utils/dayjs';
+import { delay } from '~/utils/delay';
 import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
 import { usePackageContext } from '~/contexts/package-context';

@@ -1,6 +1,5 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"extends": ["./.biomelintrc-auto-import.json"],
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -8,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["public/mockServiceWorker.js", "src/types/auto-imports.d.ts"]
+		"ignore": ["public/mockServiceWorker.js"]
 	},
 	"formatter": {
 		"enabled": true,

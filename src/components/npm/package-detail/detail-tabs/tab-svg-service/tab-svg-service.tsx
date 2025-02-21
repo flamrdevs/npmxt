@@ -5,6 +5,8 @@ import { normalizeProps, useMachine } from '@zag-js/solid';
 
 import { Check, Copy } from 'lucide';
 
+import { clsx } from 'clsx';
+
 import { LucideIcon } from '~/components/icons';
 
 import { usePackageContext } from '~/contexts/package-context';

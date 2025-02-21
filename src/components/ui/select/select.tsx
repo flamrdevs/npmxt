@@ -5,6 +5,8 @@ import * as K from '@kobalte/core/select';
 
 import { Check, ChevronsUpDown } from 'lucide';
 
+import { clsx } from 'clsx';
+
 import { LucideIcon } from '../../icons';
 
 import { classesSplitter, classesToArray } from '../../utils';

@@ -3,6 +3,8 @@ import { Dynamic } from 'solid-js/web';
 
 import * as K from '@kobalte/core/tabs';
 
+import { clsx } from 'clsx';
+
 import { classesSplitter, classesToArray } from '../../utils';
 
 import './tabs.css';

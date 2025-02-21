@@ -15,6 +15,7 @@ import { usePackageContext } from '~/contexts/package-context';
 
 import { packageFilename } from '~/npm/misc/pkg-filename';
 
+import { delay } from '~/utils/delay';
 import { NPMXT } from '~/utils/url';
 
 export default () => {
