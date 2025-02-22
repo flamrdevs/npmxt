@@ -95,14 +95,12 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 		return SELECT_OPTION[typeof pm === 'string' && pm in PACKAGE_MANAGER ? (pm as PackageManager) : FALLBACK_PACKAGE_MANAGER];
 	});
 
-	const [state, send] = useMachine(
-		clipboard.machine({
-			id: createUniqueId(),
-			value: getCommandValue(packageManager(), pkg.name),
-		})
-	);
+	const service = useMachine(clipboard.machine, {
+		id: createUniqueId(),
+		value: getCommandValue(packageManager(), pkg.name),
+	});
 
-	const api = createMemo(() => clipboard.connect(state, send, normalizeProps));
+	const api = createMemo(() => clipboard.connect(service, normalizeProps));
 
 	createEffect(() => {
 		api().setValue(getCommandValue(packageManager(), pkg.name));

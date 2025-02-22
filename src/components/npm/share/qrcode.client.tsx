@@ -25,17 +25,15 @@ export default () => {
 
 	const getValue = (pathname: string, search: string) => `${NPMXT}${pathname}${search}`;
 
-	const [state, send] = useMachine(
-		qrCode.machine({
-			id: createUniqueId(),
-			value: getValue(location.pathname, location.search),
-			encoding: {
-				ecc: 'H',
-			},
-		})
-	);
+	const service = useMachine(qrCode.machine, {
+		id: createUniqueId(),
+		value: getValue(location.pathname, location.search),
+		encoding: {
+			ecc: 'H',
+		},
+	});
 
-	const api = createMemo(() => qrCode.connect(state, send, normalizeProps));
+	const api = createMemo(() => qrCode.connect(service, normalizeProps));
 
 	createEffect(() => {
 		api().setValue(getValue(location.pathname, location.search));
