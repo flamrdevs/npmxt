@@ -16,14 +16,12 @@ import { NPMXT } from '~/utils/url';
 const Items = (props: Solid.ParentProps) => <div class="flex flex-col gap-2 md:gap-3 p-0.5">{props.children}</div>;
 
 const Item = (props: { label: string; pathname: string }) => {
-	const [state, send] = useMachine(
-		clipboard.machine({
-			id: createUniqueId(),
-			value: `${NPMXT}${props.pathname}`,
-		})
-	);
+	const service = useMachine(clipboard.machine, {
+		id: createUniqueId(),
+		value: `${NPMXT}${props.pathname}`,
+	});
 
-	const api = createMemo(() => clipboard.connect(state, send, normalizeProps));
+	const api = createMemo(() => clipboard.connect(service, normalizeProps));
 
 	return (
 		<div {...api().getRootProps()}>
