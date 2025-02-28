@@ -1,6 +1,6 @@
 import { useSearchParams } from '@solidjs/router';
 import { createEffect, createMemo, createUniqueId } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createDynamic } from 'solid-js/web';
 
 import * as KSelect from '@kobalte/core/select';
 
@@ -71,9 +71,7 @@ const getCommandValue = (option: SelectOption, name: TPackageNameSchema) => `${P
 
 const selectItemComponent = (props: KSelect.SelectRootItemComponentProps<SelectOption>) => (
 	<KSelect.Item item={props.item} class={css['sl-i']}>
-		<div class="shrink-0 w-7">
-			<Dynamic component={props.item.rawValue.icon} />
-		</div>
+		<div class="shrink-0 w-7">{createDynamic(() => props.item.rawValue.icon, {})}</div>
 		<KSelect.ItemLabel class="grow text-sm">{props.item.rawValue.value}</KSelect.ItemLabel>
 		<KSelect.ItemIndicator class="shrink-0 size-3.5 text-cn-11">
 			<LucideIcon i={Check} class="size-full" />
@@ -139,7 +137,7 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 					placement="bottom-start"
 				>
 					<KSelect.Trigger class={css['sl-t']} aria-label="Select package manager">
-						<KSelect.Value<SelectOption>>{(state) => <Dynamic component={state.selectedOption().icon} class="h-full" />}</KSelect.Value>
+						<KSelect.Value<SelectOption>>{(state) => createDynamic(() => state.selectedOption().icon, { class: 'h-full' })}</KSelect.Value>
 						<KSelect.Icon class="size-3.5 text-cn-11">
 							<LucideIcon i={ChevronDown} class="size-full" />
 						</KSelect.Icon>

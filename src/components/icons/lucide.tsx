@@ -1,6 +1,6 @@
 import type { IconNode } from 'lucide';
 import { For } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createDynamic } from 'solid-js/web';
 
 export namespace LucideIcon {
 	export type Props = {
@@ -11,7 +11,7 @@ export namespace LucideIcon {
 	} & Solid.ClassProps;
 }
 
-const forChild = (child: IconNode[number]) => <Dynamic component={child[0]} {...child[1]} />;
+const forChild = (child: IconNode[number]) => createDynamic(() => child[0], child[1]);
 
 export const LucideIcon = (props: LucideIcon.Props) => (
 	// biome-ignore lint/a11y/noSvgWithoutTitle: ignore

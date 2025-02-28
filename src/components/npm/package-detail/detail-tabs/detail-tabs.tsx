@@ -1,5 +1,5 @@
 import { useSearchParams } from '@solidjs/router';
-import { Dynamic } from 'solid-js/web';
+import { createDynamic } from 'solid-js/web';
 
 import { type IconNode, LineChart, Network, Zap } from 'lucide';
 
@@ -24,9 +24,7 @@ const createTab = (label: string, lucideIcon: IconNode, body: () => Solid.JSX.El
 		content: () => (
 			<div class="p-1">
 				<div class="block sm:hidden font-semibold text-lg md:text-xl text-cn-12">{label}</div>
-				<div class="mt-2 md:mt-3">
-					<Dynamic component={body} />
-				</div>
+				<div class="mt-2 md:mt-3">{createDynamic(() => body, {})}</div>
 			</div>
 		),
 	};

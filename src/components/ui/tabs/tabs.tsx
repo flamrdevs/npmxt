@@ -1,5 +1,5 @@
 import { Show, createMemo, splitProps } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createDynamic } from 'solid-js/web';
 
 import * as K from '@kobalte/core/tabs';
 
@@ -47,12 +47,12 @@ export const Tabs = <V extends string>(props: Tabs.Props<V>) => {
 
 				triggers.push((() => (
 					<K.Trigger value={value} class={`${scope}-trigger`} aria-label={element.label}>
-						<Dynamic component={element.trigger} />
+						{createDynamic(() => element.trigger, {})}
 					</K.Trigger>
 				)) as unknown as Solid.JSX.Element);
 				contents.push((() => (
 					<K.Content value={value} class={`${scope}-content`}>
-						<Dynamic component={element.content} />
+						{createDynamic(() => element.content, {})}
 					</K.Content>
 				)) as unknown as Solid.JSX.Element);
 			}
