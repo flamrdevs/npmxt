@@ -1,5 +1,5 @@
 import { Show, children, createMemo, splitProps } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createDynamic } from 'solid-js/web';
 
 import { type ValidationState, mergeDefaultProps } from '@kobalte/utils';
 
@@ -40,30 +40,12 @@ export const ShowFormControlLayout = (props: ShowFormControlLayout.Props) => {
 
 	return (
 		<>
-			<Show when={props.label}>
-				{(label) => (
-					<Dynamic component={props.Label} class={`${scope}-label`}>
-						{label()}
-					</Dynamic>
-				)}
-			</Show>
+			<Show when={props.label}>{(label) => createDynamic(() => props.Label, { class: `${scope}-label`, children: label() })}</Show>
 
 			{props.children}
 
-			<Show when={props.description}>
-				{(description) => (
-					<Dynamic component={props.Description} class={`${scope}-description`}>
-						{description()}
-					</Dynamic>
-				)}
-			</Show>
-			<Show when={props.errorMessage}>
-				{(errorMessage) => (
-					<Dynamic component={props.ErrorMessage} class={`${scope}-ce-message`}>
-						{errorMessage()}
-					</Dynamic>
-				)}
-			</Show>
+			<Show when={props.description}>{(description) => createDynamic(() => props.Description, { class: `${scope}-description`, children: description() })}</Show>
+			<Show when={props.errorMessage}>{(errorMessage) => createDynamic(() => props.ErrorMessage, { class: `${scope}-ce-message`, children: errorMessage() })}</Show>
 		</>
 	);
 };
@@ -94,13 +76,7 @@ export const ShowInlineFormControlLayout = (props: ShowInlineFormControlLayout.P
 		<>
 			{childrenPositionLeft()}
 
-			<Show when={props.label}>
-				{(label) => (
-					<Dynamic component={props.Label} class={labelClass()}>
-						{label()}
-					</Dynamic>
-				)}
-			</Show>
+			<Show when={props.label}>{(label) => createDynamic(() => props.Label, { class: labelClass(), children: label() })}</Show>
 
 			{childrenPositionRight()}
 		</>
