@@ -9,4 +9,4 @@ const woff = async (file: string) => {
 	console.log(`${source} -> ${target}`);
 };
 
-Promise.all(['source-code-pro-300', 'source-code-pro-400', 'source-code-pro-500', 'source-code-pro-600', 'source-code-pro-700'].map((file) => woff(file)));
+Promise.all(['source-code-pro-400', 'source-code-pro-500', 'source-code-pro-600', 'source-code-pro-700'].map((file) => woff(file)));
