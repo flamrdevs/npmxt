@@ -32,7 +32,6 @@ const file = async (get: () => Promise<{ default: string }>, name: string, style
 
 export const load = () =>
 	Promise.all([
-		file(() => import('./source-code-pro-300'), name, 'normal', 300),
 		file(() => import('./source-code-pro-400'), name, 'normal', 400),
 		file(() => import('./source-code-pro-500'), name, 'normal', 500),
 		file(() => import('./source-code-pro-600'), name, 'normal', 600),
