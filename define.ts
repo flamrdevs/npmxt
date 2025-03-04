@@ -1,3 +1,6 @@
+const vercel = (key: string) => process.env[`VERCEL${key}`];
+vercel.env = (value: string) => vercel('_ENV') === value;
+
 export default ({
 	dev,
 	test,
@@ -12,6 +15,7 @@ export default ({
 	const record: Record<any, any> = {};
 
 	record['__DEV__'] = dev;
+	record['__PRE__'] = vercel.env('preview');
 	record['__TEST__'] = test;
 
 	record['__MSW__'] = Boolean(msw);
