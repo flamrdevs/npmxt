@@ -4,6 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 import define from './define';
 
+import { log } from './vercel-env';
+
+log();
+
 const minify = true;
 
 export default defineConfig({

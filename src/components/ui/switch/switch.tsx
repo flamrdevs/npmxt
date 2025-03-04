@@ -4,7 +4,7 @@ import * as K from '@kobalte/core/switch';
 
 import { clsx } from 'clsx';
 
-import { classesSplitter, classesToArray } from '../../utils';
+import { classesSplitter } from '../../utils';
 
 import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from './../utils';
 
@@ -23,7 +23,7 @@ export const Switch = (props: Switch.Props) => {
 	const scope = 'xt-switch';
 
 	return (
-		<K.Root class={clsx(ShowInlineFormControlLayout.scope, scope, classesToArray(classes))} {...others}>
+		<K.Root class={clsx(ShowInlineFormControlLayout.scope, scope, classes.class)} {...others}>
 			<ShowInlineFormControlLayout {...inlineFormControl} Label={K.Label} defaultLabelPosition="left">
 				<K.Input class={`${scope}-input`} />
 				<K.Control class={`${scope}-control`}>

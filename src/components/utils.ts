@@ -1,5 +1,4 @@
-export const classesSplitter = ['class', 'classList'] as const satisfies (keyof Solid.JSX.HTMLAttributes<any>)[];
-export const classesToArray = (props: CLSX.ClassesValueProps) => [props.class, props.classList];
+export const classesSplitter = ['class'] as const satisfies (keyof Solid.JSX.HTMLAttributes<any>)[];
 
 export const klassXVariants = <
 	const T extends {

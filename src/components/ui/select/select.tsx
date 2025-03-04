@@ -9,7 +9,7 @@ import { clsx } from 'clsx';
 
 import { LucideIcon } from '../../icons';
 
-import { classesSplitter, classesToArray } from '../../utils';
+import { classesSplitter } from '../../utils';
 
 import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from './../utils';
 
@@ -61,7 +61,7 @@ export const Select = <V extends string>(props: Select.Props<V>) => {
 		<K.Root<Select.Item>
 			flip
 			slide
-			class={clsx(ShowFormControlLayout.scope, scope, classesToArray(classes))}
+			class={clsx(ShowFormControlLayout.scope, scope, classes.class)}
 			{...others}
 			options={$options()}
 			value={$value()}

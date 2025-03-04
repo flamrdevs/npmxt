@@ -1,19 +1,16 @@
-import { classesToArray } from './utils';
+import { klassXVariants } from './utils';
 
-describe('classesToArray', () => {
+describe('klassXVariants', () => {
 	it('works correctly', () => {
 		expect(
-			classesToArray({
-				class: 'class',
-				classList: 'classList',
+			klassXVariants({
+				variant: ['a', 'b'],
 			})
-		).toEqual(['class', 'classList']);
-
-		expect(
-			classesToArray({
-				class: ['class'],
-				classList: ['classList'],
-			})
-		).toEqual([['class'], ['classList']]);
+		).toEqual({
+			variant: {
+				a: 'x-variant-a',
+				b: 'x-variant-b',
+			},
+		});
 	});
 });
