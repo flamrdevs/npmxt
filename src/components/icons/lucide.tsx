@@ -8,7 +8,7 @@ export namespace LucideIcon {
 		 * @description definition
 		 */
 		i: IconNode;
-	} & Solid.ClassProps;
+	} & Solid.ClassesProps;
 }
 
 const forChild = (child: IconNode[number]) => createDynamic(() => child[0], child[1]);

@@ -8,7 +8,7 @@ import { clsx } from 'clsx';
 
 import { LucideIcon } from '../../icons';
 
-import { classesSplitter, classesToArray } from '../../utils';
+import { classesSplitter } from '../../utils';
 
 import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from './../utils';
 
@@ -27,7 +27,7 @@ export const Checkbox = (props: Checkbox.Props) => {
 	const scope = 'xt-checkbox';
 
 	return (
-		<K.Root class={clsx(ShowInlineFormControlLayout.scope, scope, classesToArray(classes))} {...others}>
+		<K.Root class={clsx(ShowInlineFormControlLayout.scope, scope, classes.class)} {...others}>
 			<ShowInlineFormControlLayout {...inlineFormControl} Label={K.Label} defaultLabelPosition="right">
 				<K.Input class={`${scope}-input`} />
 				<K.Control class={`${scope}-control`}>

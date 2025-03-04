@@ -7,7 +7,7 @@ import { X } from 'lucide';
 
 import { clsx } from 'clsx';
 
-import { classesSplitter, classesToArray } from '../utils';
+import { classesSplitter } from '../utils';
 
 import { LucideIcon } from '../icons';
 
@@ -91,7 +91,7 @@ export const formControlValidationState = (props: FormControlProps): ValidationS
 export const CloseButton = (props: Solid.NeverChildrenProps<Solid.JSX.IntrinsicElements['button']>) => {
 	const [classes, others] = splitProps(props, classesSplitter);
 	return (
-		<button class={clsx('xt-close-button', classesToArray(classes))} {...others}>
+		<button class={clsx('xt-close-button', classes.class)} {...others}>
 			<LucideIcon i={X} />
 		</button>
 	);

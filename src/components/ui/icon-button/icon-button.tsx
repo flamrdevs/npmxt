@@ -5,7 +5,7 @@ import type { PolymorphicProps } from '@kobalte/core/polymorphic';
 
 import { type VariantsOf, klass } from '@klass/core';
 
-import { classesSplitter, classesToArray, klassXVariants } from '../../utils';
+import { classesSplitter, klassXVariants } from '../../utils';
 
 import './icon-button.css';
 
@@ -34,7 +34,7 @@ export const iconButtonVariants = klass({
 export const IconButton = <T extends Solid.ValidComponent = As>(props: PolymorphicProps<T, IconButton.Props<T>>) => {
 	const [classes, variants, others] = splitProps(props as IconButton.Props, classesSplitter, iconButtonVariants.k);
 
-	const $class = createMemo(() => iconButtonVariants(variants, classesToArray(classes)));
+	const $class = createMemo(() => iconButtonVariants(variants, classes.class));
 
 	return <K.Root<As> class={$class()} {...others} />;
 };

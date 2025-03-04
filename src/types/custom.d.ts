@@ -7,6 +7,7 @@ import type { ClassValue } from 'clsx';
 
 declare global {
 	var __DEV__: boolean;
+	var __PRE__: boolean;
 	var __TEST__: boolean;
 	var __MSW__: boolean;
 	var __MSW_DELAY__: boolean;
@@ -19,38 +20,14 @@ declare global {
 	namespace CLSX {
 		export type { ClassValue };
 
-		export type ClassValueProps = { class?: ClassValue };
-
-		export type ClassListValueProps = {
-			/**
-			 * @deprecated
-			 */
-			classList?: ClassValue;
-		};
-
-		export type ClassesValueProps = ClassValueProps & ClassListValueProps;
-
-		export type ClasssValueProps<T extends string> = {
-			classs?: {
-				[K in T]?: ClassValue;
-			};
-		};
+		export type ClassesValueProps = { class?: ClassValue };
 	}
 
 	namespace Solid {
 		export type { JSX };
 		export type { Accessor, Component, ParentComponent, ParentProps, ValidComponent };
 
-		export type ClassProps = { class?: string };
-
-		export type ClassListProps = {
-			/**
-			 * @deprecated
-			 */
-			classList?: Record<string, any>;
-		};
-
-		export type ClassesProps = ClassProps & ClassListProps;
+		export type ClassesProps = { class?: string };
 
 		export type NeverChildrenProps<P> = TF.Merge<P, { children?: never }>;
 	}

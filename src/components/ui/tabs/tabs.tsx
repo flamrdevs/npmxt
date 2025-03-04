@@ -5,7 +5,7 @@ import * as K from '@kobalte/core/tabs';
 
 import { clsx } from 'clsx';
 
-import { classesSplitter, classesToArray } from '../../utils';
+import { classesSplitter } from '../../utils';
 
 import './tabs.css';
 
@@ -64,7 +64,7 @@ export const Tabs = <V extends string>(props: Tabs.Props<V>) => {
 	});
 
 	return (
-		<K.Root class={clsx(scope, classesToArray(classes))} value={local.value} onChange={local.onChange} {...others}>
+		<K.Root class={clsx(scope, classes.class)} value={local.value} onChange={local.onChange} {...others}>
 			<Show when={elements()}>
 				{(elements) => (
 					<>

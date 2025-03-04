@@ -5,7 +5,7 @@ import * as K from '@kobalte/core/separator';
 
 import { type VariantsOf, klass } from '@klass/core';
 
-import { classesSplitter, classesToArray, klassXVariants } from '../../utils';
+import { classesSplitter, klassXVariants } from '../../utils';
 
 import './separator.css';
 
@@ -32,7 +32,7 @@ export const separatorVariants = klass({
 export const Separator = <T extends Solid.ValidComponent = As>(props: PolymorphicProps<T, Separator.Props<T>>) => {
 	const [classes, variants, others] = splitProps(props as Separator.Props, classesSplitter, separatorVariants.k);
 
-	const $class = createMemo(() => separatorVariants(variants, classesToArray(classes)));
+	const $class = createMemo(() => separatorVariants(variants, classes.class));
 
 	return <K.Root<As> class={$class()} {...others} />;
 };

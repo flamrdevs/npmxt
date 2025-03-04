@@ -4,14 +4,16 @@ import { handlePackageCreation } from '~/npm/api/package-creation/handle';
 import { parseCachedPackageName } from '~/npm/schema';
 
 import { jsonErrorStatusMessageResponse } from '~/server/error';
-import { cacheControl } from '~/server/header';
 import { isRequestSearchParamsHasCache } from '~/server/misc/is-request-search-params-has-cache';
 import { createKeyedResponseMemoCache } from '~/server/remecache';
 
 const withCache = createKeyedResponseMemoCache();
 
 const init = {
-	headers: cacheControl('public, max-age=7776000, s-maxage=7776000, must-revalidate' /* 90 days */),
+	headers: {
+		'Cache-Control': 'public, max-age=1296000, s-maxage=1296000, must-revalidate' /* 15 days */,
+		'CDN-Cache-Control': 'public, max-age=7776000, s-maxage=7776000, must-revalidate' /* 90 days */,
+	},
 };
 
 export async function GET(event: SolidJS.Start.Server.APIEvent) {
