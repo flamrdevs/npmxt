@@ -7,7 +7,7 @@ import { neutral_dark as neutral } from '~/imgx/colors';
 import type { TPackageNameSchema } from '~/npm/schema';
 import { LucideIcon } from '../icons/lucide';
 
-export default (name: TPackageNameSchema, version: string, description?: string) => {
+export const og = (name: TPackageNameSchema, version: string, description?: string) => {
 	return OGImageResponse(
 		(e) => [
 			e('div', {
