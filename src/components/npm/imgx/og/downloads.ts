@@ -13,7 +13,7 @@ import { LucideIcon } from '../icons/lucide';
 
 import { getChartSimpleLastYearDownloadsData } from '../utils/downloads';
 
-export default (name: TPackageNameSchema, downloads: TPackageDownloadsRangeSchema['downloads']) => {
+export const og = (name: TPackageNameSchema, downloads: TPackageDownloadsRangeSchema['downloads']) => {
 	const [chartData, totalDownloads] = getChartSimpleLastYearDownloadsData(downloads);
 
 	const totalDownloadsFormatted = formatNumberCompact(totalDownloads);

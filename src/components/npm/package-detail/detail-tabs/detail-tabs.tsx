@@ -1,14 +1,13 @@
 import { useSearchParams } from '@solidjs/router';
 import { createDynamic } from 'solid-js/web';
 
-import { type IconNode, LineChart, Network, Zap } from 'lucide';
+import { type IconNode, LineChart, Network } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import { Tabs } from '~/components/ui';
 
 import { TabDependencies } from './tab-dependencies/tab-dependencies';
 import { TabDownloads } from './tab-downloads/tab-downloads';
-import { TabSVGService } from './tab-svg-service/tab-svg-service';
 
 type TabsValue = keyof typeof TABS_ELEMENTS;
 
@@ -33,7 +32,6 @@ const createTab = (label: string, lucideIcon: IconNode, body: () => Solid.JSX.El
 const TABS_ELEMENTS = {
 	dependencies: createTab('Dependencies', Network, TabDependencies),
 	downloads: createTab('Downloads', LineChart, TabDownloads),
-	'svg-service': createTab('SVG service', Zap, TabSVGService),
 };
 
 const TABS_ELEMENTS_VALUES = Object.keys(TABS_ELEMENTS) as TabsValue[];

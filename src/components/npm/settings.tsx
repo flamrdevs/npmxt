@@ -81,6 +81,15 @@ export const NPMSettings = () => {
 					<Separator class="grow" />
 				</div>
 
+				<Switch
+					label="Dark mode"
+					checked={colorMode() === 'dark'}
+					onChange={(checked) => {
+						setColorMode(checked ? 'dark' : 'light');
+					}}
+					class="min-w-48"
+				/>
+
 				<ColorSelect
 					label="Neutral"
 					options={NEUTRAL}
@@ -99,15 +108,6 @@ export const NPMSettings = () => {
 						setSearchParams({ [PRIMARY_QUERY]: value }, { replace: true });
 						document.documentElement.setAttribute(PRIMARY_DATA_ATTR, value);
 					}}
-				/>
-
-				<Switch
-					label="Dark mode"
-					checked={colorMode() === 'dark'}
-					onChange={(checked) => {
-						setColorMode(checked ? 'dark' : 'light');
-					}}
-					class="min-w-48"
 				/>
 			</div>
 		</Popover>

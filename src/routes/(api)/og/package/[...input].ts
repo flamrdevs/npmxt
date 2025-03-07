@@ -6,8 +6,6 @@ import { jsonErrorStatusMessageResponse } from '~/server/error';
 import { isRequestSearchParamsHasCache } from '~/server/misc/is-request-search-params-has-cache';
 import { createKeyedResponseMemoCache } from '~/server/remecache';
 
-import og from '~/components/npm/imgx/og/package';
-
 const withCache = createKeyedResponseMemoCache();
 
 export async function GET(event: SolidJS.Start.Server.APIEvent) {
@@ -19,7 +17,7 @@ export async function GET(event: SolidJS.Start.Server.APIEvent) {
 		const validPackageName = parseCachedPackageName(splittedName);
 
 		return withCache(`${validPackageName}/${splittedVersion}`, async () => {
-			const { version, description } = await fetchPackage(validPackageName, splittedVersion);
+			const [{ og }, { version, description }] = await Promise.all([import('~/components/npm/imgx/og/package'), fetchPackage(validPackageName, splittedVersion)]);
 			return og(validPackageName, version, description);
 		});
 	} catch (error) {
