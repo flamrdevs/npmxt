@@ -38,7 +38,14 @@ export const PackageSchema = v.object({
 	name: PackageNameSchema,
 	version: StringSchema,
 	description: OptionalStringSchema,
-	license: OptionalStringSchema,
+	license: v.optional(
+		v.union([
+			StringSchema,
+			v.object({
+				type: StringSchema,
+			}),
+		])
+	),
 	homepage: OptionalStringSchema,
 	author: v.optional(
 		v.union([
