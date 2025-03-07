@@ -14,7 +14,7 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"noFallthroughCasesInSwitch": true,
-		"types": ["bun", "vinxi/types/client", "vitest/globals", "@testing-library/jest-dom/vitest"],
+		"types": ["bun", "vinxi/types/client", "vitest/globals"],
 		"isolatedModules": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,

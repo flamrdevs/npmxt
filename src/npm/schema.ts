@@ -49,10 +49,13 @@ export const PackageSchema = v.object({
 		])
 	),
 	repository: v.optional(
-		v.object({
-			type: OptionalStringSchema,
-			url: StringSchema,
-		})
+		v.union([
+			StringSchema,
+			v.object({
+				type: OptionalStringSchema,
+				url: StringSchema,
+			}),
+		])
 	),
 	dependencies: DependenciesSchema,
 	peerDependencies: DependenciesSchema,
