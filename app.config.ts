@@ -11,6 +11,20 @@ export default defineConfig({
 		prerender: {
 			routes: ['/', '/ui', '/packages'],
 		},
+		routeRules: {
+			'/package/**': {
+				isr: {
+					expiration: 28800,
+					allowQuery: ['xn', 'xp', 'pm', 'tab'],
+				},
+			},
+			'/downloads/**': {
+				isr: {
+					expiration: 28800,
+					allowQuery: ['xn', 'xp'],
+				},
+			},
+		},
 		minify,
 	},
 	vite: {
