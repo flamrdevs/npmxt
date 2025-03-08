@@ -25,8 +25,11 @@ type KeyofSupportedSource = keyof typeof SUPPORTED_SOURCE;
 export const getRepositoryInfo = ({ repository }: TPackageSchema) => {
 	try {
 		if (repository) {
-			const parsed = GitUrlParse(typeof repository === 'string' ? repository : repository.url);
-			for (const key in SUPPORTED_SOURCE) if (parsed.source.includes(SUPPORTED_SOURCE[key as KeyofSupportedSource])) return { src: key as KeyofSupportedSource, url: parsed.toString('https') };
+			const url = typeof repository === 'string' ? repository : repository.url;
+			if (url) {
+				const parsed = GitUrlParse(url);
+				for (const key in SUPPORTED_SOURCE) if (parsed.source.includes(SUPPORTED_SOURCE[key as KeyofSupportedSource])) return { src: key as KeyofSupportedSource, url: parsed.toString('https') };
+			}
 		}
 	} catch (error) {}
 };

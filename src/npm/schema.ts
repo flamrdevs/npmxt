@@ -42,7 +42,7 @@ export const PackageSchema = v.object({
 		v.union([
 			StringSchema,
 			v.object({
-				type: StringSchema,
+				type: OptionalStringSchema,
 			}),
 		])
 	),
@@ -51,7 +51,7 @@ export const PackageSchema = v.object({
 		v.union([
 			StringSchema,
 			v.object({
-				name: StringSchema,
+				name: OptionalStringSchema,
 			}),
 		])
 	),
@@ -60,7 +60,7 @@ export const PackageSchema = v.object({
 			StringSchema,
 			v.object({
 				type: OptionalStringSchema,
-				url: StringSchema,
+				url: OptionalStringSchema,
 			}),
 		])
 	),
