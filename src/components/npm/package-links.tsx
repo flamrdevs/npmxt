@@ -37,11 +37,17 @@ export const getRepositoryInfo = ({ repository }: TPackageSchema) => {
 export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) => {
 	const pkg = usePackageContext();
 
+	const sharedTriggerProps = {
+		target: '_blank',
+		rel: 'noreferrer',
+		class: 'block p-1 size-7 hover:bg-cn-3',
+	};
+
 	return (
 		<div {...props}>
 			<Tooltip
 				trigger={(triggerProps) => (
-					<Link {...triggerProps} href={linkToNPMPackage(pkg.name, pkg.version)} target="_blank" rel="noreferrer" class="block p-1 size-7 hover:bg-cn-3">
+					<Link {...triggerProps} href={linkToNPMPackage(pkg.name, pkg.version)} {...sharedTriggerProps}>
 						<SVGL.NPM class="size-full" />
 					</Link>
 				)}
@@ -54,7 +60,7 @@ export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>)
 				{(info) => (
 					<Tooltip
 						trigger={(triggerProps) => (
-							<Link {...triggerProps} href={info.url} target="_blank" rel="noreferrer" class="block p-1 size-7 hover:bg-cn-3">
+							<Link {...triggerProps} href={info.url} {...sharedTriggerProps}>
 								{info.src === 'gh' ? <SVGL.GitHub class="size-full" /> : <SVGL.GitLab class="size-full" />}
 							</Link>
 						)}
@@ -69,7 +75,7 @@ export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>)
 				{(homepage) => (
 					<Tooltip
 						trigger={(triggerProps) => (
-							<Link {...triggerProps} href={homepage()} target="_blank" rel="noreferrer" class="block p-1 size-7 hover:bg-cn-3">
+							<Link {...triggerProps} href={homepage()} {...sharedTriggerProps}>
 								<LucideIcon i={Link2} class="size-full" />
 							</Link>
 						)}

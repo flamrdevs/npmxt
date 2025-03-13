@@ -8,7 +8,7 @@
 	}
 
 	.xt-text-field-input {
-		@apply appearance-none inline-flex items-center justify-center border rounded-[0.625rem] outline-hidden focus:outline-1
+		@apply appearance-none inline-flex items-center justify-center border rounded-[0.625rem] focus:outline-1
 			bg-cn-1 text-cn-11 border-cn-6 hover:border-cn-7 focus:outline-cp-9
 			min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
 

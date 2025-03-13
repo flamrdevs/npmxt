@@ -34,7 +34,7 @@
 	}
 
 	.xt-close-button {
-		@apply flex items-center justify-center size-6 bg-transparent text-cn-10 hover:text-cn-11 rounded-full outline-hidden focus-visible:outline-1 focus-visible:outline-cn-11 cursor-pointer;
+		@apply flex items-center justify-center size-6 bg-transparent text-cn-10 hover:text-cn-11 rounded-full focus-visible:outline-1 focus-visible:outline-cn-11 cursor-pointer;
 
 		> svg {
 			@apply size-full;

@@ -2,7 +2,7 @@
 
 @layer components {
 	.xt-checkbox-control {
-		@apply relative size-[1.5rem] bg-cn-1 border border-cn-6 rounded-[0.625rem] outline-hidden cursor-pointer;
+		@apply relative size-[1.5rem] bg-cn-1 border border-cn-6 rounded-[0.625rem] cursor-pointer;
 		transition: 200ms background-color;
 
 		&[data-checked] {

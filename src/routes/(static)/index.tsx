@@ -77,7 +77,7 @@ export default function IndexPage() {
 									href="https://github.com/flamrdevs/npmxt"
 									target="_blank"
 									rel="noreferrer"
-									class="outline-hidden focus-visible:outline-1 text-cp-7 group-hover:text-cp-9 focus-visible:text-cp-9 focus-visible:outline-cp-9"
+									class="focus-visible:outline-1 text-cp-7 group-hover:text-cp-9 focus-visible:text-cp-9 focus-visible:outline-cp-9"
 								>
 									GitHub
 								</a>

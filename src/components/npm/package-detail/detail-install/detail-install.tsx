@@ -20,7 +20,7 @@ import * as SVGL from '~/components/icons/svgl';
 
 const css = {
 	sl: 'shrink-0 h-7',
-	'sl-t': 'appearance-none inline-flex items-center justify-between gap-2 rounded-md outline-hidden focus:outline-1 cursor-pointer bg-cn-2 focus:outline-cn-9 h-full px-3 font-medium text-base',
+	'sl-t': 'appearance-none inline-flex items-center justify-between gap-2 rounded-md focus:outline-1 cursor-pointer bg-cn-2 focus:outline-cn-9 h-full px-3 font-medium text-base',
 	'sl-c': 'relative z-50 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-md outline-hidden shadow-2xl shadow-black-2',
 	'sl-i':
 		'relative flex items-center justify-between w-32 h-7 px-3 bg-transparent text-cn-11 font-normal text-base rounded-sm outline-hidden select-none data-[selected]:text-cn-12 data-[highlighted]:bg-cn-4',
@@ -153,7 +153,7 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 
 				<button
 					{...api().getTriggerProps()}
-					class="shrink-0 appearance-none inline-flex items-center justify-center rounded-md outline-hidden focus:outline-1 cursor-pointer bg-transparent hover:bg-cn-2 focus:outline-cn-9 size-6 mr-0.5 p-1 font-medium text-base"
+					class="shrink-0 appearance-none inline-flex items-center justify-center rounded-md focus:outline-1 cursor-pointer bg-transparent hover:bg-cn-2 focus:outline-cn-9 size-6 mr-0.5 p-1 font-medium text-base"
 				>
 					<LucideIcon i={api().copied ? Check : Copy} class={clsx('size-3.5', api().copied ? 'text-cs-11' : 'text-cn-11')} />
 				</button>
