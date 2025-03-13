@@ -2,7 +2,7 @@
 
 @layer components {
 	.xt-switch-control {
-		@apply inline-flex items-center w-[2.75rem] h-[1.5rem] bg-cn-1 border border-cn-6 rounded-full outline-hidden cursor-pointer;
+		@apply inline-flex items-center w-[2.75rem] h-[1.5rem] bg-cn-1 border border-cn-6 rounded-full cursor-pointer;
 		padding: 0.125rem;
 		transition: 200ms background-color;
 

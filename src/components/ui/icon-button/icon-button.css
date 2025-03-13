@@ -2,7 +2,7 @@
 
 @layer components {
 	.xt-icon-button {
-		@apply appearance-none inline-flex items-center justify-center border outline-hidden focus-visible:outline-1 cursor-pointer p-0;
+		@apply appearance-none inline-flex items-center justify-center border focus-visible:outline-1 cursor-pointer p-0;
 
 		&.x-color-n {
 			@apply bg-cn-3 hover:bg-cn-4 active:bg-cn-5 text-cn-11 border-cn-6 active:border-cn-7 focus-visible:outline-cn-9;

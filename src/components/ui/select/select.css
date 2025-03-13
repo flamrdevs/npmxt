@@ -8,7 +8,7 @@
 	}
 
 	.xt-select-trigger {
-		@apply appearance-none inline-flex items-center justify-between border rounded-[0.625rem] outline-hidden focus:outline-1 cursor-pointer
+		@apply appearance-none inline-flex items-center justify-between border rounded-[0.625rem] focus:outline-1 cursor-pointer
 		bg-cn-1 border-cn-6 hover:border-cn-7 focus:outline-cp-9
 		min-w-[16rem] h-10 px-3 py-2 font-medium text-base;
 

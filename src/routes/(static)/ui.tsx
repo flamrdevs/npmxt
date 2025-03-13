@@ -9,7 +9,7 @@ import { Palette, Rocket, Settings2 } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-import { Button, Checkbox, IconButton, Popover, Select, Separator, Switch, TextField, Tooltip } from '~/components/ui';
+import { Button, Checkbox, HoverCard, IconButton, Popover, Select, Separator, Switch, TextField, Tooltip } from '~/components/ui';
 import * as defaultProps from '~/components/ui/default-props';
 import { entriesMap } from '~/utils/object';
 
@@ -339,6 +339,24 @@ const Blocks: Solid.Component = (() => {
 					}
 				>
 					<Switch {...props} />
+				</Panel>
+			);
+		},
+		['HoverCard']: () => {
+			const [props, setProps] = createStore<HoverCard.Props>({
+				trigger: (props) => <Button {...props}>Open</Button>,
+				children: 'Content',
+			});
+
+			return (
+				<Panel
+					popover={
+						<div class="flex flex-col gap-4 my-2 p-2">
+							<TextField label="Children" value={props.children as string} onChange={(children) => setProps({ children })} />
+						</div>
+					}
+				>
+					<HoverCard {...props} />
 				</Panel>
 			);
 		},

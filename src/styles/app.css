@@ -26,7 +26,7 @@
 	}
 
 	a {
-		@apply rounded-lg outline-hidden focus-visible:outline-1 focus-visible:outline-cn-9;
+		@apply rounded-lg focus-visible:outline-1 focus-visible:outline-cn-9;
 	}
 }
 

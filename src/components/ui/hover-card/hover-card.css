@@ -1,0 +1,42 @@
+@reference "./../../../styles/app.css";
+
+@layer components {
+	.xt-hover-card-content {
+		min-width: 3.125rem;
+		min-height: 3.125rem;
+		max-width: min(calc(100dvw - 1rem), 25rem);
+		transform-origin: var(--kb-hovercard-content-transform-origin);
+		animation: xt-hovercard-content-hide 100ms ease-in forwards;
+		@apply relative z-50 px-4 py-3 bg-cn-2/90 backdrop-blur-sm border border-cn-5 rounded-2xl outline-hidden shadow-2xl shadow-black-2;
+
+		&[data-expanded] {
+			animation: xt-hovercard-content-show 80ms ease-out;
+		}
+	}
+
+	.xt-hover-card-arrow {
+		@apply fill-cn-2/90 stroke-cn-5;
+	}
+}
+
+@keyframes xt-hovercard-content-hide {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+}
+
+@keyframes xt-hovercard-content-show {
+	from {
+		opacity: 0;
+		transform: scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
