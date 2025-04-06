@@ -1,5 +1,6 @@
-import { animate, inView } from 'motion';
 import { onMount, splitProps } from 'solid-js';
+
+import { animate, onScroll } from 'animejs';
 
 export namespace NumberTicker {
 	export type Props = Solid.JSX.HTMLAttributes<HTMLSpanElement> & {
@@ -20,14 +21,21 @@ export const NumberTicker = (props: NumberTicker.Props) => {
 	let ref!: HTMLSpanElement;
 
 	onMount(() => {
-		inView(ref, () => {
-			animate(0, local.value, {
-				duration: 0.7,
-				ease: [0.075, 0.82, 0.165, 1] /* Out Circ */,
-				onUpdate: (latest) => {
-					ref.textContent = format(latest);
-				},
-			});
+		const state = {
+			value: 0,
+		};
+
+		animate(state, {
+			value: local.value,
+			duration: 700,
+			playbackEase: 'outCirc',
+			onRender: () => {
+				ref.textContent = format(state.value);
+			},
+			autoplay: onScroll({
+				debug: __DEV__,
+				repeat: false,
+			}),
 		});
 	});
 

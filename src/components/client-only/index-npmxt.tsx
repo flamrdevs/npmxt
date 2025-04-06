@@ -1,12 +1,12 @@
 import { For, type ParentProps, onMount } from 'solid-js';
 
-import { animate } from 'motion';
+import { animate } from 'animejs';
 
 const MotionSpan = (props: ParentProps<{ x: number }>) => {
 	let ref!: HTMLSpanElement;
 
 	onMount(() => {
-		animate(ref, { x: [props.x, 0], opacity: [0, 1] }, { duration: 1 });
+		animate(ref, { x: { from: `${props.x}px`, to: '0px' }, opacity: { from: 0, to: 1 }, duration: 1000 });
 	});
 
 	return (
