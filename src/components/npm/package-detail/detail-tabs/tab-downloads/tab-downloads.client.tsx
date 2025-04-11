@@ -1,7 +1,7 @@
-import { A, createAsync, query, useLocation } from '@solidjs/router';
+import { A, createAsync, query } from '@solidjs/router';
 import { Show, createMemo } from 'solid-js';
 
-import { Root as Link } from '@kobalte/core/link';
+import * as KLink from '@kobalte/core/link';
 
 import * as d3 from 'd3';
 
@@ -15,8 +15,6 @@ import { usePackageContext } from '~/contexts/package-context';
 
 import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageDownloadsRangeSchema, type TPackageSchema } from '~/npm/schema';
 import { fetchPackageDownloadsRangeLast } from '~/npm/utils';
-
-import { linkWithThemeQuery } from '~/theme/router';
 
 import { formatNumber } from '~/utils/formatter';
 
@@ -107,8 +105,6 @@ const Card = (props: { label: string; period: number; lastYear: TPackageDownload
 const queryLastYear = query((pkg: TPackageSchema) => fetchPackageDownloadsRangeLast(pkg.name, 'year'), 'package-downloads-last-year');
 
 export default () => {
-	const location = useLocation();
-
 	const pkg = usePackageContext();
 
 	const lastYear = createAsync(() => queryLastYear(pkg));
@@ -122,10 +118,10 @@ export default () => {
 					<Card label="Last month" period={PACKAGE_DOWNLOADS_LAST_MAP.month} lastYear={lastYear} />
 					<Separator />
 					<div class="py-1.5 md:py-3">
-						<Link as={A} href={linkWithThemeQuery(`/downloads/${pkg.name}`, location.query)} class="group inline-flex items-center justify-center gap-2 px-4 py-2 text-lg text-cn-10 hover:text-cp-10">
+						<KLink.Root as={A} href={`/downloads/${pkg.name}`} class="group inline-flex items-center justify-center gap-2 px-4 py-2 text-lg text-cn-10 hover:text-cp-10">
 							<span>View all time downloads</span>
 							<LucideIcon i={ArrowRight} class="size-5 group-hover:translate-x-1 transition-transform" />
-						</Link>
+						</KLink.Root>
 					</div>
 				</div>
 			)}

@@ -1,12 +1,12 @@
 import { dayjs } from '~/utils/dayjs';
 import { entriesMap } from '~/utils/object';
 
-import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from './../../const';
-import { fetcherPackageDownloadsRange } from './../../fetcher';
-import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from './../../schema';
-import { fetchPackageDownloadsRangeLast } from './../../utils';
+import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from '../../const';
+import { fetcherPackageDownloadsRange } from '../../fetcher';
+import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from '../../schema';
+import { fetchPackageDownloadsRangeLast } from '../../utils';
 
-import { fetchPackageCreation } from './../package-creation/fetch';
+import { fetchPackageCreation } from '../package-creation/fetch';
 
 import type { PackageAllDownloadsRecordData } from './types';
 

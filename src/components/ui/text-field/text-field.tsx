@@ -6,7 +6,7 @@ import { clsx } from 'clsx';
 
 import { classesSplitter } from '../../utils';
 
-import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from './../utils';
+import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from '../utils';
 
 import './text-field.css';
 
