@@ -1,4 +1,4 @@
-import type { TPackageNameSchema } from './../../schema';
+import type { TPackageNameSchema } from '../../schema';
 
 type PackageDownloadsRecordData = {
 	name: TPackageNameSchema;

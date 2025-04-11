@@ -4,14 +4,12 @@ import { createDynamic } from 'solid-js/web';
 
 import * as KSelect from '@kobalte/core/select';
 
-import * as clipboard from '@zag-js/clipboard';
-import { normalizeProps, useMachine } from '@zag-js/solid';
+import * as zagClipboard from '@zag-js/clipboard';
+import * as zag from '@zag-js/solid';
 
 import { Check, ChevronDown, Copy } from 'lucide';
 
 import { clsx } from 'clsx';
-
-import type { TPackageNameSchema } from '~/npm/schema';
 
 import { usePackageContext } from '~/contexts/package-context';
 
@@ -67,8 +65,6 @@ const SELECT_OPTION = {
 
 const SELECT_OPTIONS: SelectOption[] = Object.values(SELECT_OPTION);
 
-const getCommandValue = (option: SelectOption, name: TPackageNameSchema) => `${PACKAGE_MANAGER[option.value]}${name}`;
-
 const selectItemComponent = (props: KSelect.SelectRootItemComponentProps<SelectOption>) => (
 	<KSelect.Item item={props.item} class={css['sl-i']}>
 		<div class="shrink-0 w-7">{createDynamic(() => props.item.rawValue.icon, {})}</div>
@@ -93,19 +89,21 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 		return SELECT_OPTION[typeof pm === 'string' && pm in PACKAGE_MANAGER ? (pm as PackageManager) : FALLBACK_PACKAGE_MANAGER];
 	});
 
-	const service = useMachine(clipboard.machine, {
+	const commandValue = createMemo(() => `${PACKAGE_MANAGER[packageManager().value]}${pkg.name}`);
+
+	const serviceClipboard = zag.useMachine(zagClipboard.machine, {
 		id: createUniqueId(),
-		value: getCommandValue(packageManager(), pkg.name),
+		defaultValue: commandValue(),
 	});
 
-	const api = createMemo(() => clipboard.connect(service, normalizeProps));
+	const apiClipboard = createMemo(() => zagClipboard.connect(serviceClipboard, zag.normalizeProps));
 
 	createEffect(() => {
-		api().setValue(getCommandValue(packageManager(), pkg.name));
+		apiClipboard().setValue(commandValue());
 	});
 
 	const command = createMemo(() => {
-		const [s1, s2, s3] = api().value.split(' ');
+		const [s1, s2, s3] = commandValue().split(' ');
 
 		return (
 			<>
@@ -119,11 +117,11 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 	}) as unknown as Solid.JSX.Element;
 
 	return (
-		<div {...props} {...api().getRootProps()}>
-			<label {...api().getLabelProps()} class="block mb-1 md:mb-2 font-medium text-base md:text-lg text-cn-12">
+		<div {...props} {...apiClipboard().getRootProps()}>
+			<label {...apiClipboard().getLabelProps()} class="block mb-1 md:mb-2 font-medium text-base md:text-lg text-cn-12">
 				Install
 			</label>
-			<div {...api().getControlProps()} class="flex items-center justify-center gap-1 p-1.5 h-10 bg-cn-1 border border-cn-5 rounded-xl">
+			<div {...apiClipboard().getControlProps()} class="flex items-center justify-center gap-1 p-1.5 h-10 bg-cn-1 border border-cn-5 rounded-xl">
 				<KSelect.Root
 					options={SELECT_OPTIONS}
 					optionValue="value"
@@ -152,10 +150,10 @@ export const DetailInstall = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) =
 				<span class="grow inline-flex items-center justify-start outline-hidden text-cn-11 h-8 px-2 font-medium text-sm select-none overflow-hidden">{command}</span>
 
 				<button
-					{...api().getTriggerProps()}
+					{...apiClipboard().getTriggerProps()}
 					class="shrink-0 appearance-none inline-flex items-center justify-center rounded-md focus:outline-1 cursor-pointer bg-transparent hover:bg-cn-2 focus:outline-cn-9 size-6 mr-0.5 p-1 font-medium text-base"
 				>
-					<LucideIcon i={api().copied ? Check : Copy} class={clsx('size-3.5', api().copied ? 'text-cs-11' : 'text-cn-11')} />
+					<LucideIcon i={apiClipboard().copied ? Check : Copy} class={clsx('size-3.5', apiClipboard().copied ? 'text-cs-11' : 'text-cn-11')} />
 				</button>
 			</div>
 		</div>

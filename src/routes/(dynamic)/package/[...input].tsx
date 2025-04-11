@@ -10,7 +10,7 @@ import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
 import { Loader } from '~/components/ui';
 
-import { PackageContextProvider } from '~/contexts/package-context';
+import { PackageContext } from '~/contexts/package-context';
 
 import { queryPackageAlt } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
@@ -101,9 +101,9 @@ export default function Package$InputPage() {
 								<Meta.Page title={`${pkg.name} - package`} description={`${pkg.description || pkg.name} - package information`} img={getImg(pkg.name, pkg.version)} />
 
 								<div class="flex items-center justify-center sm:pt-4 md:pt-10 xl:pt-24 sm:pb-3 md:pb-8 xl:pb-16">
-									<PackageContextProvider value={pkg}>
+									<PackageContext.Provider value={pkg}>
 										<NPMPackageDetail />
-									</PackageContextProvider>
+									</PackageContext.Provider>
 								</div>
 							</>
 						)}

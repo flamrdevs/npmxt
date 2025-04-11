@@ -1,4 +1,4 @@
-import { Show, createEffect, createMemo, createSignal, onCleanup, onMount } from 'solid-js';
+import { Show, createEffect, createMemo, onCleanup, onMount } from 'solid-js';
 
 import { createAsync, query } from '@solidjs/router';
 
@@ -8,25 +8,24 @@ import { ImageDown, Settings2 } from 'lucide';
 
 import * as Plot from '@observablehq/plot';
 
-import { domToPng } from 'modern-screenshot';
-
 import { NumberTicker } from '~/components/effect/number-ticker';
 import { LucideIcon } from '~/components/icons';
 import { IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/components/ui';
 
 import { fetchPackageAllDownloadsRecord } from '~/npm/api/package-all-downloads-record/fetch';
 import type { PackageAllDownloadsRecordData } from '~/npm/api/package-all-downloads-record/types';
-import { packageFilename } from '~/npm/misc/pkg-filename';
+import { packageToFilename } from '~/npm/misc/package-to-filename';
 import type { TPackageNameSchema } from '~/npm/schema';
 
 import { fontFamilySans, v_cn2, v_cn6, v_cn8, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
 import { dayjs } from '~/utils/dayjs';
-import { delay } from '~/utils/delay';
 import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
 import { usePackageContext } from '~/contexts/package-context';
 
 import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
+
+import { useDOMToPNG } from '~/primitives/use-dom-to-png';
 
 const RenderChart = (props: { data: PackageAllDownloadsRecordData }) => {
 	const pkg = usePackageContext();
@@ -168,7 +167,7 @@ const RenderChart = (props: { data: PackageAllDownloadsRecordData }) => {
 		plotRef.firstChild?.remove();
 	});
 
-	const [savingImage, setSavingImage] = createSignal<boolean>(false);
+	const [saving, domToPNG] = useDOMToPNG(() => screenshotRef, { scale: 2.5 });
 
 	return (
 		<div class="flex flex-col gap-3 md:gap-4">
@@ -180,28 +179,15 @@ const RenderChart = (props: { data: PackageAllDownloadsRecordData }) => {
 
 				<div class="flex items-center gap-1.5 md:gap-2.5">
 					<Tooltip
-						trigger={(props) => <IconButton {...props}>{savingImage() ? <Loader size="sm" /> : <LucideIcon i={ImageDown} />}</IconButton>}
+						trigger={(props) => <IconButton {...props}>{saving() ? <Loader size="sm" /> : <LucideIcon i={ImageDown} />}</IconButton>}
 						triggerProps={{
 							onClick: async () => {
-								if (savingImage()) return;
-
-								setSavingImage(true);
-
-								const href = await domToPng(screenshotRef, { scale: 2.5 });
-
-								if (__DEV__) await delay();
-
-								const link = document.createElement('a');
-								link.download = `npmxt - ${packageFilename(pkg)}.png`;
-								link.href = href;
-								link.click();
-
-								setSavingImage(false);
+								await domToPNG(`npmxt - ${packageToFilename(pkg)}`);
 							},
 						}}
 						placement="top"
 					>
-						{savingImage() ? 'Saving...' : 'Save PNG'}
+						{saving() ? 'Saving...' : 'Save PNG'}
 					</Tooltip>
 
 					<Popover

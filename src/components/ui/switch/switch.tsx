@@ -6,7 +6,7 @@ import { clsx } from 'clsx';
 
 import { classesSplitter } from '../../utils';
 
-import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from './../utils';
+import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from '../utils';
 
 import './switch.css';
 

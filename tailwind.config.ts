@@ -3,6 +3,8 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 import tailwindcssPlugin from 'tailwindcss/plugin';
 
+import * as THEME_DATA_ATTR from './src/theme/core/data-attr';
+
 // RADIX COLORS
 
 const COLORS = {
@@ -159,8 +161,8 @@ export const plugin = () =>
 		};
 
 		addBase({
-			[`:root, [data-kb-theme="light"]`]: light,
-			[`[data-kb-theme="dark"]`]: dark,
+			[`:root, [data-${THEME_DATA_ATTR.MODE}="light"]`]: light,
+			[`[data-${THEME_DATA_ATTR.MODE}="dark"]`]: dark,
 
 			[':root']: {
 				...alias('e', 'red'),
@@ -187,7 +189,7 @@ export const plugin = () =>
 	});
 
 export default {
-	darkMode: ['selector', '[data-kb-theme="dark"]'],
+	darkMode: ['selector', `[data-${THEME_DATA_ATTR.MODE}="dark"]`],
 	theme: {
 		colors,
 		fontFamily: {

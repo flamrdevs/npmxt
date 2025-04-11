@@ -1,6 +1,6 @@
 import { Show } from 'solid-js';
 
-import { Root as Link } from '@kobalte/core/link';
+import * as KLink from '@kobalte/core/link';
 
 import { Link2 } from 'lucide';
 
@@ -47,9 +47,9 @@ export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>)
 		<div {...props}>
 			<Tooltip
 				trigger={(triggerProps) => (
-					<Link {...triggerProps} href={linkToNPMPackage(pkg.name, pkg.version)} {...sharedTriggerProps}>
+					<KLink.Root {...triggerProps} href={linkToNPMPackage(pkg.name, pkg.version)} {...sharedTriggerProps}>
 						<SVGL.NPM class="size-full" />
-					</Link>
+					</KLink.Root>
 				)}
 				placement="top"
 			>
@@ -60,9 +60,9 @@ export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>)
 				{(info) => (
 					<Tooltip
 						trigger={(triggerProps) => (
-							<Link {...triggerProps} href={info.url} {...sharedTriggerProps}>
+							<KLink.Root {...triggerProps} href={info.url} {...sharedTriggerProps}>
 								{info.src === 'gh' ? <SVGL.GitHub class="size-full" /> : <SVGL.GitLab class="size-full" />}
-							</Link>
+							</KLink.Root>
 						)}
 						placement="top"
 					>
@@ -75,9 +75,9 @@ export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>)
 				{(homepage) => (
 					<Tooltip
 						trigger={(triggerProps) => (
-							<Link {...triggerProps} href={homepage()} {...sharedTriggerProps}>
+							<KLink.Root {...triggerProps} href={homepage()} {...sharedTriggerProps}>
 								<LucideIcon i={Link2} class="size-full" />
-							</Link>
+							</KLink.Root>
 						)}
 						placement="top"
 					>

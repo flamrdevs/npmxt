@@ -46,10 +46,8 @@ export const NPMPackageDetail = () => {
 				<DetailBundleSize class="shrink-0 w-full md:w-fit md:max-w-[30%]" />
 			</div>
 
-			<div class="grow mt-4 lg:mt-6">
-				<div class="min-h-24">
-					<DetailTabs />
-				</div>
+			<div class="grow mt-4 lg:mt-6 min-h-24">
+				<DetailTabs />
 			</div>
 		</div>
 	);

@@ -1,7 +1,7 @@
 import { A, useLocation } from '@solidjs/router';
 import { For, createMemo } from 'solid-js';
 
-import { Root as Link } from '@kobalte/core/link';
+import * as KLink from '@kobalte/core/link';
 
 import { linkToNPMPackage } from '~/npm/href';
 import type { TDependenciesSchema, TPackageNameSchema } from '~/npm/schema';
@@ -32,13 +32,13 @@ const RenderList = (props: { label: string; deps: TDependenciesSchema }) => {
 					{([name, specifier]) => (
 						<li class="group flex items-center justify-between">
 							<div class="flex items-center gap-1 md:gap-2 overflow-hidden">
-								<Link as={A} href={`/package/${name}${location.search}`} class="block px-1 text-base text-cn-11 group-hover:text-cn-12 truncate transition-colors">
+								<KLink.Root as={A} href={`/package/${name}${location.search}`} class="block px-1 text-base text-cn-11 group-hover:text-cn-12 truncate transition-colors">
 									{name}
-								</Link>
+								</KLink.Root>
 
-								<Link href={linkToNPMPackage(name)} target="_blank" rel="noreferrer" class="opacity-0 group-hover:opacity-100 p-0.5 size-6 hover:bg-cn-3 transition-all">
+								<KLink.Root href={linkToNPMPackage(name)} target="_blank" rel="noreferrer" class="opacity-0 group-hover:opacity-100 p-0.5 size-6 hover:bg-cn-3 transition-all">
 									<SVGL.NPM class="size-full" />
-								</Link>
+								</KLink.Root>
 							</div>
 
 							<div class="grow px-2 md:px-3">

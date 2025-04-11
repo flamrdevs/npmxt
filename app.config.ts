@@ -15,13 +15,15 @@ export default defineConfig({
 			'/package/**': {
 				isr: {
 					expiration: 28800,
-					allowQuery: ['xn', 'xp', 'pm', 'tab'],
+					allowQuery: ['pm', 'tab'],
+					passQuery: true,
 				},
 			},
 			'/downloads/**': {
 				isr: {
 					expiration: 28800,
-					allowQuery: ['xn', 'xp'],
+					allowQuery: [],
+					passQuery: true,
 				},
 			},
 		},

@@ -10,7 +10,7 @@ import { LucideIcon } from '../../icons';
 
 import { classesSplitter } from '../../utils';
 
-import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from './../utils';
+import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from '../utils';
 
 import './checkbox.css';
 

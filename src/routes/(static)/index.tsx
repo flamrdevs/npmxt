@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { Suspense, createSignal } from 'solid-js';
 
 import { action, redirect } from '@solidjs/router';
 import { clientOnly } from '@solidjs/start';
@@ -45,7 +45,7 @@ const SearchPackage = () => {
 	);
 };
 
-const IndexNPMXT = clientOnly(() => import('~/components/client-only/index-npmxt'), { lazy: true });
+const IndexNPMXTClient = clientOnly(() => import('~/components/routes/index/npmxt.client'), { lazy: true });
 
 export default function IndexPage() {
 	return (
@@ -54,7 +54,9 @@ export default function IndexPage() {
 
 			<div>
 				<div class="relative isolate px-5 md:px-6 lg:px-8 pt-11 md:pt-14">
-					<IndexNPMXT />
+					<Suspense>
+						<IndexNPMXTClient />
+					</Suspense>
 
 					<div class="absolute inset-x-0 -top-24 sm:-top-48 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
 						<div

@@ -1,6 +1,6 @@
 import { type CSS, type Children, h } from '~/imgx';
 
-import { PNGImageResponse } from './../png';
+import { PNGImageResponse } from '../png';
 
 import { height, width } from './config';
 

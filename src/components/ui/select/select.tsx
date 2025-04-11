@@ -11,7 +11,7 @@ import { LucideIcon } from '../../icons';
 
 import { classesSplitter } from '../../utils';
 
-import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from './../utils';
+import { type FormControlProps, ShowFormControlLayout, formControlSplitter, formControlValidationState } from '../utils';
 
 import './select.css';
 

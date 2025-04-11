@@ -43,7 +43,6 @@ export const DetailTabs = () => {
 	type RawParams = {
 		tab?: string;
 	};
-
 	const [searchParams, setSearchParams] = useSearchParams<RawParams>();
 
 	return (

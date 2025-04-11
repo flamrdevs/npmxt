@@ -1,12 +1,11 @@
-import { useSearchParams } from '@solidjs/router';
 import { For } from 'solid-js';
 
-import { useColorMode } from '@kobalte/core/color-mode';
 import * as KRadioGroup from '@kobalte/core/radio-group';
 
 import { Check, Settings } from 'lucide';
 
-import { NEUTRAL, NEUTRAL_DATA_ATTR, NEUTRAL_QUERY, PRIMARY, PRIMARY_DATA_ATTR, PRIMARY_QUERY, validNeutral, validPrimary } from '~/theme/utils';
+import * as THEME_CORE from '~/theme/core/core';
+import { changeMode, changeNeutral, changePrimary, mode, neutral, primary } from '~/theme/state/state';
 
 import { LucideIcon } from '../icons';
 import { IconButton, Popover, Separator, Switch, Tooltip } from '../ui';
@@ -49,15 +48,6 @@ const ColorSelect = (props: Pick<KRadioGroup.RadioGroupRootProps, 'value' | 'onC
 };
 
 export const NPMSettings = () => {
-	type RawParams = {
-		xn?: string; // neutral
-		xp?: string; // primary
-	};
-
-	const [searchParams, setSearchParams] = useSearchParams<RawParams>();
-
-	const { colorMode, setColorMode } = useColorMode();
-
 	return (
 		<Popover
 			trigger={(props) => (
@@ -83,30 +73,27 @@ export const NPMSettings = () => {
 
 				<Switch
 					label="Dark mode"
-					checked={colorMode() === 'dark'}
+					checked={mode() === 'dark'}
 					onChange={(checked) => {
-						setColorMode(checked ? 'dark' : 'light');
+						changeMode(checked ? 'dark' : 'light');
 					}}
-					class="min-w-48"
 				/>
 
 				<ColorSelect
 					label="Neutral"
-					options={NEUTRAL}
-					value={validNeutral(searchParams[NEUTRAL_QUERY])}
+					options={THEME_CORE.NEUTRAL}
+					value={neutral()}
 					onChange={(value) => {
-						setSearchParams({ [NEUTRAL_QUERY]: value }, { replace: true });
-						document.documentElement.setAttribute(NEUTRAL_DATA_ATTR, value);
+						changeNeutral(value);
 					}}
 				/>
 
 				<ColorSelect
 					label="Primary"
-					options={PRIMARY}
-					value={validPrimary(searchParams[PRIMARY_QUERY])}
+					options={THEME_CORE.PRIMARY}
+					value={primary()}
 					onChange={(value) => {
-						setSearchParams({ [PRIMARY_QUERY]: value }, { replace: true });
-						document.documentElement.setAttribute(PRIMARY_DATA_ATTR, value);
+						changePrimary(value);
 					}}
 				/>
 			</div>
