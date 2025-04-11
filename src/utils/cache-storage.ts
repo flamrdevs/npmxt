@@ -22,7 +22,7 @@ export const createCacheStorage = <T>(base: string) => {
 
 	const waitForFxLoading = async (key: string) => {
 		let isFxLoading: boolean | undefined;
-		while (typeof (isFxLoading = fxLoading[key]) === 'boolean' && isFxLoading) await delay(__DEV__ ? 75 : 25);
+		while (typeof (isFxLoading = fxLoading[key]) === 'boolean' && isFxLoading) await delay(__DEV__ ? 100 : 10);
 		return;
 	};
 

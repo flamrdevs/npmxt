@@ -2,7 +2,7 @@ import { Show, splitProps } from 'solid-js';
 
 import * as K from '@kobalte/core/popover';
 
-import { CloseButton } from './../utils';
+import { CloseButton } from '../utils';
 
 import './popover.css';
 

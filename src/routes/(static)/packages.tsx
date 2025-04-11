@@ -1,5 +1,12 @@
-import { NPMPackages } from '~/components/npm/packages';
+import { clientOnly } from '@solidjs/start';
+import { Suspense } from 'solid-js';
+
+const PackagesAppClient = clientOnly(() => import('~/components/routes/packages/app.client'), { lazy: true });
 
 export default function PackagesPage() {
-	return <NPMPackages />;
+	return (
+		<Suspense>
+			<PackagesAppClient />
+		</Suspense>
+	);
 }
