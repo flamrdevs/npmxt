@@ -1,7 +1,5 @@
 import * as v from 'valibot';
 
-import { createParser } from '~/utils/valibot';
-
 const StringSchema = v.string();
 
 export type TBundleSizeSchema = v.InferOutput<typeof BundleSizeSchema>;
@@ -12,4 +10,5 @@ export const BundleSizeSchema = v.object({
 		compressedSize: StringSchema,
 	}),
 });
-export const parseBundleSize = createParser(BundleSizeSchema);
+export const parseBundleSize = v.parser(BundleSizeSchema);
+export const safeParseBundleSize = v.safeParser(BundleSizeSchema);

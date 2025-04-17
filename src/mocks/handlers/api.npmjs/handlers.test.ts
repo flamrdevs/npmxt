@@ -1,6 +1,6 @@
 import { FetchError, ofetch } from 'ofetch';
 
-import { PACKAGE_DOWNLOADS_LAST_LIST, parsePackageDownloadsPoint, parsePackageDownloadsRange } from '~/npm/schema';
+import { PACKAGE_DOWNLOADS_LAST_LIST, safeParsePackageDownloadsPoint, safeParsePackageDownloadsRange } from '~/npm/schema';
 import { BASE_URL_API } from '~/npm/url';
 
 describe('downloads/:type/last', () => {
@@ -18,7 +18,7 @@ describe('downloads/:type/last', () => {
 
 		expect(fn).not.toThrow(FetchError);
 
-		if (type === 'point') expect(parsePackageDownloadsPoint.safe(await fn()).success).toBeTruthy();
-		if (type === 'range') expect(parsePackageDownloadsRange.safe(await fn()).success).toBeTruthy();
+		if (type === 'point') expect(safeParsePackageDownloadsPoint(await fn()).success).toBeTruthy();
+		if (type === 'range') expect(safeParsePackageDownloadsRange(await fn()).success).toBeTruthy();
 	});
 });

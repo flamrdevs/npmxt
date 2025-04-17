@@ -1,6 +1,6 @@
 import { FetchError, ofetch } from 'ofetch';
 
-import { parseBundleSize } from '~/bundlejs/schema';
+import { safeParseBundleSize } from '~/bundlejs/schema';
 import { BASE_URL_DENO } from '~/bundlejs/url';
 
 describe('*name', () => {
@@ -13,6 +13,6 @@ describe('*name', () => {
 
 		expect(fn).not.toThrow(FetchError);
 
-		expect(parseBundleSize.safe(await fn()).success).toBeTruthy();
+		expect(safeParseBundleSize(await fn()).success).toBeTruthy();
 	});
 });

@@ -1,6 +1,6 @@
 import { FetchError, ofetch } from 'ofetch';
 
-import { parsePackage, parsePackageMetadata } from '~/npm/schema';
+import { safeParsePackage, safeParsePackageMetadata } from '~/npm/schema';
 import { BASE_URL_REGISTRY } from '~/npm/url';
 
 describe('*name-with-version', () => {
@@ -15,7 +15,7 @@ describe('*name-with-version', () => {
 
 		expect(fn).not.toThrow(FetchError);
 
-		expect(parsePackage.safe(await fn()).success).toBeTruthy();
+		expect(safeParsePackage(await fn()).success).toBeTruthy();
 	});
 });
 
@@ -29,6 +29,6 @@ describe('*name', () => {
 
 		expect(fn).not.toThrow(FetchError);
 
-		expect(parsePackageMetadata.safe(await fn()).success).toBeTruthy();
+		expect(safeParsePackageMetadata(await fn()).success).toBeTruthy();
 	});
 });
