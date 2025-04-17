@@ -1,7 +1,5 @@
 import * as v from 'valibot';
 
-import { createParser } from '~/utils/valibot';
-
 const StringSchema = v.string();
 const NumberSchema = v.number();
 const OptionalStringSchema = v.optional(StringSchema);
@@ -9,7 +7,7 @@ const OptionalStringSchema = v.optional(StringSchema);
 const PACKAGE_NAME_REGEXP = /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 export type TPackageNameSchema = v.InferOutput<typeof PackageNameSchema>;
 export const PackageNameSchema = v.pipe(StringSchema, v.trim(), v.regex(PACKAGE_NAME_REGEXP, `${__DEV__ ? '[valibot] ' : ''} Invalid package name format`), v.brand('package-name'));
-export const parsePackageName = createParser(PackageNameSchema);
+export const parsePackageName = v.parser(PackageNameSchema);
 export const parseCachedPackageName = (() => {
 	const cache: Record<string, TPackageNameSchema> = {};
 	return (input: string) => (cache[input] ||= parsePackageName(input));
@@ -28,7 +26,8 @@ export const PackageMetadataSchema = v.object({
 	),
 	'dist-tags': v.record(StringSchema, StringSchema),
 });
-export const parsePackageMetadata = createParser(PackageMetadataSchema);
+export const parsePackageMetadata = v.parser(PackageMetadataSchema);
+export const safeParsePackageMetadata = v.safeParser(PackageMetadataSchema);
 
 export type TDependenciesSchema = v.InferOutput<typeof DependenciesSchema>;
 export const DependenciesSchema = v.optional(v.record(PackageNameSchema, StringSchema));
@@ -68,7 +67,8 @@ export const PackageSchema = v.object({
 	peerDependencies: DependenciesSchema,
 	devDependencies: DependenciesSchema,
 });
-export const parsePackage = createParser(PackageSchema);
+export const parsePackage = v.parser(PackageSchema);
+export const safeParsePackage = v.safeParser(PackageSchema);
 
 export const PACKAGE_DOWNLOADS_LAST_MAP = {
 	day: 1,
@@ -80,7 +80,7 @@ export const PACKAGE_DOWNLOADS_LAST_LIST = Object.keys(PACKAGE_DOWNLOADS_LAST_MA
 
 export type TPackageDownloadsLastSchema = v.InferOutput<typeof PackageDownloadsLastSchema>;
 export const PackageDownloadsLastSchema = v.picklist(PACKAGE_DOWNLOADS_LAST_LIST);
-export const parsePackageDownloadsLast = createParser(PackageDownloadsLastSchema);
+export const parsePackageDownloadsLast = v.parser(PackageDownloadsLastSchema);
 
 export type TPackageDownloadsPointSchema = v.InferOutput<typeof PackageDownloadsPointSchema>;
 export const PackageDownloadsPointSchema = v.object({
@@ -89,7 +89,8 @@ export const PackageDownloadsPointSchema = v.object({
 	end: StringSchema,
 	downloads: NumberSchema,
 });
-export const parsePackageDownloadsPoint = createParser(PackageDownloadsPointSchema);
+export const parsePackageDownloadsPoint = v.parser(PackageDownloadsPointSchema);
+export const safeParsePackageDownloadsPoint = v.safeParser(PackageDownloadsPointSchema);
 
 export type TPackageDownloadsRangeSchema = v.InferOutput<typeof PackageDownloadsRangeSchema>;
 export const PackageDownloadsRangeSchema = v.object({
@@ -103,4 +104,5 @@ export const PackageDownloadsRangeSchema = v.object({
 		})
 	),
 });
-export const parsePackageDownloadsRange = createParser(PackageDownloadsRangeSchema);
+export const parsePackageDownloadsRange = v.parser(PackageDownloadsRangeSchema);
+export const safeParsePackageDownloadsRange = v.safeParser(PackageDownloadsRangeSchema);

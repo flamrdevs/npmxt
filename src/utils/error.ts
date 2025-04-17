@@ -1,8 +1,6 @@
 import { FetchError } from 'ofetch';
 import * as v from 'valibot';
 
-import { getErrorMessage as getValibotErrorMessage } from '~/utils/valibot';
-
 export class StatusError extends Error {
 	constructor(
 		message: string,
@@ -23,7 +21,7 @@ export const errorStatusMessage = (error: unknown) => {
 	let message: string | undefined;
 	let status: number | undefined;
 	if (v.isValiError(error)) {
-		message = getValibotErrorMessage(error);
+		message = error.issues[0].message || error.message;
 		status = 400;
 	} else if (isFetchError(error) || isStatusError(error)) {
 		message = error.message;
