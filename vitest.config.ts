@@ -19,9 +19,13 @@ export default defineConfig({
 	}),
 	test: {
 		globals: true,
-		environment: 'jsdom',
 		include: ['src/**/*.test.ts?(x)'],
 		setupFiles: ['./vitest.setup.ts'],
+		browser: {
+			provider: 'playwright',
+			enabled: true,
+			instances: [{ browser: 'chromium' }],
+		},
 	},
 	resolve: {
 		conditions: ['development', 'browser'],
