@@ -1,18 +1,14 @@
-import indexeddb from 'fake-indexeddb';
+import { worker } from './src/mocks/browser';
+import { onUnhandledRequest } from './src/mocks/utils';
 
-import { server } from '~/mocks/node';
-import { onUnhandledRequest } from '~/mocks/utils';
-
-globalThis.indexedDB = indexeddb;
-
-beforeAll(() => {
-	server.listen({ onUnhandledRequest });
+beforeAll(async () => {
+	await worker.start({ onUnhandledRequest });
 });
 
 afterEach(() => {
-	server.resetHandlers();
+	worker.resetHandlers();
 });
 
 afterAll(() => {
-	server.close();
+	worker.stop();
 });
