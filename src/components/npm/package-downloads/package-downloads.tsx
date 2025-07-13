@@ -4,6 +4,7 @@ import { ErrorBoundary, Show, Suspense } from 'solid-js';
 import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';
 
+import { NPMFavorite } from '../favorite';
 import { NPMPackageLinks } from '../package-links';
 import { NPMSettings } from '../settings';
 import { NPMShare } from '../share/share';
@@ -29,6 +30,7 @@ export const NPMPackageDownloads = () => {
 				</div>
 
 				<div class="shrink-0 self-baseline flex items-center gap-1.5 md:gap-2.5">
+					<NPMFavorite />
 					<NPMShare />
 					<NPMSettings />
 				</div>

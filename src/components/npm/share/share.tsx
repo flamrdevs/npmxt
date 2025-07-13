@@ -2,11 +2,24 @@ import { clientOnly } from '@solidjs/start';
 
 import { Share2 } from 'lucide';
 
+import { delay } from '~/utils/delay';
 import { LucideIcon } from '../../icons';
 import { IconButton, Popover, Separator, Tooltip } from '../../ui';
 
-const QRCode = clientOnly(() => import('./qrcode.client'), { lazy: true });
-const Socials = clientOnly(() => import('./socials.client'), { lazy: true });
+const QRCode = clientOnly(
+	async () => {
+		await delay(1000);
+		return import('./qrcode.client');
+	},
+	{ lazy: true }
+);
+const Socials = clientOnly(
+	async () => {
+		await delay(1000);
+		return import('./socials.client');
+	},
+	{ lazy: true }
+);
 
 export const NPMShare = () => {
 	return (
@@ -26,7 +39,7 @@ export const NPMShare = () => {
 			)}
 			title="Share"
 		>
-			<div class="flex flex-col gap-4 my-2 p-2">
+			<div class="flex flex-col gap-4 my-2 p-2 min-w-40">
 				<QRCode />
 
 				<Separator />
