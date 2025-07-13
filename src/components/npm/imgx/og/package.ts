@@ -1,10 +1,9 @@
 import { ArrowRight } from 'lucide';
 
-import { OGImageResponse, height, width } from '~/server/imgx/response/og';
-
 import { neutral_dark as neutral } from '~/imgx/colors';
-
 import type { TPackageNameSchema } from '~/npm/schema';
+import { height, OGImageResponse, width } from '~/server/imgx/response/og';
+
 import { LucideIcon } from '../icons/lucide';
 
 export const og = (name: TPackageNameSchema, version: string, description?: string) => {

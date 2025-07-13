@@ -1,5 +1,5 @@
-import { clientOnly } from '@solidjs/start';
 import { Suspense } from 'solid-js';
+import { clientOnly } from '@solidjs/start';
 
 import { usePackageContext } from '~/contexts/package-context';
 

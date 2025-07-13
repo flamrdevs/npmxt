@@ -1,8 +1,7 @@
 import { ArrowRight } from 'lucide';
 
-import { OGImageResponse } from '~/server/imgx/response/og';
-
 import { neutral_dark as neutral } from '~/imgx/colors';
+import { OGImageResponse } from '~/server/imgx/response/og';
 
 import { LucideIcon } from '../icons/lucide';
 

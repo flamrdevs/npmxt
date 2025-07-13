@@ -1,15 +1,12 @@
-import { Show, children, createMemo, splitProps } from 'solid-js';
+import { children, createMemo, Show, splitProps } from 'solid-js';
 import { createDynamic } from 'solid-js/web';
 
-import { type ValidationState, mergeDefaultProps } from '@kobalte/utils';
-
+import { mergeDefaultProps, type ValidationState } from '@kobalte/utils';
+import { clsx } from 'clsx';
 import { X } from 'lucide';
 
-import { clsx } from 'clsx';
-
-import { classesSplitter } from '../utils';
-
 import { LucideIcon } from '../icons';
+import { classesSplitter } from '../utils';
 
 import './utils.css';
 

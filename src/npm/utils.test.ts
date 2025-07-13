@@ -1,4 +1,5 @@
 import { StatusError } from '~/utils/error';
+
 import { fetchPackage, fetchPackageAlt, fetchPackageDownloadsPointLast, fetchPackageDownloadsRangeLast, fetchPackageMetadata, splitPackageNameAndVersion } from './utils';
 
 describe('splitPackageNameAndVersion', () => {

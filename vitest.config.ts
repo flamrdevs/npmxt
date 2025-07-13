@@ -1,10 +1,8 @@
 import { defineConfig } from 'vitest/config';
 
-import tsconfigPaths from 'vite-tsconfig-paths';
-
-import solid from 'vite-plugin-solid';
-
 import tailwindcss from '@tailwindcss/vite';
+import solid from 'vite-plugin-solid';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 import define from './define';
 

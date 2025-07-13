@@ -1,20 +1,16 @@
-import { useSearchParams } from '@solidjs/router';
 import { createEffect, createMemo, createUniqueId } from 'solid-js';
 import { createDynamic } from 'solid-js/web';
+import { useSearchParams } from '@solidjs/router';
 
 import * as KSelect from '@kobalte/core/select';
-
 import * as zagClipboard from '@zag-js/clipboard';
 import * as zag from '@zag-js/solid';
-
-import { Check, ChevronDown, Copy } from 'lucide';
-
 import { clsx } from 'clsx';
-
-import { usePackageContext } from '~/contexts/package-context';
+import { Check, ChevronDown, Copy } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import * as SVGL from '~/components/icons/svgl';
+import { usePackageContext } from '~/contexts/package-context';
 
 const css = {
 	sl: 'shrink-0 h-7',

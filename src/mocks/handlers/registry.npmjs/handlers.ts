@@ -1,6 +1,6 @@
-import { http, HttpResponse, delay } from 'msw';
+import { delay, HttpResponse, http } from 'msw';
 
-import { type TDependenciesSchema, type TPackageMetadataSchema, type TPackageNameSchema, type TPackageSchema, parseCachedPackageName } from '~/npm/schema';
+import { parseCachedPackageName, type TDependenciesSchema, type TPackageMetadataSchema, type TPackageNameSchema, type TPackageSchema } from '~/npm/schema';
 import { BASE_URL_REGISTRY as NPM_BASE_URL_REGISTRY } from '~/npm/url';
 import { splitPackageNameAndVersion } from '~/npm/utils';
 

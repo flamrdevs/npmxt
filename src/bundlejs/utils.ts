@@ -1,11 +1,9 @@
 import type { TPackageSchema } from '~/npm/schema';
-
 import { createCacheStorage } from '~/utils/cache-storage';
 import { StatusError } from '~/utils/error';
 
-import { type TBundleSizeSchema, parseBundleSize } from './schema';
-
 import { fetcherBundleSize } from './fetcher';
+import { parseBundleSize, type TBundleSizeSchema } from './schema';
 
 export const fetchBundleSize = (() => {
 	const withCacheStorage = createCacheStorage<TBundleSizeSchema>(__DEV__ ? 'bundle-size' : 'bz');

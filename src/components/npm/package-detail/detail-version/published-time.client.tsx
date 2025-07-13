@@ -1,10 +1,8 @@
-import { createAsync } from '@solidjs/router';
 import { Show } from 'solid-js';
+import { createAsync } from '@solidjs/router';
 
 import { usePackageContext } from '~/contexts/package-context';
-
 import { queryPackageMetadata } from '~/npm/queries.client';
-
 import { dayjs } from '~/utils/dayjs';
 
 const format = (time: any) => {

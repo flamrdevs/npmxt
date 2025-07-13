@@ -1,15 +1,13 @@
+import { createMemo, For } from 'solid-js';
 import { A, useLocation } from '@solidjs/router';
-import { For, createMemo } from 'solid-js';
 
 import * as KLink from '@kobalte/core/link';
 
-import { linkToNPMPackage } from '~/npm/href';
-import type { TDependenciesSchema, TPackageNameSchema } from '~/npm/schema';
-
 import * as SVGL from '~/components/icons/svgl';
-
 import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';
+import { linkToNPMPackage } from '~/npm/href';
+import type { TDependenciesSchema, TPackageNameSchema } from '~/npm/schema';
 
 const sortFnDepsEntries = <T extends [string, string]>(a: T, b: T) => (a[0] > b[0] ? 1 : a[0] < b[0] ? -1 : 0);
 

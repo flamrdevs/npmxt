@@ -1,9 +1,8 @@
 import { createMemo, splitProps } from 'solid-js';
 
+import { klass, type VariantsOf } from '@klass/core';
 import * as K from '@kobalte/core/button';
 import type { PolymorphicProps } from '@kobalte/core/polymorphic';
-
-import { type VariantsOf, klass } from '@klass/core';
 
 import { classesSplitter, klassXVariants } from '../../utils';
 

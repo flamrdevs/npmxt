@@ -1,6 +1,6 @@
 import * as v from 'valibot';
 
-import { StatusError, errorStatusMessage } from './error';
+import { errorStatusMessage, StatusError } from './error';
 
 describe('StatusError', () => {
 	it('works correctly', () => {

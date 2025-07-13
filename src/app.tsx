@@ -1,15 +1,13 @@
+import { ErrorBoundary, Suspense } from 'solid-js';
+import { MetaProvider } from '@solidjs/meta';
 import { Router } from '@solidjs/router';
 import { FileRoutes } from '@solidjs/start/router';
-import { ErrorBoundary, Suspense } from 'solid-js';
-
-import { MetaProvider } from '@solidjs/meta';
 
 import { AlertCircle } from 'lucide';
 
 import { RenderStatusMessageError } from '~/components/error';
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-
 import * as theme from '~/theme/setup';
 
 import '~/styles/layer.css';

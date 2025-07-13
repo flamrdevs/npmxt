@@ -2,7 +2,6 @@ import { createEffect } from 'solid-js';
 import { isServer } from 'solid-js/web';
 
 import * as DATA_ATTR from './core/data-attr';
-
 import { mode, neutral, primary } from './state/state';
 
 const setupDocAttr = () => {

@@ -1,18 +1,15 @@
+import { createEffect, createMemo, ErrorBoundary, Show, Suspense } from 'solid-js';
 import { createAsync, useParams } from '@solidjs/router';
-import { ErrorBoundary, Show, Suspense, createEffect, createMemo } from 'solid-js';
 
 import { AlertCircle } from 'lucide';
-
-import { NPMPackageDownloads } from '~/components/npm/package-downloads';
 
 import { RenderStatusMessageError } from '~/components/error';
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-import { Loader } from '~/components/ui';
-
-import { PackageContext } from '~/contexts/package-context';
-
+import { NPMPackageDownloads } from '~/components/npm/package-downloads';
 import { SourceCodeAndSupport } from '~/components/source-code-and-support';
+import { Loader } from '~/components/ui';
+import { PackageContext } from '~/contexts/package-context';
 import { queryPackage } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
 
@@ -46,7 +43,7 @@ export default function Downloads$NamePage() {
 	const prePkgName = createMemo(() => {
 		try {
 			return parseCachedPackageName(params.name);
-		} catch (error) {}
+		} catch {}
 	});
 
 	if (__DEV__) {

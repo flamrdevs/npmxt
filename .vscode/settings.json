@@ -2,5 +2,8 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"[markdown]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit"
 	}
 }

@@ -1,16 +1,12 @@
 import * as d3 from 'd3';
-
 import { ArrowRight, Download } from 'lucide';
 
-import type { TPackageDownloadsRangeSchema, TPackageNameSchema } from '~/npm/schema';
-import { OGImageResponse, height, width } from '~/server/imgx/response/og';
-
 import { neutral_dark as neutral, primary_dark as primary } from '~/imgx/colors';
-
+import type { TPackageDownloadsRangeSchema, TPackageNameSchema } from '~/npm/schema';
+import { height, OGImageResponse, width } from '~/server/imgx/response/og';
 import { formatNumberCompact } from '~/utils/formatter';
 
 import { LucideIcon } from '../icons/lucide';
-
 import { getChartSimpleLastYearDownloadsData } from '../utils/downloads';
 
 export const og = (name: TPackageNameSchema, downloads: TPackageDownloadsRangeSchema['downloads']) => {

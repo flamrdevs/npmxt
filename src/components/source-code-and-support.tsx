@@ -1,5 +1,7 @@
-import { ExternalLink } from 'lucide';
 import { Show } from 'solid-js';
+
+import { ExternalLink } from 'lucide';
+
 import { LucideIcon } from './icons';
 import { Button, Popover } from './ui';
 

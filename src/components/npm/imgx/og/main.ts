@@ -1,8 +1,7 @@
 import { MousePointerClick } from 'lucide';
 
-import { OGImageResponse, height, width } from '~/server/imgx/response/og';
-
 import { neutral_dark as neutral } from '~/imgx/colors';
+import { height, OGImageResponse, width } from '~/server/imgx/response/og';
 
 import { LucideIcon } from '../icons/lucide';
 

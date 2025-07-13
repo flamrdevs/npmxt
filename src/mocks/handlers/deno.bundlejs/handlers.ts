@@ -1,10 +1,8 @@
-import { http, HttpResponse, delay } from 'msw';
-
+import { delay, HttpResponse, http } from 'msw';
 import prettyBytes from 'pretty-bytes';
 
 import type { TBundleSizeSchema } from '~/bundlejs/schema';
 import { BASE_URL_DENO as BUNDLEJS_BASE_URL_DENO } from '~/bundlejs/url';
-
 import { range } from '~/utils/range';
 
 const BUNDLE_SIZE_RECORD: Record<string, TBundleSizeSchema> = {};

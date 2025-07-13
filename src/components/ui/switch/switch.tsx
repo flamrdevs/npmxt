@@ -1,12 +1,10 @@
 import { splitProps } from 'solid-js';
 
 import * as K from '@kobalte/core/switch';
-
 import { clsx } from 'clsx';
 
 import { classesSplitter } from '../../utils';
-
-import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from '../utils';
+import { type InlineFormControlProps, inlineFormControlSplitter, ShowInlineFormControlLayout } from '../utils';
 
 import './switch.css';
 

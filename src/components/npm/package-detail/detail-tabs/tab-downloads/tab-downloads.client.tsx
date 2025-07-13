@@ -1,21 +1,16 @@
+import { createMemo, Show } from 'solid-js';
 import { A, createAsync, query } from '@solidjs/router';
-import { Show, createMemo } from 'solid-js';
 
 import * as KLink from '@kobalte/core/link';
-
 import * as d3 from 'd3';
-
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from 'lucide';
 
 import { NumberTicker } from '~/components/effect/number-ticker';
 import { LucideIcon } from '~/components/icons';
 import { Separator } from '~/components/ui';
-
 import { usePackageContext } from '~/contexts/package-context';
-
 import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageDownloadsRangeSchema, type TPackageSchema } from '~/npm/schema';
 import { fetchPackageDownloadsRangeLast } from '~/npm/utils';
-
 import { formatNumber } from '~/utils/formatter';
 
 const Chart = (props: { d1: number[]; d2: number[] }) => {

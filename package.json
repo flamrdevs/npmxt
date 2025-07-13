@@ -49,7 +49,7 @@
 		"vinxi": "0.5.8"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
+		"@biomejs/biome": "2.1.1",
 		"@tailwindcss/vite": "4.1.11",
 		"@types/bun": "1.2.18",
 		"@types/d3": "7.4.3",
@@ -69,6 +69,8 @@
 		"vitest": "3.2.4"
 	},
 	"msw": {
-		"workerDirectory": ["public"]
+		"workerDirectory": [
+			"public"
+		]
 	}
 }

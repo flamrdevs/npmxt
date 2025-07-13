@@ -8,7 +8,7 @@ const toBinary = (() => {
 	return (base64: string) => {
 		const n = base64.length;
 		// @ts-expect-error
-		// biome-ignore lint/suspicious/noDoubleEquals: <explanation>
+		// biome-ignore lint/suspicious/noDoubleEquals: ok
 		const bytes = new Uint8Array((((n - (base64[n - 1] == '=') - (base64[n - 2] == '=')) * 3) / 4) | 0);
 		for (let i2 = 0, j = 0; i2 < n; ) {
 			const c0 = table[base64.charCodeAt(i2++)];

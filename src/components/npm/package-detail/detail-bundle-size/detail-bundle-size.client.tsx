@@ -1,13 +1,11 @@
-import { createAsync, query } from '@solidjs/router';
 import { Show } from 'solid-js';
+import { createAsync, query } from '@solidjs/router';
 
 import { ArrowRight } from 'lucide';
 
-import { LucideIcon } from '~/components/icons';
-
-import { usePackageContext } from '~/contexts/package-context';
-
 import { fetchBundleSize } from '~/bundlejs/utils';
+import { LucideIcon } from '~/components/icons';
+import { usePackageContext } from '~/contexts/package-context';
 import type { TPackageSchema } from '~/npm/schema';
 
 const queryPackageBundleSize = query((pkg: TPackageSchema) => fetchBundleSize(pkg), 'package-bundle-size');

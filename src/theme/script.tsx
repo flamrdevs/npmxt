@@ -12,6 +12,7 @@ export const Script = () => {
 		let scope = '';
 
 		scope +=
+			// biome-ignore lint/suspicious/noTemplateCurlyInString: ok
 			'const fn = (storageKey, validItems, fallback, dataAttr) => {let attrValue = fallback;try {const item = localStorage.getItem(storageKey);if (typeof item === "string" && validItems.includes(item)) attrValue = item;} catch (error) {}document.documentElement.setAttribute(`data-${dataAttr}`, attrValue);};';
 
 		for (const [storageKey, validItems, fallback, dataAttr] of inputs) {

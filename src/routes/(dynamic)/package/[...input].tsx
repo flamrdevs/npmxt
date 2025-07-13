@@ -1,18 +1,15 @@
+import { createEffect, createMemo, ErrorBoundary, Show, Suspense } from 'solid-js';
 import { createAsync, useParams } from '@solidjs/router';
-import { ErrorBoundary, Show, Suspense, createEffect, createMemo } from 'solid-js';
 
 import { AlertCircle } from 'lucide';
-
-import { NPMPackageDetail } from '~/components/npm/package-detail';
 
 import { RenderStatusMessageError } from '~/components/error';
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-import { Loader } from '~/components/ui';
-
-import { PackageContext } from '~/contexts/package-context';
-
+import { NPMPackageDetail } from '~/components/npm/package-detail';
 import { SourceCodeAndSupport } from '~/components/source-code-and-support';
+import { Loader } from '~/components/ui';
+import { PackageContext } from '~/contexts/package-context';
 import { queryPackageAlt } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
 import { splitPackageNameAndVersion } from '~/npm/utils';
@@ -52,7 +49,7 @@ export default function Package$InputPage() {
 				name: parseCachedPackageName(name),
 				version,
 			};
-		} catch (error) {}
+		} catch {}
 	});
 
 	if (__DEV__) {

@@ -3,11 +3,10 @@ import { Show } from 'solid-js';
 import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';
 
+import { NPMFavorite } from '../favorite';
 import { NPMPackageLinks } from '../package-links';
 import { NPMSettings } from '../settings';
 import { NPMShare } from '../share/share';
-
-import { NPMFavorite } from '../favorite';
 import { DetailBundleSize } from './detail-bundle-size/detail-bundle-size';
 import { DetailInstall } from './detail-install/detail-install';
 import { DetailTabs } from './detail-tabs/detail-tabs';

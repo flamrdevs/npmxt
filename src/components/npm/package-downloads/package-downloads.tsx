@@ -1,5 +1,5 @@
-import { clientOnly } from '@solidjs/start';
 import { ErrorBoundary, Show, Suspense } from 'solid-js';
+import { clientOnly } from '@solidjs/start';
 
 import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';

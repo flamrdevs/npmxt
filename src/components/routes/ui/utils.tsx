@@ -4,7 +4,6 @@ import { Settings2 } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import { IconButton, Popover, Select, Switch, TextField } from '~/components/ui';
-
 import { entriesMap } from '~/utils/object';
 
 export const Panel = (() => {
@@ -13,10 +12,7 @@ export const Panel = (() => {
 			<LucideIcon i={Settings2} />
 		</IconButton>
 	);
-	return (props: {
-		popover: Solid.JSX.Element;
-		children: Solid.JSX.Element;
-	}) => (
+	return (props: { popover: Solid.JSX.Element; children: Solid.JSX.Element }) => (
 		<div class="relative flex items-center justify-center gap-4 w-full min-h-64 bg-cn-1 border border-cn-3 rounded-3xl">
 			{props.children}
 
@@ -27,11 +23,7 @@ export const Panel = (() => {
 	);
 })();
 
-export const ControlColor = <M extends Record<string, string>, P extends { color?: Exclude<keyof M, number | symbol> }>(props: {
-	map: M;
-	get: P;
-	set: SetStoreFunction<P>;
-}) => {
+export const ControlColor = <M extends Record<string, string>, P extends { color?: Exclude<keyof M, number | symbol> }>(props: { map: M; get: P; set: SetStoreFunction<P> }) => {
 	return (
 		<Select<Exclude<keyof M, number | symbol>>
 			options={entriesMap(props.map, ([value, label]) => ({
@@ -48,11 +40,7 @@ export const ControlColor = <M extends Record<string, string>, P extends { color
 	);
 };
 
-export const ControlSize = <M extends Record<string, string>, P extends { size?: Exclude<keyof M, number | symbol> }>(props: {
-	map: M;
-	get: P;
-	set: SetStoreFunction<P>;
-}) => {
+export const ControlSize = <M extends Record<string, string>, P extends { size?: Exclude<keyof M, number | symbol> }>(props: { map: M; get: P; set: SetStoreFunction<P> }) => {
 	return (
 		<Select<Exclude<keyof M, number | symbol>>
 			options={entriesMap(props.map, ([value, label]) => ({
@@ -69,10 +57,7 @@ export const ControlSize = <M extends Record<string, string>, P extends { size?:
 	);
 };
 
-export const ControlTitle = <P extends { title?: string }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlTitle = <P extends { title?: string }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<TextField
 		label="Title"
 		placeholder="Title..."
@@ -83,10 +68,7 @@ export const ControlTitle = <P extends { title?: string }>(props: {
 	/>
 );
 
-export const ControlLabel = <P extends { label?: string }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlLabel = <P extends { label?: string }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<TextField
 		label="Label"
 		placeholder="Label..."
@@ -97,10 +79,7 @@ export const ControlLabel = <P extends { label?: string }>(props: {
 	/>
 );
 
-export const ControlDescription = <P extends { description?: string }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlDescription = <P extends { description?: string }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<TextField
 		label="Description"
 		placeholder="Description..."
@@ -111,10 +90,7 @@ export const ControlDescription = <P extends { description?: string }>(props: {
 	/>
 );
 
-export const ControlErrorMessage = <P extends { errorMessage?: string }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlErrorMessage = <P extends { errorMessage?: string }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<TextField
 		label="Error message"
 		placeholder="Error message..."
@@ -147,10 +123,7 @@ export const ControlLabelPosition = <P extends { labelPosition?: 'left' | 'right
 	);
 };
 
-export const ControlPlaceholder = <P extends { placeholder?: string }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlPlaceholder = <P extends { placeholder?: string }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<TextField
 		label="Placeholder"
 		placeholder="Placeholder..."
@@ -161,10 +134,7 @@ export const ControlPlaceholder = <P extends { placeholder?: string }>(props: {
 	/>
 );
 
-export const ControlDisabled = <P extends { disabled?: boolean }>(props: {
-	get: P;
-	set: SetStoreFunction<P>;
-}) => (
+export const ControlDisabled = <P extends { disabled?: boolean }>(props: { get: P; set: SetStoreFunction<P> }) => (
 	<Switch
 		label="Disabled"
 		checked={props.get.disabled}

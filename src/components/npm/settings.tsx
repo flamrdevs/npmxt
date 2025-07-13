@@ -1,7 +1,6 @@
 import { For } from 'solid-js';
 
 import * as KRadioGroup from '@kobalte/core/radio-group';
-
 import { Check, Settings } from 'lucide';
 
 import * as THEME_CORE from '~/theme/core/core';
