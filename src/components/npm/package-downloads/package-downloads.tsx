@@ -4,10 +4,10 @@ import { ErrorBoundary, Show, Suspense } from 'solid-js';
 import { Separator } from '~/components/ui';
 import { usePackageContext } from '~/contexts/package-context';
 
+import { NPMFavorite } from '../favorite';
 import { NPMPackageLinks } from '../package-links';
 import { NPMSettings } from '../settings';
 import { NPMShare } from '../share/share';
-import { NPMFavorite } from '../favorite';
 
 const Chart = clientOnly(() => import('./chart'), { lazy: true });
 
