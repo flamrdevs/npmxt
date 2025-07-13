@@ -7,8 +7,8 @@ import { ChartLine, PackageSearch } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-import { IconButton, TextField, Tooltip } from '~/components/ui';
 import { SourceCodeAndSupport } from '~/components/source-code-and-support';
+import { IconButton, TextField, Tooltip } from '~/components/ui';
 
 const packageAction = action(async (formData: FormData) => {
 	const pkg = formData.get('pkg');

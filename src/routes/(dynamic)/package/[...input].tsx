@@ -12,10 +12,10 @@ import { Loader } from '~/components/ui';
 
 import { PackageContext } from '~/contexts/package-context';
 
+import { SourceCodeAndSupport } from '~/components/source-code-and-support';
 import { queryPackageAlt } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
 import { splitPackageNameAndVersion } from '~/npm/utils';
-import { SourceCodeAndSupport } from '~/components/source-code-and-support';
 
 const Blobs = () => {
 	return (

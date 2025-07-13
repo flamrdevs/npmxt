@@ -1,7 +1,7 @@
 import { ExternalLink } from 'lucide';
+import { Show } from 'solid-js';
 import { LucideIcon } from './icons';
 import { Button, Popover } from './ui';
-import { Show } from 'solid-js';
 
 export const SourceCodeAndSupport = (props: { h?: boolean }) => {
 	return (
