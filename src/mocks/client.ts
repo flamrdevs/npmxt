@@ -1,5 +1,4 @@
 import { worker } from './browser';
-
 import { onUnhandledRequest } from './utils';
 
 let started = false;

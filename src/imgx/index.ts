@@ -1,2 +1,2 @@
-export type * from './types';
 export { h } from './h';
+export type * from './types';

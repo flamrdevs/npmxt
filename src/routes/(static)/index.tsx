@@ -1,5 +1,4 @@
-import { Suspense, createSignal } from 'solid-js';
-
+import { createSignal, Suspense } from 'solid-js';
 import { action, redirect } from '@solidjs/router';
 import { clientOnly } from '@solidjs/start';
 

@@ -1,19 +1,18 @@
-import { http, HttpResponse, delay } from 'msw';
-
-import { dayjs } from '~/utils/dayjs';
-import { range } from '~/utils/range';
+import { delay, HttpResponse, http } from 'msw';
 
 import { DOWNLOAD_DATE_FORMAT } from '~/npm/const';
 import {
 	PACKAGE_DOWNLOADS_LAST_LIST,
 	PACKAGE_DOWNLOADS_LAST_MAP,
+	parseCachedPackageName,
+	parsePackageDownloadsLast,
 	type TPackageDownloadsPointSchema,
 	type TPackageDownloadsRangeSchema,
 	type TPackageNameSchema,
-	parseCachedPackageName,
-	parsePackageDownloadsLast,
 } from '~/npm/schema';
 import { BASE_URL_API as NPM_BASE_URL_API } from '~/npm/url';
+import { dayjs } from '~/utils/dayjs';
+import { range } from '~/utils/range';
 
 import { MOCK_PACKAGE } from '../registry.npmjs/handlers';
 

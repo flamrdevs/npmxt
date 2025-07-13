@@ -1,6 +1,7 @@
-import type { IconNode } from 'lucide';
 import { For } from 'solid-js';
 import { createDynamic } from 'solid-js/web';
+
+import type { IconNode } from 'lucide';
 
 export namespace LucideIcon {
 	export type Props = {

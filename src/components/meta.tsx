@@ -1,10 +1,9 @@
-import { Meta, Title, useHead } from '@solidjs/meta';
-import { useLocation } from '@solidjs/router';
 import { createMemo, createUniqueId } from 'solid-js';
 import { isServer } from 'solid-js/web';
+import { Meta, Title, useHead } from '@solidjs/meta';
+import { useLocation } from '@solidjs/router';
 
 import { height as og_height, width as og_width } from '~/server/imgx/response/og/config';
-
 import { NPMXT } from '~/utils/url';
 
 const TITLE = 'npmxt';
@@ -45,9 +44,7 @@ const usePropertyContentMeta = (property: string, content: string) => {
 	});
 };
 
-export const PreOGImage = (props: {
-	img: string;
-}) => {
+export const PreOGImage = (props: { img: string }) => {
 	const image = createMemo(() => `${NPMXT}/og/${props.img}`);
 
 	usePropertyContentMeta('og:image', image());

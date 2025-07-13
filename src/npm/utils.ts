@@ -1,20 +1,19 @@
 import { createCacheStorage } from '~/utils/cache-storage';
-import { StatusError, isErrorStatusNotFound, isFetchError, isStatusError } from '~/utils/error';
+import { isErrorStatusNotFound, isFetchError, isStatusError, StatusError } from '~/utils/error';
 
+import { fetcherPackage, fetcherPackageDownloadsPointLast, fetcherPackageDownloadsRangeLast, fetcherPackageMetadata } from './fetcher';
 import {
-	type TPackageDownloadsPointSchema,
-	type TPackageDownloadsRangeSchema,
-	type TPackageMetadataSchema,
-	type TPackageSchema,
 	parseCachedPackageName,
 	parsePackage,
 	parsePackageDownloadsLast,
 	parsePackageDownloadsPoint,
 	parsePackageDownloadsRange,
 	parsePackageMetadata,
+	type TPackageDownloadsPointSchema,
+	type TPackageDownloadsRangeSchema,
+	type TPackageMetadataSchema,
+	type TPackageSchema,
 } from './schema';
-
-import { fetcherPackage, fetcherPackageDownloadsPointLast, fetcherPackageDownloadsRangeLast, fetcherPackageMetadata } from './fetcher';
 
 export const splitPackageNameAndVersion = (() => {
 	const cache: Record<string, readonly [string, string | undefined]> = {};

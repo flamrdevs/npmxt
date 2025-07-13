@@ -25,7 +25,9 @@
 
 	.xt-switch-thumb {
 		@apply size-[1.125rem] bg-cn-9 rounded-full;
-		transition: 200ms background-color, 200ms transform;
+		transition:
+			200ms background-color,
+			200ms transform;
 
 		&[data-checked] {
 			@apply bg-white;

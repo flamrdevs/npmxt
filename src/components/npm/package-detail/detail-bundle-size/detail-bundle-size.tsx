@@ -1,5 +1,5 @@
-import { clientOnly } from '@solidjs/start';
 import { ErrorBoundary, Suspense } from 'solid-js';
+import { clientOnly } from '@solidjs/start';
 
 import { AlertTriangle, Info } from 'lucide';
 

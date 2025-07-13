@@ -1,5 +1,5 @@
-import { clientOnly } from '@solidjs/start';
 import { For, Suspense } from 'solid-js';
+import { clientOnly } from '@solidjs/start';
 
 import { Separator } from '~/components/ui';
 

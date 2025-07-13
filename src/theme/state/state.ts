@@ -4,7 +4,6 @@ import { isServer } from 'solid-js/web';
 import type * as CORE from '../core/core';
 import * as FALLBACK from '../core/fallback';
 import * as is from '../core/is';
-
 import * as storage from './storage';
 
 const initialValue = <T>(getter: () => NoInfer<T> | undefined, fallback: NoInfer<T>): T => {

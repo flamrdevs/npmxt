@@ -1,15 +1,12 @@
 import { Show } from 'solid-js';
 
 import * as KLink from '@kobalte/core/link';
-
+import GitUrlParse from 'git-url-parse';
 import { Link2 } from 'lucide';
 
-import GitUrlParse from 'git-url-parse';
-
+import { usePackageContext } from '~/contexts/package-context';
 import { linkToNPMPackage } from '~/npm/href';
 import type { TPackageSchema } from '~/npm/schema';
-
-import { usePackageContext } from '~/contexts/package-context';
 
 import { LucideIcon } from '../icons';
 import * as SVGL from '../icons/svgl';
@@ -31,7 +28,7 @@ export const getRepositoryInfo = ({ repository }: TPackageSchema) => {
 				for (const key in SUPPORTED_SOURCE) if (parsed.source.includes(SUPPORTED_SOURCE[key as KeyofSupportedSource])) return { src: key as KeyofSupportedSource, url: parsed.toString('https') };
 			}
 		}
-	} catch (error) {}
+	} catch {}
 };
 
 export const NPMPackageLinks = (props: Solid.JSX.HTMLAttributes<HTMLDivElement>) => {

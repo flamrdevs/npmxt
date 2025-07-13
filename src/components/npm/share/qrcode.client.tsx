@@ -1,5 +1,5 @@
-import { useLocation } from '@solidjs/router';
 import { createMemo, createUniqueId } from 'solid-js';
+import { useLocation } from '@solidjs/router';
 
 import * as zagQRCode from '@zag-js/qr-code';
 import * as zag from '@zag-js/solid';

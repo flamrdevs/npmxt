@@ -1,16 +1,13 @@
-import { HttpHeader } from '@solidjs/start';
 import { For } from 'solid-js';
+import { HttpHeader } from '@solidjs/start';
 
 import * as KLink from '@kobalte/core/link';
-
 import { Palette } from 'lucide';
 
 import { LucideIcon } from '~/components/icons';
 import * as Meta from '~/components/meta';
-import { Button, IconButton, Popover } from '~/components/ui';
-
 import { blocks } from '~/components/routes/ui/blocks';
-
+import { Button, IconButton, Popover } from '~/components/ui';
 import { changeMode, mode } from '~/theme/state/state';
 
 export default function UIPage() {

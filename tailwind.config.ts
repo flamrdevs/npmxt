@@ -1,6 +1,5 @@
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
-
 import tailwindcssPlugin from 'tailwindcss/plugin';
 
 import * as THEME_DATA_ATTR from './src/theme/core/data-attr';

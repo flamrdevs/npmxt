@@ -1,5 +1,5 @@
 // @refresh reload
-import { StartServer, createHandler } from '@solidjs/start/server';
+import { createHandler, StartServer } from '@solidjs/start/server';
 
 import * as theme from '~/theme/script';
 
@@ -14,6 +14,7 @@ export default createHandler(
 						<meta charset="utf-8" />
 						<meta name="viewport" content="width=device-width, initial-scale=1" />
 						<link rel="icon" href="/favicon.ico" />
+						<script defer src="https://cloud.umami.is/script.js" data-website-id="0840756d-c89a-4718-9c2d-69c02382bc51" />
 						{assets}
 
 						<theme.Script />

@@ -1,8 +1,7 @@
-import { Show, createMemo, splitProps } from 'solid-js';
+import { createMemo, Show, splitProps } from 'solid-js';
 import { createDynamic } from 'solid-js/web';
 
 import * as K from '@kobalte/core/tabs';
-
 import { clsx } from 'clsx';
 
 import { classesSplitter } from '../../utils';

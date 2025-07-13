@@ -1,8 +1,8 @@
 import * as v from 'valibot';
 
-import { jsonErrorStatusMessageResponse } from './error';
-
 import { StatusError } from '~/utils/error';
+
+import { jsonErrorStatusMessageResponse } from './error';
 
 describe('jsonErrorStatusMessageResponse', () => {
 	it('works correctly', async () => {

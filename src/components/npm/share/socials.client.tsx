@@ -1,13 +1,10 @@
 import { For } from 'solid-js';
-
 import { useLocation } from '@solidjs/router';
 
-import { BLUESKY, X, createSocialShare } from '@solid-primitives/share';
+import { BLUESKY, createSocialShare, X } from '@solid-primitives/share';
 
 import { IconButton, Tooltip } from '~/components/ui';
-
 import { usePackageContext } from '~/contexts/package-context';
-
 import { NPMXT } from '~/utils/url';
 
 export default () => {

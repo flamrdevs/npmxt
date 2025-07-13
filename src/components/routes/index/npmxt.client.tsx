@@ -1,4 +1,4 @@
-import { For, type ParentProps, onMount } from 'solid-js';
+import { For, onMount, type ParentProps } from 'solid-js';
 
 import { animate } from 'animejs';
 

@@ -1,5 +1,5 @@
 // @refresh reload
-import { StartClient, mount } from '@solidjs/start/client';
+import { mount, StartClient } from '@solidjs/start/client';
 
 const start = async () => {
 	if (__MSW__) await (await import('~/mocks/client')).start();

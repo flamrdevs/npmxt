@@ -1,17 +1,12 @@
-export { HoverCard } from './hover-card';
-export { Popover } from './popover';
-export { Tooltip } from './tooltip';
-
 export { Button } from './button';
-export { IconButton } from './icon-button';
-
-export { TextField } from './text-field';
-export { Select } from './select';
 export { Checkbox } from './checkbox';
-export { Switch } from './switch';
-
-export { Tabs } from './tabs';
-
-export { Separator } from './separator';
-
+export { HoverCard } from './hover-card';
+export { IconButton } from './icon-button';
 export { Loader } from './loader';
+export { Popover } from './popover';
+export { Select } from './select';
+export { Separator } from './separator';
+export { Switch } from './switch';
+export { Tabs } from './tabs';
+export { TextField } from './text-field';
+export { Tooltip } from './tooltip';

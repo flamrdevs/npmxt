@@ -1,5 +1,5 @@
-import { useSearchParams } from '@solidjs/router';
 import { createDynamic } from 'solid-js/web';
+import { useSearchParams } from '@solidjs/router';
 
 import { type IconNode, LineChart, Network } from 'lucide';
 
@@ -46,14 +46,12 @@ export const DetailTabs = () => {
 	const [searchParams, setSearchParams] = useSearchParams<RawParams>();
 
 	return (
-		<>
-			<Tabs
-				elements={TABS_ELEMENTS}
-				value={validTabsValue(searchParams.tab)}
-				onChange={(tab) => {
-					setSearchParams({ tab } satisfies RawParams, { replace: true });
-				}}
-			/>
-		</>
+		<Tabs
+			elements={TABS_ELEMENTS}
+			value={validTabsValue(searchParams.tab)}
+			onChange={(tab) => {
+				setSearchParams({ tab } satisfies RawParams, { replace: true });
+			}}
+		/>
 	);
 };

@@ -1,8 +1,7 @@
 import satori, { type Font } from 'satori';
 
-import type { Node } from './types';
-
 import { name } from './font/config';
+import type { Node } from './types';
 
 const fonts = (() => {
 	let fonts: Font[];

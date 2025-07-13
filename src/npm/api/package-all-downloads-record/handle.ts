@@ -3,11 +3,9 @@ import { entriesMap } from '~/utils/object';
 
 import { DOWNLOAD_DATE_FORMAT, MAX_DOWNLOAD_RANGE_DAYS } from '../../const';
 import { fetcherPackageDownloadsRange } from '../../fetcher';
-import { PACKAGE_DOWNLOADS_LAST_MAP, type TPackageNameSchema, parsePackageDownloadsRange } from '../../schema';
+import { PACKAGE_DOWNLOADS_LAST_MAP, parsePackageDownloadsRange, type TPackageNameSchema } from '../../schema';
 import { fetchPackageDownloadsRangeLast } from '../../utils';
-
 import { fetchPackageCreation } from '../package-creation/fetch';
-
 import type { PackageAllDownloadsRecordData } from './types';
 
 const getValidStartDate = (() => {

@@ -1,16 +1,12 @@
 import { splitProps } from 'solid-js';
 
 import * as K from '@kobalte/core/checkbox';
-
+import { clsx } from 'clsx';
 import { Check } from 'lucide';
 
-import { clsx } from 'clsx';
-
 import { LucideIcon } from '../../icons';
-
 import { classesSplitter } from '../../utils';
-
-import { type InlineFormControlProps, ShowInlineFormControlLayout, inlineFormControlSplitter } from '../utils';
+import { type InlineFormControlProps, inlineFormControlSplitter, ShowInlineFormControlLayout } from '../utils';
 
 import './checkbox.css';
 

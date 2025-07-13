@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 
-import { type Options, domToPng } from 'modern-screenshot';
+import { domToPng, type Options } from 'modern-screenshot';
 
 import { delay } from '~/utils/delay';
 

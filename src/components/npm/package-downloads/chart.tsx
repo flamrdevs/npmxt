@@ -1,31 +1,24 @@
-import { Show, createEffect, createMemo, onCleanup, onMount } from 'solid-js';
-
+import { createEffect, createMemo, onCleanup, onMount, Show } from 'solid-js';
 import { createAsync, query } from '@solidjs/router';
 
-import { createResizeObserver } from '@solid-primitives/resize-observer';
-
-import { ImageDown, Settings2 } from 'lucide';
-
 import * as Plot from '@observablehq/plot';
+import { createResizeObserver } from '@solid-primitives/resize-observer';
+import { ImageDown, Settings2 } from 'lucide';
 
 import { NumberTicker } from '~/components/effect/number-ticker';
 import { LucideIcon } from '~/components/icons';
 import { IconButton, Loader, Popover, Select, Switch, Tooltip } from '~/components/ui';
-
+import { usePackageContext } from '~/contexts/package-context';
 import { fetchPackageAllDownloadsRecord } from '~/npm/api/package-all-downloads-record/fetch';
 import type { PackageAllDownloadsRecordData } from '~/npm/api/package-all-downloads-record/types';
 import { packageToFilename } from '~/npm/misc/package-to-filename';
 import type { TPackageNameSchema } from '~/npm/schema';
-
+import { useDOMToPNG } from '~/primitives/use-dom-to-png';
 import { fontFamilySans, v_cn2, v_cn6, v_cn8, v_cn9, v_cp2, v_cp9 } from '~/styles/utils';
 import { dayjs } from '~/utils/dayjs';
 import { formatNumber, formatNumberCompact } from '~/utils/formatter';
 
-import { usePackageContext } from '~/contexts/package-context';
-
 import { CHART_CURVE_LIST, QUARTER_INDEX_MAP, QUARTER_MM_DD_IN_RECORD_MAP, usePackageDownloadsSearchParams } from './chart.utils';
-
-import { useDOMToPNG } from '~/primitives/use-dom-to-png';
 
 const RenderChart = (props: { data: PackageAllDownloadsRecordData }) => {
 	const pkg = usePackageContext();

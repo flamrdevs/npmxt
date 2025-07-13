@@ -24,7 +24,9 @@
 
 	.xt-checkbox-indicator {
 		@apply flex items-center justify-center size-full text-cn-9 rounded-[0.625rem];
-		transition: 200ms color, 200ms transform;
+		transition:
+			200ms color,
+			200ms transform;
 
 		> svg {
 			@apply size-3/4;

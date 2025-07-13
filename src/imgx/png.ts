@@ -1,8 +1,7 @@
 import { type ResvgRenderOptions, renderAsync } from '@resvg/resvg-js';
 
-import type { Node } from './types';
-
 import { svg } from './svg';
+import type { Node } from './types';
 
 const resvgRenderOptions: ResvgRenderOptions = {
 	fitTo: { mode: 'original' },
