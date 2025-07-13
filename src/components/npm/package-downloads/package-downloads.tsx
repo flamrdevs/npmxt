@@ -7,6 +7,7 @@ import { usePackageContext } from '~/contexts/package-context';
 import { NPMPackageLinks } from '../package-links';
 import { NPMSettings } from '../settings';
 import { NPMShare } from '../share/share';
+import { NPMFavorite } from '../favorite';
 
 const Chart = clientOnly(() => import('./chart'), { lazy: true });
 
@@ -29,6 +30,7 @@ export const NPMPackageDownloads = () => {
 				</div>
 
 				<div class="shrink-0 self-baseline flex items-center gap-1.5 md:gap-2.5">
+					<NPMFavorite />
 					<NPMShare />
 					<NPMSettings />
 				</div>

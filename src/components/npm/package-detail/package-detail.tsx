@@ -11,6 +11,7 @@ import { DetailBundleSize } from './detail-bundle-size/detail-bundle-size';
 import { DetailInstall } from './detail-install/detail-install';
 import { DetailTabs } from './detail-tabs/detail-tabs';
 import { DetailVersion } from './detail-version/detail-version';
+import { NPMFavorite } from '../favorite';
 
 export const NPMPackageDetail = () => {
 	const pkg = usePackageContext();
@@ -34,6 +35,7 @@ export const NPMPackageDetail = () => {
 				</div>
 
 				<div class="shrink-0 self-baseline flex items-center gap-1.5 md:gap-2.5">
+					<NPMFavorite />
 					<NPMShare />
 					<NPMSettings />
 				</div>
