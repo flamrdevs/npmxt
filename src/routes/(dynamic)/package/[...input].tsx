@@ -12,6 +12,7 @@ import { Loader } from '~/components/ui';
 
 import { PackageContext } from '~/contexts/package-context';
 
+import { SourceCodeAndSupport } from '~/components/source-code-and-support';
 import { queryPackageAlt } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
 import { splitPackageNameAndVersion } from '~/npm/utils';
@@ -105,6 +106,8 @@ export default function Package$InputPage() {
 										<NPMPackageDetail />
 									</PackageContext.Provider>
 								</div>
+
+								<SourceCodeAndSupport h />
 							</>
 						)}
 					</Show>
