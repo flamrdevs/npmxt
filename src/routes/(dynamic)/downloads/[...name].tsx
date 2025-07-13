@@ -14,6 +14,7 @@ import { PackageContext } from '~/contexts/package-context';
 
 import { queryPackage } from '~/npm/queries';
 import { parseCachedPackageName } from '~/npm/schema';
+import { SourceCodeAndSupport } from '~/components/source-code-and-support';
 
 const Blobs = () => {
 	return (
@@ -99,6 +100,8 @@ export default function Downloads$NamePage() {
 										<NPMPackageDownloads />
 									</PackageContext.Provider>
 								</div>
+
+								<SourceCodeAndSupport h />
 							</>
 						)}
 					</Show>
